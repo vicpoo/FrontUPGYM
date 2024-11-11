@@ -1,0 +1,30 @@
+<div class="flex bg-black h-screen">
+    <!-- Sidebar for desktop -->
+    <app-sidebar class="hidden lg:block"></app-sidebar>
+  
+    <!-- Main Content -->
+    <div class="flex-1 p-4 space-y-4 text-white">
+      <!-- Header -->
+      <app-header></app-header>
+  
+      <!-- Featured News Card -->
+      <app-news-card 
+        title="Noticias destacadas"
+        imageUrl="assets/featured-image.jpg"
+        description="Es lesivo el PESO MUERTO? No, si se realiza con la técnica correcta."
+      ></app-news-card>
+  
+      <!-- Additional News Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <app-news-card 
+          title="¿Cuántos días a la semana es ideal entrenar?" 
+          description="3-5 días es lo recomendable para la mayoría."
+        ></app-news-card>
+        <app-news-card 
+          title="¿El cardio quema músculo?" 
+          description="Solo si es excesivo y sin buena alimentación."
+        ></app-news-card>
+      </div>
+    </div>
+  </div>
+  
