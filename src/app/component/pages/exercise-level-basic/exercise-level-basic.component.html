@@ -2,9 +2,9 @@
     <app-sidebar class="hidden lg:block"></app-sidebar>
 
     <!-- Main Content -->
-    <div class="flex-1 p-6 space-y-6">
+    <div class="flex-1 p-4 lg:p-6 space-y-6">
         <!-- Header -->
-        <h1 class="text-3xl font-bold border-b border-blue-500 pb-2">Ejercicios</h1>
+        <h1 class="text-2xl lg:text-3xl font-bold border-b border-blue-500 pb-2 text-center lg:text-left">Ejercicios</h1>
 
         <!-- Subscription Section -->
         <div class="border border-purple-500 text-center rounded-lg p-4 max-w-xs mx-auto bg-transparent">
@@ -13,43 +13,30 @@
             <button class="bg-purple-900 text-white font-semibold py-2 px-4 mt-4 rounded-full hover:bg-purple-600">
                 Suscríbete
             </button>
-        </div>   
+        </div>
 
-        <!-- Main Content -->
-    <div class="flex-1 p-6 space-y-6">
-        <!-- Header -->
-        <h1 class="text-3xl font-bold border-b border-blue-500 pb-2">Carrusel de Ejercicios</h1>
+        <!-- Exercise Level Selection -->
+        <h2 class="text-2xl lg:text-3xl text-center font-semibold mt-8">BASICO</h2>
 
-        <!-- Carousel Section -->
-        <div class="flex overflow-x-scroll space-x-6 p-4 scrollbar-hide">
-            <!-- Card 1 -->
-            <div class="bg-gray-800 rounded-lg shadow-lg p-4 min-w-[200px] max-w-xs flex-shrink-0">
-                <img src="assets/exercise1.jpg" alt="Ejercicio 1" class="w-full h-32 object-cover rounded-md mb-4">
-                <h3 class="text-lg font-semibold">Ejercicio 1</h3>
-                <button class="bg-blue-500 text-white py-2 px-4 mt-2 rounded-full hover:bg-blue-600">
-                    Ver
+        <!-- Carousel Section with Controls -->
+        <div class="flex items-center justify-center space-x-4 lg:space-x-6">
+            <!-- Previous Button -->
+            <button (click)="prevExercise()" class="p-4 bg-blue-900 rounded-lg text-2xl flex items-center justify-center">&lt;</button>
+
+            <!-- Exercise Card -->
+            <div class="bg-blue-900 rounded-lg p-4 w-48 h-64 lg:w-60 lg:h-80 text-center mx-2">
+                <img [src]="exercises[currentExercise].image" alt="{{exercises[currentExercise].title}}" class="w-full h-32 object-cover rounded-md mb-2">
+                <h3 class="text-lg font-semibold">{{exercises[currentExercise].title}}</h3>
+                <button class="bg-black text-white py-2 px-6 mt-4 rounded-full hover:bg-gray-800">
+                    ver
                 </button>
             </div>
 
-            <!-- Card 2 -->
-            <div class="bg-gray-800 rounded-lg shadow-lg p-4 min-w-[200px] max-w-xs flex-shrink-0">
-                <img src="assets/exercise2.jpg" alt="Ejercicio 2" class="w-full h-32 object-cover rounded-md mb-4">
-                <h3 class="text-lg font-semibold">Ejercicio 2</h3>
-                <button class="bg-blue-500 text-white py-2 px-4 mt-2 rounded-full hover:bg-blue-600">
-                    Ver
-                </button>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="bg-gray-800 rounded-lg shadow-lg p-4 min-w-[200px] max-w-xs flex-shrink-0">
-                <img src="assets/exercise3.jpg" alt="Ejercicio 3" class="w-full h-32 object-cover rounded-md mb-4">
-                <h3 class="text-lg font-semibold">Ejercicio 3</h3>
-                <button class="bg-blue-500 text-white py-2 px-4 mt-2 rounded-full hover:bg-blue-600">
-                    Ver
-                </button>
-            </div>
-
-            <!-- Agrega más tarjetas según sea necesario -->
+            <!-- Next Button -->
+            <button (click)="nextExercise()" class="p-4 bg-blue-900 rounded-lg text-2xl flex items-center justify-center">&gt;</button>
         </div>
     </div>
+
+    <!-- Bottom Navigation for Mobile -->
+    <app-bottom-nav class="lg:hidden"></app-bottom-nav>
 </div>
