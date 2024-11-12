@@ -1,23 +1,46 @@
-<div class="flex flex-col items-center bg-black text-white h-screen p-4 space-y-4">
-    <img src="assets/Logo.jpeg" alt="UPG&M Logo" class="w-16 h-16 rounded-full mb-4">
-    
-    <!-- Navigation Items -->
-    <nav class="flex flex-col space-y-6">
-      <button routerLink="/home" class="text-white">
-        <img src="assets/home.png" alt="Home" class="w-8 h-8">
-      </button>
-      <button routerLink="/exercise" class="text-white">
-        <img src="assets/gym.png" alt="Rutinas" class="w-8 h-8">
-      </button>
-      <button routerLink="/busqueda" class="text-white">
-        <img src="assets/search.png" alt="Busqueda" class="w-8 h-8">
-      </button>
-      <button routerLink="/noticias" class="text-white">
-        <img src="assets/newspaper.png" alt="Noticias" class="w-8 h-8">
-      </button>
-      <button routerLink="/perfil" class="text-white">
-        <img src="assets/user.png" alt="Perfil" class="w-8 h-8">
-      </button>
-    </nav>
-  </div>
+<div class="flex flex-col items-center bg-black text-white h-screen p-4 space-y-4 hidden lg:flex">
+  <img src="assets/Logo.jpeg" alt="UPG&M Logo" class="w-16 h-16 rounded-full mb-4">
   
+  <!-- Navigation Items for Desktop -->
+  <nav class="flex flex-col space-y-6 w-full">
+    <button routerLink="/home" routerLinkActive="active" class="flex items-center space-x-4 text-white hover:text-blue-400">
+      <img src="assets/home.png" alt="Home" class="w-8 h-8">
+      <span>Home</span>
+    </button>
+    <button routerLink="/exercise" routerLinkActive="active" class="flex items-center space-x-4 text-white hover:text-blue-400">
+      <img src="assets/gym.png" alt="Rutinas" class="w-8 h-8">
+      <span>Rutinas</span>
+    </button>
+    <button routerLink="/busqueda" routerLinkActive="active" class="flex items-center space-x-4 text-white hover:text-blue-400">
+      <img src="assets/search.png" alt="Busqueda" class="w-8 h-8">
+      <span>Busqueda</span>
+    </button>
+    <button routerLink="/noticias" routerLinkActive="active" class="flex items-center space-x-4 text-white hover:text-blue-400">
+      <img src="assets/newspaper.png" alt="Noticias" class="w-8 h-8">
+      <span>Noticias</span>
+    </button>
+    <button routerLink="/perfil" routerLinkActive="active" class="flex items-center space-x-4 text-white hover:text-blue-400">
+      <img src="assets/user.png" alt="Perfil" class="w-8 h-8">
+      <span>Perfil</span>
+    </button>
+  </nav>
+</div>
+
+<!-- Mobile Bottom Navigation -->
+<div class="fixed bottom-0 w-full bg-black text-white flex justify-around py-2 lg:hidden">
+  <button routerLink="/home" routerLinkActive="text-blue-400" class="flex flex-col items-center">
+    <img src="assets/home.png" alt="Home" class="w-6 h-6">
+  </button>
+  <button routerLink="/exercise" routerLinkActive="text-blue-400" class="flex flex-col items-center">
+    <img src="assets/gym.png" alt="Rutinas" class="w-6 h-6">
+  </button>
+  <button routerLink="/busqueda" routerLinkActive="text-blue-400" class="flex flex-col items-center">
+    <img src="assets/search.png" alt="Busqueda" class="w-6 h-6">
+  </button>
+  <button routerLink="/noticias" routerLinkActive="text-blue-400" class="flex flex-col items-center">
+    <img src="assets/newspaper.png" alt="Noticias" class="w-6 h-6">
+  </button>
+  <button routerLink="/perfil" routerLinkActive="text-blue-400" class="flex flex-col items-center">
+    <img src="assets/user.png" alt="Perfil" class="w-6 h-6 rounded-full">
+  </button>
+</div>
