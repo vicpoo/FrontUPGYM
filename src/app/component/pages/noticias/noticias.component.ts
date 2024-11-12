@@ -8,6 +8,7 @@ import { BottomNavComponent } from '../../bottom-nav/bottom-nav.component';
   selector: 'app-noticias',
   standalone: true,
   imports: [SidebarComponent, HeaderComponent, NewsCardComponent, BottomNavComponent],
-  templateUrl: './noticias.component.html'
+  templateUrl: './noticias.component.html',
+  styleUrls: ['./noticias.component.css']
 })
 export class NoticiasComponent {}

@@ -1,32 +1,52 @@
-<div class="relative flex items-center justify-center h-screen bg-black text-white">
-  <div class="flex flex-col lg:flex-row items-center lg:space-x-12">
-    <!-- Logo Section -->
-    <div class="flex justify-center lg:justify-end mb-8 lg:mb-0">
-      <img src="assets/Logo.jpeg" alt="UPG&M Logo" class="w-80 h-80 md:w-96 md:h-96 lg:w-[30rem] lg:h-[30rem] rounded-full">
-    </div>
-    
-    <!-- Text Section -->
-    <div class="flex flex-col items-center text-center space-y-4 lg:items-start lg:text-left lg:space-y-6">
-      <h1 class="text-2xl lg:text-5xl font-bold">¿FALTA DE MOTIVACIÓN?</h1>
-      <div class="flex flex-col items-center lg:items-start">
-        <p class="text-lg lg:text-xl">Inicia tu cambio hoy</p>
 
-        <!-- Register Button -->
-        <button 
-          routerLink="/register" 
-          class="bg-blue-500 text-white font-bold py-3 px-8 rounded-full w-52 text-lg hover:bg-blue-600 mt-2 lg:mt-4">
-          Regístrate
-        </button>
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    /* Animación personalizada */
+    .hover-animate {
+      transform: scale(0.7); /* Tamaño inicial reducido */
+      transition: transform 0.7s ease-in-out;
+    }
+    .hover-animate:hover {
+      transform: scale(1.1) rotate(-360deg); /* Tamaño ampliado y rotación */
+    }
+  </style>
+</head>
+<body class="bg-black text-white">
+  <div class="relative flex items-center justify-center h-screen">
+    <div class="flex flex-col lg:flex-row items-center lg:space-x-12">
+      <!-- Sección de Logo con Animación -->
+      <div class="flex justify-center lg:justify-end mb-8 lg:mb-0">
+        <img 
+          src="assets/Logo.jpeg" 
+          alt="UPG&M Logo" 
+          class="w-80 h-80 md:w-96 md:h-96 lg:w-[30rem] lg:h-[30rem] rounded-full hover-animate"
+        >
+      </div>
+      
+      <!-- Sección de Texto -->
+      <div class="flex flex-col items-center text-center space-y-4 lg:items-start lg:text-left lg:space-y-6">
+        <h1 class="text-2xl lg:text-5xl font-bold">¿FALTA DE MOTIVACIÓN?</h1>
+        <div class="flex flex-col items-center lg:items-start">
+          <p class="text-lg lg:text-xl">Inicia tu cambio hoy</p>
 
-        <p class="text-base lg:text-lg mt-4">¿Ya tienes cuenta?</p>
+          <!-- Botón de Registro -->
+          <button 
+            routerLink="/register" 
+            class="bg-blue-500 text-white font-bold py-3 px-8 rounded-full w-52 text-lg hover:bg-blue-600 mt-2 lg:mt-4">
+            Regístrate
+          </button>
 
-        <!-- Login Button -->
-        <button 
-          routerLink="/login" 
-          class="bg-purple-700 text-white font-bold py-3 px-8 rounded-full w-52 text-lg hover:bg-purple-800 mt-2 lg:mt-4">
-          Iniciar sesión
-        </button>
+          <p class="text-base lg:text-lg mt-4">¿Ya tienes cuenta?</p>
+
+          <!-- Botón de Iniciar Sesión -->
+          <button 
+            routerLink="/login" 
+            class="bg-purple-700 text-white font-bold py-3 px-8 rounded-full w-52 text-lg hover:bg-purple-800 mt-2 lg:mt-4">
+            Iniciar sesión
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</body>

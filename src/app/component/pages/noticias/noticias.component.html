@@ -1,33 +1,74 @@
 <!-- noticias.component.html -->
-<div class="flex bg-black h-screen">
+<div class="flex bg-black min-h-screen">
   <!-- Sidebar for desktop -->
   <app-sidebar class="hidden lg:block"></app-sidebar>
 
   <!-- Main Content -->
   <div class="flex-1 p-4 space-y-4 text-white">
+
     <!-- Header -->
     <app-header></app-header>
 
-    <!-- Featured News Card -->
-    <app-news-card 
+    <!-- Card Wrapper with CSS -->
+<div class="wrapper">
+  <div class="inner" style="--quantity: 10;">
+    <div class="card" style="--index: 0; --color-card: 0, 51, 102;">
+      <div class="img"><img src="assets/Logo.jpeg" alt="logo"></div>
+    </div>
+    <div class="card" style="--index: 1; --color-card: 0, 102, 204;">
+      <div class="img"> <h2></h2></div>
+    </div>
+    <div class="card" style="--index: 2; --color-card: 51, 153, 255;">
+      <div class="img"> <h2></h2></div>
+    </div>
+    <div class="card" style="--index: 3; --color-card: 102, 204, 255;">
+      <div class="img"> <h2></h2></div>
+    </div>
+    <div class="card" style="--index: 4; --color-card: 153, 204, 255;">
+      <div class="img"> <h2></h2></div>
+    </div>
+    <div class="card" style="--index: 5; --color-card: 204, 229, 255;">
+      <div class="img"> <h2></h2></div>
+    </div>
+    <div class="card" style="--index: 6; --color-card: 204, 204, 255;">
+      <div class="img"> <h2></h2></div>
+    </div>
+    <div class="card" style="--index: 7; --color-card: 153, 204, 255;">
+      <div class="img"> <h2></h2></div>
+    </div>
+    <div class="card" style="--index: 8; --color-card: 102, 178, 255;">
+      <div class="img"> <h2></h2></div>
+    </div>
+    <div class="card" style="--index: 9; --color-card: 51, 153, 204;">
+      <div class="img"> <h2></h2></div>
+    </div>
+  </div>
+</div>
+
+
+    
+    <!-- Additional News Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <app-news-card 
       title="Noticias destacadas"
       imageUrl="assets/"
       description="Es lesivo el PESO MUERTO? No, si se realiza con la técnica correcta."
     ></app-news-card>
 
-    <!-- Additional News Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <app-news-card 
+        class="max-w-sm aspect-w-2 aspect-h-1 mx-auto"
         title="¿Cuántos días a la semana es ideal entrenar?" 
         description="3-5 días es lo recomendable para la mayoría."
       ></app-news-card>
       <app-news-card 
+        class="max-w-sm aspect-w-2 aspect-h-1 mx-auto"
         title="¿El cardio quema músculo?" 
         description="Solo si es excesivo y sin buena alimentación."
       ></app-news-card>
     </div>
+
   </div>
-  
+
   <!-- Bottom Navigation for Mobile -->
   <app-bottom-nav class="lg:hidden"></app-bottom-nav>
 </div>
