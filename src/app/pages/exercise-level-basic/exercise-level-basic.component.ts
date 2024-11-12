@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { SidebarComponent } from '../../sidebar/sidebar.component';
-import { HeaderComponent } from '../../header/header.component';
-import { BottomNavComponent } from '../../bottom-nav/bottom-nav.component';
+import { SidebarComponent } from '../../component/sidebar/sidebar.component';
+import { HeaderComponent } from '../../component/header/header.component';
+import { BottomNavComponent } from '../../component/bottom-nav/bottom-nav.component';
 
 @Component({
   selector: 'app-exercise-level-basic',

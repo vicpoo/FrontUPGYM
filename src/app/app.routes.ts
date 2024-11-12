@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
-import { InicioComponent } from '../app/component/pages/inicio/inicio.component';
-import { LoginComponent } from '../app/component/pages/login/login.component';
-import { RegisterComponent } from '../app/component/pages/register/register.component';
-import { NoticiasComponent } from './component/pages/noticias/noticias.component';
-import { ExerciseComponent } from './component/pages/exercise/exercise.component';
-import { ExerciseUbicationComponent } from './component/pages/exercise-ubication/exercise-ubication.component';
-import { ExerciseLevelBasicomponent } from './component/pages/exercise-level-basic/exercise-level-basic.component';
+import { InicioComponent } from './pages/inicio/inicio.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { NoticiasComponent } from './pages/noticias/noticias.component';
+import { ExerciseComponent } from './pages/exercise/exercise.component';
+import { ExerciseUbicationComponent } from './pages/exercise-ubication/exercise-ubication.component';
+import { ExerciseLevelBasicomponent } from './pages/exercise-level-basic/exercise-level-basic.component';
 import path from 'path';
 
 export const routes: Routes = [
