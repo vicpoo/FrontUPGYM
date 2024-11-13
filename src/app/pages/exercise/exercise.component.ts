@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule, RouterLink, RouterLinkActive } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { SidebarComponent } from '../../component/sidebar/sidebar.component';
 import { HeaderComponent } from '../../component/header/header.component';
 import { BottomNavComponent } from '../../component/bottom-nav/bottom-nav.component';
@@ -7,7 +7,7 @@ import { BottomNavComponent } from '../../component/bottom-nav/bottom-nav.compon
 @Component({
   selector: 'app-exercise',
   standalone: true,
-  imports: [RouterModule, RouterLink, RouterLinkActive, SidebarComponent, HeaderComponent, BottomNavComponent],
+  imports: [CommonModule, SidebarComponent, HeaderComponent, BottomNavComponent],
   templateUrl: './exercise.component.html',
   styleUrls: ['./exercise.component.css']
 })

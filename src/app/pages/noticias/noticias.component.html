@@ -3,7 +3,7 @@
   <app-sidebar class="hidden lg:flex fixed top-0 left-0 h-screen z-10"></app-sidebar>
 
   <!-- Main Content with scrollable section -->
-  <div class="flex-1 lg:ml-64 p-4 space-y-4 text-white overflow-hidden">
+  <div class="flex-1 lg:ml-64 p-4 space-y-4 text-white overflow-hidden pb-16">
     <!-- Header (fixed) -->
     <app-header title="NOTICIAS"></app-header>
 
@@ -11,11 +11,8 @@
     <div class="overflow-y-auto h-[calc(100vh-4rem)] lg:h-[calc(100vh-8rem)] mt-4">
       
       <!-- Carrusel -->
-      <div class="wrapper flex items-center justify-center relative overflow-hidden h-80 mb-8">
-        <div class="inner" style="--quantity: 10;">
-          <div class="card" style="--index: 0; --color-card: 0, 51, 102;">
-            <div class="img"><img src="assets/Logo.jpeg" alt="logo" class="object-cover w-full h-full"></div>
-          </div>
+      <div class="wrapper flex items-center justify-center relative overflow-hidden h-80 mb-4"> <!-- Cambié mb-8 a mb-4 -->
+        <div class="inner" style="--quantity: 9;">
           <!-- Añade más tarjetas del carrusel aquí -->
           <div class="card" style="--index: 1; --color-card: 0, 102, 204;">
             <div class="img"> <h2></h2></div>
@@ -24,25 +21,31 @@
             <div class="img"> <h2></h2></div>
           </div>
           <div class="card" style="--index: 3; --color-card: 0, 102, 204;">
-            <div class="img"> <h2></h2></div>
+            <div class="img"> <img src="assets/subscribete2.gif" alt="gif" class="object-cover w-full h-full"></div>
           </div>
           <div class="card" style="--index: 4; --color-card: 0, 102, 204;">
-            <div class="img"><img src="assets/subscribete2.gif" alt="gif" class="object-cover w-full h-full"> <h2></h2></div>
+            <div class="img"><h2></h2></div>
           </div>
           <div class="card" style="--index: 5; --color-card: 0, 102, 204;">
             <div class="img"> <h2></h2></div>
           </div>
           <div class="card" style="--index: 6; --color-card: 0, 102, 204;">
-            <div class="img"> <h2></h2></div>
+            <div class="img"> <img src="assets/subscribete2.gif" alt="gif" class="object-cover w-full h-full"></div>
           </div>
           <div class="card" style="--index: 7; --color-card: 0, 102, 204;">
             <div class="img"> <h2></h2></div>
           </div>
           <div class="card" style="--index: 8; --color-card: 0, 102, 204;">
-            <div class="img"><img src="assets/subscribete2.gif" alt="gif" class="object-cover w-full h-full"> <h2></h2></div>
+            <div class="img"><h2></h2></div>
           </div>
           <div class="card" style="--index: 9; --color-card: 0, 102, 204;">
-            <div class="img"> <h2></h2></div>
+            <div class="img"> <img src="assets/subscribete2.gif" alt="gif" class="object-cover w-full h-full"></div>
+          </div>
+          <div class="card" style="--index: 10; --color-card: 0, 102, 204;">
+            <div class="img"><h2></h2></div>
+          </div>
+          <div class="card" style="--index: 11; --color-card: 0, 102, 204;">
+            <div class="img"><h2></h2></div>
           </div>
           <!-- Más tarjetas del carrusel... -->
         </div>
