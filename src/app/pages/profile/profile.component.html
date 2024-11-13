@@ -1,0 +1,63 @@
+<div class="flex bg-black h-screen text-white">
+    <!-- Sidebar -->
+    <app-sidebar class="hidden lg:block"></app-sidebar>
+
+    <!-- Main Content -->
+    <div class="flex-1 p-6 space-y-6 overflow-y-auto">  
+        <!-- Profile Header -->
+        <div class="max-w-3xl mx-auto bg-gray-900 rounded-lg p-6 space-y-4">
+            <!-- User Info -->
+            <div class="flex items-center space-x-6">
+                <img src="assets/profile-pic.jpg" alt="Profile Picture" class="w-24 h-24 rounded-full border-4 border-gray-700">
+                
+                <div>
+                    <h2 class="text-2xl font-bold">Víctor Alejandro</h2>
+                    <p class="text-gray-300">Descripción aquí</p>
+                    <p class="text-sm text-gray-400">Gym rat que solo quiere sacar 100 en press banca y tener cuadritos</p>
+                </div>
+                
+                <!-- Followers Button -->
+                <button class="ml-auto bg-purple-700 text-white py-1 px-4 rounded-full">Seguidores 10</button>
+            </div>
+            
+            <!-- Profile Buttons -->
+            <div class="flex justify-center space-x-4 mt-4">
+                <button class="bg-blue-600 py-2 px-6 rounded-lg text-white">Editar perfil</button>
+                <button class="bg-blue-600 py-2 px-6 rounded-lg text-white">Post</button>
+            </div>
+        </div>
+
+        <!-- Divider Line -->
+        <div class="border-b border-blue-500 max-w-3xl mx-auto mt-4"></div>
+
+        <!-- Publications Section -->
+        <h3 class="text-xl font-semibold text-center mt-6">Publicaciones</h3>
+        <div class="flex justify-center space-x-4 mt-4 max-w-3xl mx-auto">
+            <!-- Post Card -->
+            <div class="bg-gray-800 rounded-lg p-2 w-32 h-40 text-center">
+                <img src="assets/post1.jpg" alt="Post 1" class="w-full h-24 object-cover rounded-md">
+                <div class="flex justify-center items-center mt-2 text-sm">
+                    <i class="fas fa-heart text-red-500 mr-1"></i>
+                    <span>10</span>
+                </div>
+            </div>
+            <div class="bg-gray-800 rounded-lg p-2 w-32 h-40 text-center">
+                <img src="assets/post2.jpg" alt="Post 2" class="w-full h-24 object-cover rounded-md">
+                <div class="flex justify-center items-center mt-2 text-sm">
+                    <i class="fas fa-heart text-red-500 mr-1"></i>
+                    <span>12</span>
+                </div>
+            </div>
+            <div class="bg-gray-800 rounded-lg p-2 w-32 h-40 text-center">
+                <img src="assets/post3.jpg" alt="Post 3" class="w-full h-24 object-cover rounded-md">
+                <div class="flex justify-center items-center mt-2 text-sm">
+                    <i class="fas fa-heart text-red-500 mr-1"></i>
+                    <span>30</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation for Mobile -->
+    <app-bottom-nav class="lg:hidden"></app-bottom-nav>
+</div>

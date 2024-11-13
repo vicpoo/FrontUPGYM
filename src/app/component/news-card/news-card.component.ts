@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports:[CommonModule],
   templateUrl: './news-card.component.html',
+  styleUrls: ['./news-card.component.css']
+
 })
 export class NewsCardComponent {
   @Input() title: string = '';

@@ -6,6 +6,8 @@ import { NoticiasComponent } from './pages/noticias/noticias.component';
 import { ExerciseComponent } from './pages/exercise/exercise.component';
 import { ExerciseUbicationComponent } from './pages/exercise-ubication/exercise-ubication.component';
 import { ExerciseLevelBasicomponent } from './pages/exercise-level-basic/exercise-level-basic.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { HomeComponent } from './pages/home/home.component';
 import path from 'path';
 
 export const routes: Routes = [
@@ -16,5 +18,7 @@ export const routes: Routes = [
   {path: 'exercise', component:ExerciseComponent},
   {path: 'exercise-ubication', component:ExerciseUbicationComponent},
   {path: 'exercise-level-basic', component:ExerciseLevelBasicomponent},
+  {path: 'profile', component:ProfileComponent},
+  {path: 'home', component:HomeComponent},
   { path: '**', redirectTo: '' }  // Redirect any unknown paths to Inicio
 ];

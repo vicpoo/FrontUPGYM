@@ -1,0 +1,48 @@
+<div class="flex bg-black h-screen text-white">
+    <!-- Sidebar -->
+    <app-sidebar class="hidden lg:block"></app-sidebar>
+
+    <!-- Main Content -->
+    <div class="flex-1 p-6 space-y-6 overflow-y-auto">
+        <!-- Top Navigation Buttons -->
+        <div class="flex justify-center space-x-8 border-b border-gray-600 pb-2">
+            <button (click)="showForYou()" class="text-lg font-semibold focus:outline-none">
+                PARA TI
+            </button>
+            <button (click)="showFollowing()" class="text-lg font-semibold focus:outline-none">
+                SEGUIDOS
+            </button>
+        </div>
+
+
+<!-- Publications Section -->
+<h3 class="text-xl font-semibold text-center mt-6">Publicaciones</h3>
+<div class="flex justify-center space-x-4 mt-4 max-w-3xl mx-auto">
+    <!-- Post Card -->
+    <div class="bg-gray-800 rounded-lg p-2 w-32 h-40 text-center">
+        <img src="assets/post1.jpg" alt="Post 1" class="w-full h-24 object-cover rounded-md">
+        <div class="flex justify-center items-center mt-2 text-sm">
+            <i class="fas fa-heart text-red-500 mr-1"></i>
+            <span>10</span>
+        </div>
+    </div>
+    <div class="bg-gray-800 rounded-lg p-2 w-32 h-40 text-center">
+        <img src="assets/post2.jpg" alt="Post 2" class="w-full h-24 object-cover rounded-md">
+        <div class="flex justify-center items-center mt-2 text-sm">
+            <i class="fas fa-heart text-red-500 mr-1"></i>
+            <span>12</span>
+        </div>
+    </div>
+    <div class="bg-gray-800 rounded-lg p-2 w-32 h-40 text-center">
+        <img src="assets/post3.jpg" alt="Post 3" class="w-full h-24 object-cover rounded-md">
+        <div class="flex justify-center items-center mt-2 text-sm">
+            <i class="fas fa-heart text-red-500 mr-1"></i>
+            <span>30</span>
+        </div>
+    </div>
+ </div>
+ </div>
+
+ <!-- Bottom Navigation for Mobile -->
+ <app-bottom-nav class="lg:hidden"></app-bottom-nav>
+</div>

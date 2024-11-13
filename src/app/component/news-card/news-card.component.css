@@ -1,0 +1,14 @@
+/* Add this to your global styles.css file */
+.glow-border {
+    position: relative;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    border: 2px solid rgba(0, 0, 255, 0.4); /* Set initial border color */
+    box-shadow: 0 0 8px rgba(0, 0, 255, 0.8), 0 0 16px rgba(0, 0, 255, 0.6), 0 0 24px rgba(0, 0, 255, 0.4); /* Blue glow effect */
+    transition: box-shadow 0.3s ease-in-out; /* Smooth transition for hover */
+  }
+  
+  .glow-border:hover {
+    box-shadow: 0 0 12px rgb(239, 184,16), 0 0 24px rgba(239, 184,16, 0.8), 0 0 36px rgba(239, 184,16, 0.6); /* Stronger glow on hover */
+  }
+  
