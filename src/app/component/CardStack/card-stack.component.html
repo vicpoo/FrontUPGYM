@@ -1,12 +1,11 @@
 <div class="bg-black p-8">
   <!-- Noticia destacada -->
   <ng-container *ngFor="let item of news">
-    <div *ngIf="item.isFeatured" class="relative bg-cover bg-center rounded-lg overflow-hidden shadow-lg h-96" [style.background-image]="'url(' + item.imageUrl + ')'">
+    <div *ngIf="item.isFeatured" class="relative bg-cover bg-center rounded-lg overflow-hidden shadow-lg h-96 transition-transform transform hover:scale-105 hover:shadow-[0px_0px_15px_rgba(239,184,16,0.6),0px_0px_25px_rgba(239,184,16,0.4)]" [style.background-image]="'url(' + item.imageUrl + ')'">
       <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-end p-6">
-        <span class="text-sm text-blue-400 font-semibold uppercase mb-2">Noticia destacada</span>
+        <span class="text-sm text-yellow-400 font-semibold uppercase mb-2">Noticia destacada</span>
         <h2 class="text-3xl text-white font-bold mb-4">{{ item.title }}</h2>
         <p class="text-white text-sm mb-4">{{ item.description }}</p>
-        <button class="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600">Leer más</button>
       </div>
     </div>
   </ng-container>
