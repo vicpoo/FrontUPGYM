@@ -5,7 +5,7 @@ import { BottomNavComponent } from '../../component/bottom-nav/bottom-nav.compon
 
 
 @Component({
-  selector: 'app-inicio',
+  selector: 'app-exercise-ubication',
   standalone: true,
   imports: [RouterModule, SidebarComponent, BottomNavComponent],  
   templateUrl: './exercise-ubication.component.html',

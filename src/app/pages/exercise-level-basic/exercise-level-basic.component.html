@@ -13,22 +13,38 @@
         <!-- Exercise Level Selection -->
         <h2 class="text-2xl lg:text-3xl text-center font-semibold mt-6">BASICO</h2>
 
-        <!-- Carousel Section with Controls -->
+        <!-- Carousel Section with New Styled Controls -->
         <div class="flex items-center justify-center space-x-4 lg:space-x-6">
             <!-- Previous Button -->
-            <button (click)="prevExercise()" class="p-4 bg-blue-900 rounded-lg text-2xl flex items-center justify-center">&lt;</button>
+            <div 
+                (click)="prevExercise()" 
+                class="flex flex-col p-4 cursor-pointer hover:scale-105 transition-transform duration-200 border border-[rgba(0,162,255,0.6)] rounded-3xl hover:shadow-[0px_0px_15px_rgba(0,162,255,0.6),0px_0px_25px_rgba(0,162,255,0.4)]"
+            >
+                <span class="text-white text-2xl">&#10094;</span>
+            </div>
 
-            <!-- Exercise Card -->
-            <div class="bg-blue-900 rounded-lg p-4 w-48 h-64 lg:w-60 lg:h-80 text-center mx-2">
-                <img [src]="exercises[currentExercise].image" alt="{{exercises[currentExercise].title}}" class="w-full h-32 object-cover rounded-md mb-2">
-                <h3 class="text-lg font-semibold">{{exercises[currentExercise].title}}</h3>
-                <button class="bg-black text-white py-2 px-6 mt-4 rounded-full hover:bg-gray-800">
-                    ver
-                </button>
+            <!-- Exercise Card with RGB Border -->
+            <div class="flex flex-col rounded-3xl overflow-hidden shadow-md w-64 h-80 lg:w-80 lg:h-96 text-center border border-[rgba(0,162,255,0.6)] hover:shadow-[0px_0px_15px_rgba(0,162,255,0.6),0px_0px_25px_rgba(0,162,255,0.4)] transition-transform transform hover:scale-105">
+                <div class="px-6 py-8 sm:p-10 sm:pb-6 bg-black bg-opacity-50 rounded-3xl">
+                    <img [src]="exercises[currentExercise].image" alt="{{exercises[currentExercise].title}}" class="w-full h-40 lg:h-48 object-cover rounded-md mb-4">
+                    <h3 class="text-lg font-semibold text-white lg:text-2xl">{{exercises[currentExercise].title}}</h3>
+                </div>
+                <div class="flex px-6 pb-8 sm:px-8">
+                    <button 
+                        class="w-full px-6 py-2.5 text-center text-white bg-blue-900 border-2 border-blue-900 rounded-full hover:bg-transparent hover:text-white hover:border-white transition-colors duration-200"
+                    >
+                        Ver
+                    </button>
+                </div>
             </div>
 
             <!-- Next Button -->
-            <button (click)="nextExercise()" class="p-4 bg-blue-900 rounded-lg text-2xl flex items-center justify-center">&gt;</button>
+            <div 
+                (click)="nextExercise()" 
+                class="flex flex-col p-4 cursor-pointer hover:scale-105 transition-transform duration-200 border border-[rgba(0,162,255,0.6)] rounded-3xl hover:shadow-[0px_0px_15px_rgba(0,162,255,0.6),0px_0px_25px_rgba(0,162,255,0.4)]"
+            >
+                <span class="text-white text-2xl">&#10095;</span>
+            </div>
         </div>
     </div>
 

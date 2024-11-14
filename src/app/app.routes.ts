@@ -9,6 +9,7 @@ import { ExerciseLevelBasicomponent } from './pages/exercise-level-basic/exercis
 import { ProfileComponent } from './pages/profile/profile.component';
 import { HomeComponent } from './pages/home/home.component';
 import { searchComponent } from './pages/Search/Search.component';
+import { ExerciserutinesComponent } from './pages/exercise-rutines/exercise-rutines.component';
 import path from 'path';
 
 export const routes: Routes = [
@@ -22,5 +23,7 @@ export const routes: Routes = [
   {path: 'profile', component:ProfileComponent},
   {path: 'home', component:HomeComponent},
   {path: 'search', component:searchComponent},
+  {path: 'exercise-rutines', component:ExerciserutinesComponent},
+
   { path: '**', redirectTo: '' }  // Redirect any unknown paths to Inicio
 ];
