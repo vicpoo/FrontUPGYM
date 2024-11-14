@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SidebarComponent } from '../../component/sidebar/sidebar.component';
-import { HeaderComponent } from '../../component/header/header.component';
 import { BottomNavComponent } from '../../component/bottom-nav/bottom-nav.component';
 
 @Component({
   selector: 'app-exercise-level-basic',
   standalone: true,
-  imports: [RouterModule, SidebarComponent, HeaderComponent, BottomNavComponent],
+  imports: [RouterModule, SidebarComponent, BottomNavComponent],
   templateUrl: './exercise-level-basic.component.html',
   styleUrls: ['./exercise-level-basic.component.css']
 })
