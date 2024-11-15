@@ -10,7 +10,16 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { HomeComponent } from './pages/home/home.component';
 import { searchComponent } from './pages/Search/Search.component';
 import { ExerciserutinesComponent } from './pages/exercise-rutines/exercise-rutines.component';
+
+/*nivel intermedio */
+import { ExerciserutinesinterComponent } from './pages/exercise-intermedio/exercise-rutines-intermedio/exercise-rutines-inter.component';
+import { ExerciseLevelinteromponent } from './pages/exercise-intermedio/exercise-level-inter/exercise-level-inter';
+import { ExerciseinterUbicationComponent } from './pages/exercise-intermedio/exercise-interubication/exercise-interubication.component';
+import { Exerciselevelgymomponent } from './pages/exercise-intermedio/exercise-level-gym/exercise-gym-inter.component';
+
+
 import path from 'path';
+import { importProvidersFrom } from '@angular/core';
 
 export const routes: Routes = [
   { path: '', component: InicioComponent },
@@ -18,12 +27,21 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'noticias', component: NoticiasComponent },
   {path: 'exercise', component:ExerciseComponent},
-  {path: 'exercise-ubication', component:ExerciseUbicationComponent},
-  {path: 'exercise-level-basic', component:ExerciseLevelBasicomponent},
   {path: 'profile', component:ProfileComponent},
   {path: 'home', component:HomeComponent},
   {path: 'search', component:searchComponent},
+  /*nivel basico */
+  {path: 'exercise-ubication', component:ExerciseUbicationComponent},
+  {path: 'exercise-level-basic', component:ExerciseLevelBasicomponent},
   {path: 'exercise-rutines', component:ExerciserutinesComponent},
+/*nivel intermedio */
+{path: 'exercise-interubication', component:ExerciseinterUbicationComponent},
+{path: 'exercise-level-inter', component:ExerciseLevelinteromponent},
+{path: 'exercise-rutines-inter', component:ExerciserutinesinterComponent},
+{path: 'exercise-level-gym', component:Exerciselevelgymomponent},
+
+
+
 
   { path: '**', redirectTo: '' }  // Redirect any unknown paths to Inicio
 ];

@@ -1,0 +1,30 @@
+<div class="flex bg-black h-screen text-white">
+    <app-sidebar class="hidden lg:block"></app-sidebar>
+
+    <!-- Main Content -->
+    <div class="flex-1 p-6 space-y-6">
+        <!-- Header -->
+        <h1 class="text-3xl font-bold border-b border-blue-500 pb-2">Rutinas</h1>   
+        
+        <!-- Subscription Section -->
+        <div class="text-center rounded-lg p-2 max-w-sm mx-auto bg-transparent">
+            <img src="assets/subscribete2.gif" alt="" class="w-3/4 mx-auto">
+        </div>
+
+        <!-- Exercise Location Selection -->
+        <div class="text-center mt-8">
+            <h2 class="text-lg font-semibold mb-6">¿Dónde realizarás tus ejercicios?</h2>
+
+            <!-- Exercise Location Buttons with RouterLink -->
+            <div class="flex flex-col items-center space-y-6">
+                <button routerLink="/exercise-level-inter" class="w-full max-w-xs bg-blue-800 text-white font-bold py-4 rounded-full hover:bg-blue-700 text-2xl">
+                    CASA
+                </button>
+
+                <button routerLink="/exercise-level-gym" class="w-full max-w-xs bg-blue-800 text-white font-bold py-4 rounded-full hover:bg-blue-700 text-2xl">
+                    GYM
+                </button>
+            </div>
+        </div> 
+    </div>
+</div>

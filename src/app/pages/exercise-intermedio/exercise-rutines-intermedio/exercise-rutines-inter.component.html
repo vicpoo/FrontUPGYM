@@ -1,0 +1,33 @@
+<div class="flex bg-black min-h-screen">
+    <!-- Sidebar para escritorio (fijo) -->
+    <app-sidebar class="hidden lg:flex fixed top-0 left-0 h-screen z-10"></app-sidebar>
+
+    <!-- Contenido principal con sección desplazable -->
+    <div class="flex-1 lg:ml-64 p-4 text-white overflow-hidden pb-16">
+        <div class="p-6 space-y-6 overflow-y-auto">  
+            <h1 class="text-3xl font-bold border-b border-blue-500 pb-2">Ejercicios</h1>
+            <h2 class="text-2xl lg:text-3xl text-center font-semibold mt-6">INTERMEDIO</h2>
+
+            <!-- Sección de Ejercicios en Lista -->
+            <div class="space-y-6 mt-4 overflow-y-auto h-[calc(100vh-8rem)] lg:h-[calc(100vh-10rem)]">
+                <div *ngFor="let exercise of exercises" class="bg-black bg-opacity-20 rounded-lg p-6 border border-blue-500 shadow-md transition-transform hover:scale-105">
+                    <div class="flex items-center space-x-4">
+                        <!-- Imagen del ejercicio -->
+                        <img src="assets/noticia7.jpg" alt="imagen" class="w-24 h-24 lg:w-32 lg:h-32 object-cover rounded-md">
+
+                        <!-- Información del ejercicio -->
+                        <div>
+                            <h3 class="text-xl font-semibold">{{exercise.title}}</h3>
+                            <p class="mt-2 text-gray-300">Texto de cómo realizar el ejercicio</p>
+                            <p class="text-sm text-gray-400">Tiempo de descanso: 3 min</p>
+                            <p class="text-sm text-gray-400">Repeticiones: 12 (6 x brazo)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navegación inferior para móvil -->
+    <app-bottom-nav class="lg:hidden fixed bottom-0 w-full z-10"></app-bottom-nav>
+</div>
