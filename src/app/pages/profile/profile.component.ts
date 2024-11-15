@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common'; // Importa CommonModule
 import { SidebarComponent } from '../../component/sidebar/sidebar.component';
 import { BottomNavComponent } from '../../component/bottom-nav/bottom-nav.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [RouterModule, SidebarComponent, BottomNavComponent],
+  imports: [RouterModule, CommonModule, SidebarComponent, BottomNavComponent], // Agrega CommonModule aquí
   templateUrl: './profile.component.html',
 })
-export class ProfileComponent implements OnInit {
-  // Example user data
+
+
+export class ProfileComponent {
   user = {
     name: 'Víctor Alejandro',
     description: 'Descripción aquí',
@@ -23,7 +25,13 @@ export class ProfileComponent implements OnInit {
     ]
   };
 
-  constructor() {}
+  isEditModalOpen = false;
 
-  ngOnInit(): void {}
+  openEditModal() {
+    this.isEditModalOpen = true;
+  }
+
+  closeEditModal() {
+    this.isEditModalOpen = false;
+  }
 }
