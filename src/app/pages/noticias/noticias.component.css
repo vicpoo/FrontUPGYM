@@ -48,7 +48,7 @@
 
 .card {
     position: absolute;
-    border: 2px solid rgba(var(--color-card));
+    border: 2px solid rgba(128, 128, 128, 1); /* Cambiado a gris */
     border-radius: 12px;
     overflow: hidden;
     inset: 0;
