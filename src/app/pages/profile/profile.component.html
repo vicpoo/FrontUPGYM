@@ -1,85 +1,73 @@
 <div class="flex bg-black h-screen text-white">
-    <!-- Sidebar -->
-    <app-sidebar class="hidden lg:block"></app-sidebar>
-  
-    <!-- Main Content -->
-    <div class="flex-1 p-6 space-y-6 overflow-y-auto">
-      <!-- Profile Header -->
-      <div class="max-w-3xl mx-auto bg-gray-900 rounded-lg p-6 space-y-4">
-        <div class="flex items-center space-x-6">
-          <img src="assets/profile-pic.jpg" alt="Profile Picture" class="w-24 h-24 rounded-full border-4 border-gray-700">
-          
-          <div>
-            <h2 class="text-2xl font-bold">{{ user.name }}</h2>
-            <p class="text-gray-300">{{ user.description }}</p>
-            <p class="text-sm text-gray-400">{{ user.bio }}</p>
-          </div>
-          
-          <button class="ml-auto bg-purple-700 text-white py-1 px-4 rounded-full">Seguidores {{ user.followers }}</button>
+  <!-- Sidebar -->
+  <app-sidebar class="hidden lg:block"></app-sidebar>
+
+  <!-- Main Content -->
+  <div class="flex-1 p-6 space-y-6 overflow-y-auto">
+    <!-- Profile Header -->
+    <div class="max-w-3xl mx-auto bg-gray-900 rounded-lg p-6 space-y-4">
+      <div class="flex items-center space-x-6">
+        <img [src]="user.foto_perfil || 'assets/profile-pic.jpg'" alt="Profile Picture" class="w-24 h-24 rounded-full border-4 border-gray-700">
+        
+        <div>
+          <h2 class="text-2xl font-bold">{{ user.name }}</h2>
+          <p class="text-gray-300">{{ user.description }}</p>
+          <p class="text-sm text-gray-400">{{ user.bio }}</p>
         </div>
         
-        <!-- Profile Buttons -->
-        <div class="flex justify-center space-x-4 mt-4">
-          <button (click)="openEditModal()" class="bg-blue-600 py-2 px-6 rounded-lg text-white">Editar perfil</button>
-          <button class="bg-blue-600 py-2 px-6 rounded-lg text-white">Post</button>
-        </div>
+        <button class="ml-auto bg-purple-700 text-white py-1 px-4 rounded-full">Seguidores {{ user.followers }}</button>
       </div>
-  
-      <!-- Divider Line -->
-      <div class="border-b border-blue-500 max-w-3xl mx-auto mt-4"></div>
-  
-      <!-- Publications Section -->
-      <h3 class="text-xl font-semibold text-center mt-6">Publicaciones</h3>
-      <div class="flex justify-center space-x-4 mt-4 max-w-3xl mx-auto">
-        <!-- Post Card -->
-        <div *ngFor="let post of user.posts" class="bg-gray-800 rounded-lg p-2 w-32 h-40 text-center">
-          <img [src]="post.image" alt="Post Image" class="w-full h-24 object-cover rounded-md">
-          <div class="flex justify-center items-center mt-2 text-sm">
-            <i class="fas fa-heart text-red-500 mr-1"></i>
-            <span>{{ post.likes }}</span>
-          </div>
-        </div>
+      
+      <!-- Profile Buttons -->
+      <div class="flex justify-center space-x-4 mt-4">
+        <button (click)="openEditModal()" class="bg-blue-600 py-2 px-6 rounded-lg text-white">Editar perfil</button>
       </div>
     </div>
-  
-    <!-- Bottom Navigation for Mobile -->
-    <app-bottom-nav class="lg:hidden"></app-bottom-nav>
-  
-    <!-- Edit Profile Modal -->
-    <div *ngIf="isEditModalOpen" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75">
-      <div class="bg-gray-900 rounded-lg p-6 max-w-lg w-full text-center">
-        <h2 class="text-2xl font-bold mb-4">Editar Perfil</h2>
-  
-        <!-- Profile Picture -->
-        <div class="flex justify-center mb-4">
-          <img src="assets/profile-pic.jpg" alt="Profile Picture" class="w-24 h-24 rounded-full border-4 border-gray-700">
-          <button class="ml-2 bg-gray-800 rounded-full p-2">
-            <i class="fas fa-pencil-alt text-white"></i>
-          </button>
+
+    <!-- Publications Section -->
+    <h3 class="text-xl font-semibold text-center mt-6">Publicaciones</h3>
+    <div class="flex justify-center space-x-4 mt-4 max-w-3xl mx-auto">
+      <div *ngFor="let post of user.posts" class="bg-gray-800 rounded-lg p-2 w-32 h-40 text-center">
+        <img [src]="post.image" alt="Post Image" class="w-full h-24 object-cover rounded-md">
+        <div class="flex justify-center items-center mt-2 text-sm">
+          <i class="fas fa-heart text-red-500 mr-1"></i>
+          <span>{{ post.likes }}</span>
         </div>
-        <p class="text-sm text-gray-400 mb-6">cambiar foto de perfil</p>
-  
-        <!-- Edit Form -->
-        <form>
-          <!-- Name Field -->
-          <div class="mb-4">
-            <label class="block text-gray-300 text-left mb-1">Nombre del usuario</label>
-            <input type="text" placeholder="cambiar el nombre del usuario" class="w-full px-4 py-2 rounded bg-gray-800 border border-gray-600 text-white">
-          </div>
-  
-          <!-- Description Field -->
-          <div class="mb-4">
-            <label class="block text-gray-300 text-left mb-1">Descripción del perfil</label>
-            <textarea placeholder="Agregar descripción" class="w-full px-4 py-2 rounded bg-gray-800 border border-gray-600 text-white"></textarea>
-          </div>
-  
-          <!-- Save Changes and Close Buttons -->
-          <div class="flex justify-center space-x-4 mt-4">
-            <button type="button" (click)="closeEditModal()" class="bg-purple-700 py-2 px-4 rounded-full text-white">Guardar Cambios</button>
-            <button type="button" (click)="closeEditModal()" class="bg-gray-600 py-2 px-4 rounded-full text-white">Cerrar</button>
-          </div>
-        </form>
       </div>
     </div>
   </div>
-  
+
+  <!-- Bottom Navigation for Mobile -->
+  <app-bottom-nav class="lg:hidden"></app-bottom-nav>
+
+  <!-- Edit Profile Modal -->
+  <div *ngIf="isEditModalOpen" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75">
+    <div class="bg-gray-900 rounded-lg p-6 max-w-lg w-full text-center">
+      <h2 class="text-2xl font-bold mb-4">Editar Perfil</h2>
+
+      <!-- Profile Picture -->
+      <div class="flex justify-center mb-4">
+        <img [src]="user.foto_perfil || 'assets/profile-pic.jpg'" alt="Profile Picture" class="w-24 h-24 rounded-full border-4 border-gray-700">
+      </div>
+
+      <!-- Edit Form -->
+      <form>
+        <div class="mb-4">
+          <label class="block text-gray-300 text-left mb-1">Nombre del usuario</label>
+          <input [(ngModel)]="user.name" type="text" class="w-full px-4 py-2 rounded bg-gray-800 border border-gray-600 text-white">
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-gray-300 text-left mb-1">Descripción del perfil</label>
+          <textarea [(ngModel)]="user.description" class="w-full px-4 py-2 rounded bg-gray-800 border border-gray-600 text-white"></textarea>
+        </div>
+
+        <!-- Save Changes and Close Buttons -->
+        <div class="flex justify-center space-x-4 mt-4">
+          <button type="button" (click)="saveChanges()" class="bg-purple-700 py-2 px-4 rounded-full text-white">Guardar Cambios</button>
+          <button type="button" (click)="closeEditModal()" class="bg-gray-600 py-2 px-4 rounded-full text-white">Cerrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
