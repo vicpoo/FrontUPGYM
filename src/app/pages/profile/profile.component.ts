@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // Importa FormsModule para ngModel
+import { FormsModule } from '@angular/forms';
 import { SidebarComponent } from '../../component/sidebar/sidebar.component';
 import { BottomNavComponent } from '../../component/bottom-nav/bottom-nav.component';
 import { UserService } from '../../services/user.service';
@@ -9,10 +9,10 @@ import { UserService } from '../../services/user.service';
   selector: 'app-profile',
   standalone: true,
   imports: [
-    CommonModule, 
-    FormsModule, // Asegúrate de importar FormsModule
-    SidebarComponent, 
-    BottomNavComponent
+    CommonModule,
+    FormsModule,
+    SidebarComponent,
+    BottomNavComponent,
   ],
   templateUrl: './profile.component.html',
 })
@@ -44,9 +44,8 @@ export class ProfileComponent implements OnInit {
           description: data.descripcion || 'Sin descripción',
           foto_perfil: data.foto_perfil
             ? `data:image/jpeg;base64,${data.foto_perfil}`
-            : '/customIDfoto', // Imagen predeterminada
+            : '/customIDfoto',
         };
-        console.log('Perfil cargado:', this.user);
       },
       error: (err) => {
         console.error('Error al cargar el perfil:', err);
@@ -55,13 +54,6 @@ export class ProfileComponent implements OnInit {
   }
 
   openEditModal(): void {
-    // Cargamos los valores actuales del usuario en el formulario
-    this.user = {
-      ...this.user,
-      name: this.user.name || '',
-      description: this.user.description || '',
-      foto_perfil: this.user.foto_perfil || '/customIDfoto',
-    };
     this.isEditModalOpen = true;
   }
 

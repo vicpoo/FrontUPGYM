@@ -10,31 +10,17 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
+  // Login
   login(credentials: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}login`, credentials);
   }
 
-  createUser(user: any): Observable<any> {
+  // Create User
+  createUser(user: { nombre_usuario: string; correo: string; contraseña: string }): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}user/`, user);
   }
 
-  // Get user profile (assuming this endpoint does not require an ID)
-  getUser(): Observable<any> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${sessionStorage.getItem('token')}`,
-    });
-    return this.http.get<any>(`${this.apiUrl}user`, { headers });
-  }
-
-  // Create a new post
-  createPost(postData: any): Observable<any> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${sessionStorage.getItem('token')}`,
-    });
-    return this.http.post<any>(`${this.apiUrl}post`, postData, { headers });
-  }
-
-  // Get current authenticated user’s profile
+  // Get Current User
   getCurrentUser(): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${sessionStorage.getItem('token')}`,
@@ -42,18 +28,21 @@ export class UserService {
     return this.http.get<any>(`${this.apiUrl}user/me`, { headers });
   }
 
-  updateUser(userId: number, userData: any): Observable<any> {
+  // Update User
+  updateUser(userId: number, userData: FormData): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${sessionStorage.getItem('token')}`,
     });
     return this.http.put<any>(`${this.apiUrl}user/${userId}`, userData, { headers });
   }
 
+  // Check if logged in
   isLoggedIn(): boolean {
-    return !!sessionStorage.getItem('token'); // Checks if a token exists in sessionStorage
+    return !!sessionStorage.getItem('token');
   }
 
+  // Logout
   logout(): void {
-    sessionStorage.removeItem('token'); // Removes the token to log out
+    sessionStorage.removeItem('token');
   }
 }
