@@ -20,11 +20,11 @@ export const routes: Routes = [
   { path: '', component: InicioComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'noticias', component: NoticiasComponent },
+  { path: 'noticias', component: NoticiasComponent, canActivate: [AuthGuard]},
   { path: 'exercise', component: ExerciseComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'search', component: searchComponent },
+  { path: 'search', component: searchComponent, canActivate: [AuthGuard] },
   { path: 'exercise-ubication', component: ExerciseUbicationComponent, canActivate: [AuthGuard] },
   { path: 'exercise-level-basic', component: ExerciseLevelBasicomponent, canActivate: [AuthGuard] },
   { path: 'exercise-rutines', component: ExerciserutinesComponent, canActivate: [AuthGuard] },
@@ -32,5 +32,5 @@ export const routes: Routes = [
   { path: 'exercise-level-inter', component: ExerciseLevelinteromponent, canActivate: [AuthGuard] },
   { path: 'exercise-rutines-inter', component: ExerciserutinesinterComponent, canActivate: [AuthGuard] },
   { path: 'exercise-level-gym', component: Exerciselevelgymomponent, canActivate: [AuthGuard] },
-  { path: '**', redirectTo: '' } // Redirige cualquier ruta desconocida a Inicio
+  { path: '**', redirectTo: '' } 
 ];
