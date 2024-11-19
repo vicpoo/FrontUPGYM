@@ -203,6 +203,11 @@ export class ProfileComponent implements OnInit {
   
 
   deletePost(postId: number): void {
+    if (!postId) {
+      console.error('El ID de la publicación no es válido.');
+      return;
+    }
+  
     if (confirm('¿Estás seguro de que deseas eliminar esta publicación?')) {
       this.postService.deletePost(postId).subscribe({
         next: () => {
@@ -217,6 +222,7 @@ export class ProfileComponent implements OnInit {
       });
     }
   }
+  
 
   // Métodos para preguntas
   openQuestionModal(): void {
