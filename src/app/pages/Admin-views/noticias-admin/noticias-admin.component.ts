@@ -10,7 +10,7 @@ import { SidebarComponent } from '../../../component/sidebar/sidebar.component';
 @Component({
   selector: 'app-noticias-admin',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, BottomNavComponent, SidebarComponent],
   templateUrl: './noticias-admin.component.html'
 })
 export class NoticiasAdminComponent implements OnInit {

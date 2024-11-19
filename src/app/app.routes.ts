@@ -16,6 +16,10 @@ import { ExerciseinterUbicationComponent } from './pages/exercise-intermedio/exe
 import { Exerciselevelgymomponent } from './pages/exercise-intermedio/exercise-level-gym/exercise-gym-inter.component';
 import { AuthGuard } from './guards/auth.guard';
 
+/*RUTAS DEL ADMIN (NO BORRAR Y SI ES PARA TI VICTOR) */
+
+import { NoticiasAdminComponent } from './pages/Admin-views/noticias-admin/noticias-admin.component';
+
 export const routes: Routes = [
   { path: '', component: InicioComponent },
   { path: 'login', component: LoginComponent },
@@ -32,5 +36,7 @@ export const routes: Routes = [
   { path: 'exercise-level-inter', component: ExerciseLevelinteromponent, canActivate: [AuthGuard] },
   { path: 'exercise-rutines-inter', component: ExerciserutinesinterComponent, canActivate: [AuthGuard] },
   { path: 'exercise-level-gym', component: Exerciselevelgymomponent, canActivate: [AuthGuard] },
+  /*RUTAS DEL ADMIN (NO BORRAR Y SI ES PARA TI VICTOR) */
+  { path: 'noticias-admin', component: NoticiasAdminComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '' } 
 ];
