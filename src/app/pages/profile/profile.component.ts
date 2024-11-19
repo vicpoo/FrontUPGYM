@@ -6,6 +6,7 @@ import { BottomNavComponent } from '../../component/bottom-nav/bottom-nav.compon
 import { UserService } from '../../services/user.service';
 import { PostService } from '../../services/post.service';
 import { QuestionService } from '../../services/question.service';
+import { Post } from '../../interfaces/post';
 
 @Component({
   selector: 'app-profile',
@@ -22,6 +23,7 @@ export class ProfileComponent implements OnInit {
   isEditModalOpen = false;
   isPostModalOpen = false;
   isQuestionModalOpen = false;
+
   user: any = {
     id: null,
     name: '',
@@ -31,11 +33,14 @@ export class ProfileComponent implements OnInit {
     followers: 0,
     posts: [],
   };
+
   selectedImage: File | null = null;
 
-  newPost: any = {
+  newPost: Post = {
+    id: 0,
     descripcion: '',
     imagen: null,
+    usuario_id: 0,
   };
 
   newQuestion: any = {
@@ -62,7 +67,7 @@ export class ProfileComponent implements OnInit {
           correo: data.correo,
           description: data.descripcion || 'Sin descripción',
           foto_perfil: data.foto_perfil
-            ? `data:image/jpeg;base64,${data.foto_perfil}`
+            ? 'data:image/jpeg;base64,${data.foto_perfil}'
             : '/customIDfoto',
         };
       },
@@ -75,13 +80,12 @@ export class ProfileComponent implements OnInit {
   loadPosts(): void {
     this.postService.getPosts().subscribe({
       next: (posts) => {
-        // Filtrar las publicaciones para mostrar solo las del usuario actual
         this.user.posts = posts
           .filter((post) => post.usuario_id === this.user.id)
           .map((post) => ({
             ...post,
-            image: post.imagen,
-            description: post.descripcion,
+            imagen: post.imagen,
+            descripcion: post.descripcion,
           }));
       },
       error: (err) => {
@@ -132,14 +136,19 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  // Métodos para crear post
+  // Métodos para los posts
   openPostModal(): void {
+    this.isPostModalOpen = true;
+  }
+
+  openEditPostModal(post: Post): void {
+    this.newPost = { ...post };
     this.isPostModalOpen = true;
   }
 
   closePostModal(): void {
     this.isPostModalOpen = false;
-    this.newPost = { descripcion: '', imagen: null };
+    this.newPost = { id: 0, descripcion: '', imagen: null, usuario_id: 0 };
   }
 
   onPostImageSelected(event: any): void {
@@ -149,32 +158,65 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  createPost(): void {
-    if (!this.user.id) {
-      alert('No se puede crear la publicación: usuario no identificado.');
-      return;
-    }
-
+  createOrUpdatePost(): void {
     const formData = new FormData();
     formData.append('descripcion', this.newPost.descripcion);
-    if (this.newPost.imagen) {
-      formData.append('imagen', this.newPost.imagen);
+  
+    // Type guard to check if imagen is a File
+    if (this.newPost.imagen && typeof this.newPost.imagen !== 'string') {
+      formData.append('imagen', this.newPost.imagen); // It's safe to append the File here
     }
+    
     formData.append('usuario_id', this.user.id.toString());
+  
+    if (this.newPost.id) {
+      // Edit existing post
+      this.postService.updatePost(this.newPost.id, formData).subscribe({
+        next: (updatedPost) => {
+          alert('Publicación actualizada correctamente.');
+          const index = this.user.posts.findIndex(
+            (post: Post) => post.id === this.newPost.id
+          );
+          this.user.posts[index] = { ...updatedPost, imagen: updatedPost.imagen };
+          this.closePostModal();
+        },
+        error: (err) => {
+          console.error('Error al actualizar la publicación:', err);
+        },
+      });
+    } else {
+      // Create a new post
+      this.postService.createPost(formData).subscribe({
+        next: (createdPost) => {
+          alert('Publicación creada correctamente.');
+          this.user.posts = [
+            ...this.user.posts,
+            { ...createdPost, imagen: createdPost.imagen },
+          ];
+          this.closePostModal();
+        },
+        error: (err) => {
+          console.error('Error al crear la publicación:', err);
+        },
+      });
+    }
+  }
+  
 
-    this.postService.createPost(formData).subscribe({
-      next: (createdPost) => {
-        alert('Publicación creada correctamente.');
-        this.user.posts = [
-          ...this.user.posts,
-          { ...createdPost, image: createdPost.imagen },
-        ];
-        this.closePostModal();
-      },
-      error: (err) => {
-        console.error('Error al crear la publicación:', err);
-      },
-    });
+  deletePost(postId: number): void {
+    if (confirm('¿Estás seguro de que deseas eliminar esta publicación?')) {
+      this.postService.deletePost(postId).subscribe({
+        next: () => {
+          alert('Publicación eliminada correctamente.');
+          this.user.posts = this.user.posts.filter(
+            (post: Post) => post.id !== postId
+          );
+        },
+        error: (err) => {
+          console.error('Error al eliminar la publicación:', err);
+        },
+      });
+    }
   }
 
   // Métodos para preguntas
@@ -186,7 +228,7 @@ export class ProfileComponent implements OnInit {
     this.isQuestionModalOpen = false;
     this.newQuestion = { contenido: '' };
   }
-  
+
   createQuestion(): void {
     if (!this.user.id) {
       alert('No se puede crear la pregunta: usuario no identificado.');
