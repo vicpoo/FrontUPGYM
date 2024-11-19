@@ -1,63 +1,102 @@
 <div class="flex bg-black min-h-screen">
-    <!-- Sidebar for desktop (fixed) -->
-    <app-sidebar class="hidden lg:flex fixed top-0 left-0 h-screen z-10"></app-sidebar>
-  
-    <!-- Main Content with scrollable section -->
-    <div class="flex-1 lg:ml-64 p-4 space-y-4 text-white overflow-hidden pb-16">
-      <div class="flex-1 p-6 space-y-6 overflow-y-auto">  
-        <h1 class="text-3xl font-bold border-b border-blue-500 pb-2">Noticias</h1>
-  
-      <!-- Scrollable Content -->
+  <!-- Sidebar for desktop (fixed) -->
+  <app-sidebar class="hidden lg:flex fixed top-0 left-0 h-screen z-10"></app-sidebar>
+
+  <!-- Main Content -->
+  <div class="flex-1 lg:ml-64 p-4 space-y-4 text-white overflow-hidden pb-16">
+    <div class="flex-1 p-6 space-y-6 overflow-y-auto">
+      <!-- Título principal -->
+      <h1 class="text-3xl font-bold border-b border-blue-500 pb-2">Administrar Noticias</h1>
+
+      <!-- Formulario de Noticias -->
+      <form
+        [formGroup]="newsForm"
+        (ngSubmit)="submitForm()"
+        class="space-y-4 bg-gray-800 p-6 rounded-lg shadow-md"
+      >
+        <div>
+          <label for="titulo" class="block text-sm font-medium text-gray-300">Título</label>
+          <input
+            id="titulo"
+            formControlName="titulo"
+            type="text"
+            class="w-full mt-1 p-2 border rounded-md bg-gray-700 text-white focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Ingresa el título"
+            required
+          />
+        </div>
+
+        <div>
+          <label for="resumen" class="block text-sm font-medium text-gray-300">Resumen</label>
+          <textarea
+            id="resumen"
+            formControlName="resumen"
+            class="w-full mt-1 p-2 border rounded-md bg-gray-700 text-white focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Resumen (opcional)"
+          ></textarea>
+        </div>
+
+        <div>
+          <label for="contenido_completo" class="block text-sm font-medium text-gray-300">Contenido Completo</label>
+          <textarea
+            id="contenido_completo"
+            formControlName="contenido_completo"
+            class="w-full mt-1 p-2 border rounded-md bg-gray-700 text-white focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Escribe el contenido completo"
+            required
+          ></textarea>
+        </div>
+
+        <div class="flex justify-end space-x-4">
+          <button
+            type="submit"
+            [disabled]="newsForm.invalid"
+            class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
+          >
+            {{ isEditing ? 'Actualizar' : 'Agregar' }}
+          </button>
+          <button
+            *ngIf="isEditing"
+            type="button"
+            (click)="resetForm()"
+            class="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700"
+          >
+            Cancelar
+          </button>
+        </div>
+      </form>
+
+      <!-- Lista de Noticias -->
       <div class="overflow-y-auto h-[calc(100vh-4rem)] lg:h-[calc(100vh-8rem)] mt-4">
-        
-        <!-- Carrusel -->
-        <div class="wrapper flex items-center justify-center relative overflow-hidden h-80 mb-4"> <!-- Cambié mb-8 a mb-4 -->
-          <div class="inner" style="--quantity: 9;">
-            <!-- Añade más tarjetas del carrusel aquí -->
-            <div class="card" style="--index: 1; --color-card: 0, 102, 204;">
-              <div class="img"> <img src="assets/frase 7.png" alt="img" class="object-cover w-full h-full"> </div>
-            </div>
-            <div class="card" style="--index: 2; --color-card: 0, 102, 204;">
-              <div class="img"> <img src="assets/frase 1.png" alt="img" class="object-cover w-full h-full"></div>
-          </div>
-            <div class="card" style="--index: 3; --color-card: 0, 102, 204;">
-              <div class="img"> <img src="assets/subscribete2.gif" alt="gif" class="object-cover w-full h-full"></div>
-            </div>
-            <div class="card" style="--index: 4; --color-card: 0, 102, 204;">
-              <div class="img"><img src="assets/frase2.png" alt="img" class="object-cover w-full h-full"></div>
-            </div>
-            <div class="card" style="--index: 5; --color-card: 0, 102, 204;">
-              <div class="img"> <img src="assets/frase 3.png" alt="img" class="object-cover w-full h-full"></div>
-            </div>
-            <div class="card" style="--index: 6; --color-card: 0, 102, 204;">
-              <div class="img"> <img src="assets/subscribete2.gif" alt="gif" class="object-cover w-full h-full"></div>
-            </div>
-            <div class="card" style="--index: 7; --color-card: 0, 102, 204;">
-              <div class="img"> <img src="assets/frase 4.png" alt="img" class="object-cover w-full h-full"></div>
-            </div>
-            <div class="card" style="--index: 8; --color-card: 0, 102, 204;">
-              <div class="img"><img src="assets/frase 5.png" alt="img" class="object-cover w-full h-full"></div>
-            </div>
-            <div class="card" style="--index: 9; --color-card: 0, 102, 204;">
-              <div class="img"> <img src="assets/subscribete2.gif" alt="gif" class="object-cover w-full h-full"></div>
-            </div>
-            <div class="card" style="--index: 10; --color-card: 0, 102, 204;">
-              <div class="img"><img src="assets/frase 6.png" alt="img" class="object-cover w-full h-full"></div>
-            </div>
-  
-            <div class="card" style="--index: ; --color-card: 0, 102, 204;">
-              <div class="img"><img src="assets/ditto.gif" alt="img" class="object-cover w-full h-full"></div>
+        <div *ngIf="newsList.length; else noNews">
+          <div *ngFor="let news of newsList" class="bg-gray-800 p-4 rounded-lg shadow-lg mb-4">
+            <h3 class="text-lg font-bold">{{ news.titulo }}</h3>
+            <p class="text-sm text-gray-400">{{ news.resumen }}</p>
+            <div class="mt-4 flex justify-end space-x-4">
+              <button
+                (click)="editNews(news)"
+                class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+              >
+                Editar
+              </button>
+              <button
+                (click)="deleteNews(news.id)"
+                class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+              >
+                Eliminar
+              </button>
             </div>
           </div>
         </div>
-  
-        <!-- News Cards (CardStackComponent) -->
-        <app-card-stack></app-card-stack>
+
+        <!-- Mensaje cuando no hay noticias -->
+        <ng-template #noNews>
+          <p class="text-center text-gray-400 mt-4">No hay noticias disponibles.</p>
+        </ng-template>
       </div>
     </div>
-  
-    <!-- Bottom Navigation for Mobile -->
-    <app-bottom-nav class="lg:hidden fixed bottom-0 w-full z-10"></app-bottom-nav>
   </div>
 
-   <!--cambios a realizar, carrusel volverlo componenete para obtener informacion y poder agregar y eliminar imagenes, al igual que el componente cardstack -->
+  <!-- Bottom Navigation for Mobile -->
+  <app-bottom-nav class="lg:hidden fixed bottom-0 w-full z-10"></app-bottom-nav>
+</div>
