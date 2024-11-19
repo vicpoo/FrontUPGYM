@@ -11,13 +11,14 @@ import { SidebarComponent } from '../../../component/sidebar/sidebar.component';
   selector: 'app-noticias-admin',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, BottomNavComponent, SidebarComponent],
-  templateUrl: './noticias-admin.component.html'
+  templateUrl: './noticias-admin.component.html',
 })
 export class NoticiasAdminComponent implements OnInit {
   newsForm!: FormGroup;
   newsList: News[] = [];
   isEditing = false;
-  currentNewsId!: number | null;
+  currentNewsId: number | null = null;
+  selectedFile: File | null = null; // Para almacenar el archivo seleccionado
 
   constructor(private fb: FormBuilder, private noticiasService: NoticiasService) {}
 
@@ -32,7 +33,15 @@ export class NoticiasAdminComponent implements OnInit {
       titulo: ['', [Validators.required]],
       resumen: [''],
       contenido_completo: ['', [Validators.required]],
+      imagen: [null], // Campo para la imagen
     });
+  }
+
+  // Manejar el cambio en la selección de archivos
+  onFileChange(event: any): void {
+    if (event.target.files && event.target.files.length) {
+      this.selectedFile = event.target.files[0];
+    }
   }
 
   // Cargar noticias desde el servicio
@@ -47,9 +56,15 @@ export class NoticiasAdminComponent implements OnInit {
   submitForm(): void {
     if (this.newsForm.invalid) return;
 
-    const formData: News = this.newsForm.value;
+    const formData = new FormData();
+    formData.append('titulo', this.newsForm.get('titulo')?.value);
+    formData.append('resumen', this.newsForm.get('resumen')?.value || '');
+    formData.append('contenido_completo', this.newsForm.get('contenido_completo')?.value);
+    if (this.selectedFile) {
+      formData.append('imagen', this.selectedFile); // Adjuntar imagen
+    }
 
-    if (this.isEditing && this.currentNewsId) {
+    if (this.isEditing && this.currentNewsId !== null) {
       // Editar noticia existente
       this.noticiasService.updateNoticia(this.currentNewsId, formData).subscribe({
         next: () => {
@@ -72,13 +87,23 @@ export class NoticiasAdminComponent implements OnInit {
 
   // Editar noticia
   editNews(news: News): void {
+    if (news.id === undefined) {
+      console.error('El ID de la noticia es inválido o no está definido.');
+      return;
+    }
+
     this.isEditing = true;
     this.currentNewsId = news.id;
     this.newsForm.patchValue(news);
   }
 
   // Eliminar noticia
-  deleteNews(newsId: number): void {
+  deleteNews(newsId: number | undefined): void {
+    if (!newsId) {
+      console.error('El ID de la noticia es inválido o no está definido.');
+      return;
+    }
+
     if (confirm('¿Estás seguro de eliminar esta noticia?')) {
       this.noticiasService.deleteNoticia(newsId).subscribe({
         next: () => this.loadNews(),
@@ -92,5 +117,6 @@ export class NoticiasAdminComponent implements OnInit {
     this.isEditing = false;
     this.currentNewsId = null;
     this.newsForm.reset();
+    this.selectedFile = null;
   }
 }

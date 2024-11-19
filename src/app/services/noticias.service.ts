@@ -15,12 +15,12 @@ export class NoticiasService {
     return this.http.get<News[]>(this.apiUrl);
   }
 
-  createNoticia(news: News): Observable<News> {
-    return this.http.post<News>(this.apiUrl, news);
+  createNoticia(formData: FormData): Observable<News> {
+    return this.http.post<News>(this.apiUrl, formData);
   }
 
-  updateNoticia(id: number, news: News): Observable<News> {
-    return this.http.put<News>(`${this.apiUrl}${id}`, news);
+  updateNoticia(id: number, formData: FormData): Observable<News> {
+    return this.http.put<News>(`${this.apiUrl}${id}`, formData);
   }
 
   deleteNoticia(id: number): Observable<void> {
