@@ -67,7 +67,7 @@ export class ProfileComponent implements OnInit {
           correo: data.correo,
           description: data.descripcion || 'Sin descripción',
           foto_perfil: data.foto_perfil
-            ? 'data:image/jpeg;base64,${data.foto_perfil}'
+            ? `data:image/jpeg;base64,${data.foto_perfil}` // Fixed backticks for template literal
             : '/customIDfoto',
         };
       },
@@ -76,7 +76,6 @@ export class ProfileComponent implements OnInit {
       },
     });
   }
-
   loadPosts(): void {
     this.postService.getPosts().subscribe({
       next: (posts) => {
