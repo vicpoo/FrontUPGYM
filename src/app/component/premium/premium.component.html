@@ -1,0 +1,32 @@
+<div *ngIf="showAd" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
+    <div class="bg-black rounded-lg shadow-lg max-w-sm w-full p-6 relative text-white">
+      <!-- Botón de cierre -->
+      <button
+        class="absolute top-4 right-4 text-white text-lg font-bold hover:text-gray-300"
+        (click)="closeAd()"
+      >
+        ×
+      </button>
+  
+      <!-- Contenido del anuncio -->
+      <div class="flex flex-col items-center">
+        <!-- Logo -->
+        <img src="assets/logo.png" alt="UPG&M" class="w-20 h-20 mb-4" />
+  
+        <!-- Texto principal -->
+        <h1 class="text-2xl font-bold text-center mb-4">¿Aún no eres premium?</h1>
+        <p class="text-sm text-center mb-6">
+          Únete a la versión premium para obtener funciones adicionales y poder navegar libre y sin anuncios.
+          <br />
+          <span class="font-bold">A tan solo 19.99 pesitos</span>
+        </p>
+  
+        <!-- Botón de compra -->
+        <button
+          class="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-6 rounded-lg transition"
+        >
+          Comprar
+        </button>
+      </div>
+    </div>
+  </div>
