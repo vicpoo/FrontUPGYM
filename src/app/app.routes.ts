@@ -19,8 +19,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { NoticiaDetalleComponent } from './component/noticia-detalle/noticia-detalle.component';
 
 /*RUTAS DEL ADMIN (NO BORRAR Y SI ES PARA TI VICTOR) */
-
 import { NoticiasAdminComponent } from './pages/Admin-views/noticias-admin/noticias-admin.component';
+import { Profileadmin } from './pages/Admin-views/profiles-admin/profile-admin.component';
 
 export const routes: Routes = [
   { path: '', component: InicioComponent },
@@ -44,5 +44,7 @@ export const routes: Routes = [
 
   /*RUTAS DEL ADMIN (NO BORRAR Y SI ES PARA TI VICTOR) */
   { path: 'noticias-admin', component: NoticiasAdminComponent, canActivate: [AuthGuard] },
+  { path: 'profile-admin', component: Profileadmin, canActivate: [AuthGuard] },
+
   { path: '**', redirectTo: '' } 
 ];
