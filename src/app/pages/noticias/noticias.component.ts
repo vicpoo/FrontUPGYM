@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Import CommonModule
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { SidebarComponent } from '../../component/sidebar/sidebar.component';
 import { BottomNavComponent } from '../../component/bottom-nav/bottom-nav.component';
 import { CardStackComponent } from '../../component/CardStack/card-stack.component';
 import { NoticiasService } from '../../services/noticias.service';
 import { News } from '../../interfaces/news';
+import { PremiumComponent } from '../../component/premium/premium.component'; // Ajusta la ruta según la ubicación
 
 @Component({
   selector: 'app-noticias',
@@ -15,20 +16,22 @@ import { News } from '../../interfaces/news';
     SidebarComponent,
     BottomNavComponent,
     CardStackComponent,
+    PremiumComponent, // Importa el componente premium
   ],
   templateUrl: './noticias.component.html',
   styleUrls: ['./noticias.component.css'],
 })
 export class NoticiasComponent implements OnInit {
-  newsList: News[] = []; // News list to store fetched news items
+  newsList: News[] = []; // Lista de noticias
+  showPremium = false; // Controla la visibilidad del componente premium
 
   constructor(private router: Router, private noticiasService: NoticiasService) {}
 
   ngOnInit(): void {
-    this.loadNews(); // Fetch news on component initialization
+    this.loadNews(); // Carga las noticias al inicializar el componente
   }
 
-  // Fetch news from the service and populate the newsList
+  // Cargar noticias desde el servicio
   loadNews(): void {
     this.noticiasService.getNoticias().subscribe({
       next: (news) => {
@@ -39,18 +42,20 @@ export class NoticiasComponent implements OnInit {
         console.log(this.newsList); // Inspeccionar los datos cargados
       },
       error: (err) => {
-        console.error('Error loading news:', err);
+        console.error('Error al cargar noticias:', err);
       },
     });
   }
-  
 
-  // Navigate to the detail view of a specific news item
-  navigateToDetail(newsId: number | null | undefined): void {
-    if (newsId) {
-      this.router.navigate(['/noticia-detalle', newsId]);
-    } else {
-      console.error('Invalid news ID:', newsId);
-    }
-  }
+// Mostrar el componente premium
+showPremiumAd(): void {
+  console.log('Click detected, showing premium ad');
+  this.showPremium = true; // Mostrar el anuncio premium
+}
+
+onPremiumClosed(): void {
+  this.showPremium = false; // Oculta el componente premium
+}
+
+
 }

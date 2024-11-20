@@ -9,7 +9,8 @@
 
     <!-- Scrollable Content -->
     <div class="overflow-y-auto h-[calc(100vh-4rem)] lg:h-[calc(100vh-8rem)] mt-4">
-      
+      <!-- Componente Premium -->
+
       <!-- Carrusel -->
       <div class="wrapper flex items-center justify-center relative overflow-hidden h-80 mb-4"> <!-- Cambié mb-8 a mb-4 -->
         <div class="inner" style="--quantity: 9;">
@@ -20,16 +21,16 @@
           <div class="card" style="--index: 2; --color-card: 0, 102, 204;">
             <div class="img"> <img src="assets/frase 1.png" alt="img" class="object-cover w-full h-full"></div>
         </div>
-          <div class="card" style="--index: 3; --color-card: 0, 102, 204;">
-            <div class="img"> <img src="assets/subscribete2.gif" alt="gif" class="object-cover w-full h-full"></div>
-          </div>
+        <div class="card" style="--index: 3; --color-card: 0, 102, 204;" (click)="showPremiumAd()">
+          <div class="img"> <img src="assets/subscribete2.gif" alt="gif" class="object-cover w-full h-full"></div>
+        </div>
           <div class="card" style="--index: 4; --color-card: 0, 102, 204;">
             <div class="img"><img src="assets/frase2.png" alt="img" class="object-cover w-full h-full"></div>
           </div>
           <div class="card" style="--index: 5; --color-card: 0, 102, 204;">
             <div class="img"> <img src="assets/frase 3.png" alt="img" class="object-cover w-full h-full"></div>
           </div>
-          <div class="card" style="--index: 6; --color-card: 0, 102, 204;">
+          <div class="card" style="--index: 6; --color-card: 0, 102, 204;" (click)="showPremiumAd()">
             <div class="img"> <img src="assets/subscribete2.gif" alt="gif" class="object-cover w-full h-full"></div>
           </div>
           <div class="card" style="--index: 7; --color-card: 0, 102, 204;">
@@ -38,7 +39,7 @@
           <div class="card" style="--index: 8; --color-card: 0, 102, 204;">
             <div class="img"><img src="assets/frase 5.png" alt="img" class="object-cover w-full h-full"></div>
           </div>
-          <div class="card" style="--index: 9; --color-card: 0, 102, 204;">
+          <div class="card" style="--index: 9; --color-card: 0, 102, 204;" (click)="showPremiumAd()">
             <div class="img"> <img src="assets/subscribete2.gif" alt="gif" class="object-cover w-full h-full"></div>
           </div>
           <div class="card" style="--index: 10; --color-card: 0, 102, 204;">
@@ -47,7 +48,10 @@
         </div>
       </div>
 
-   <!-- Scrollable Content -->
+   <!-- Premium -->
+   <app-premium *ngIf="showPremium" (closed)="onPremiumClosed()"></app-premium>
+
+
     <!-- News Cards (CardStackComponent) -->
     <app-card-stack></app-card-stack>
   </div>
