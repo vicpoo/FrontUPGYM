@@ -1,0 +1,92 @@
+<div class="flex bg-black min-h-screen">
+    <!-- Sidebar fijo para escritorio -->
+    <app-sidebar class="hidden lg:flex fixed top-0 left-0 h-screen z-10"></app-sidebar>
+  
+    <!-- Contenido principal -->
+    <div class="flex-1 lg:ml-64 p-4 space-y-4 text-white overflow-hidden pb-16">
+      <div class="flex-1 p-6 space-y-6 overflow-y-auto">
+        <!-- Título de la página -->
+        <h1 class="text-3xl font-bold border-b border-blue-500 pb-2">
+          Gestión de Usuarios
+        </h1>
+  
+        <!-- Tabla de usuarios con membresía -->
+        <div class="users-table bg-gray-800 p-6 rounded-lg shadow-lg mt-8">
+          <h2 class="text-xl font-semibold mb-4 text-blue-500">
+            Lista de Usuarios
+          </h2>
+          <div class="overflow-x-auto">
+            <table class="table-auto w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-gray-700 text-white">
+                  <th class="border px-4 py-2">Nombre</th>
+                  <th class="border px-4 py-2">Correo Electrónico</th>
+                  <th class="border px-4 py-2">Rol</th>
+                  <th class="border px-4 py-2">Membresía</th> <!-- Nueva columna para Membresía -->
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="text-gray-300 hover:bg-gray-700">
+                  <td class="border px-4 py-2">Juan Pérez</td>
+                  <td class="border px-4 py-2">juana.com</td>
+                  <td class="border px-4 py-2">Administrador</td>
+                  <td class="border px-4 py-2">
+                    <!-- Botón para cambiar la membresía -->
+                    <label class="relative inline-flex items-center cursor-pointer">
+                      <input class="sr-only peer" type="checkbox">
+                      <div class="peer rounded-full outline-none duration-100 after:duration-500 w-28 h-14 bg-blue-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-500 after:content-['Free'] after:absolute after:outline-none after:rounded-full after:h-12 after:w-12 after:bg-white after:top-1 after:left-1 after:flex after:justify-center after:items-center after:text-sky-800 after:font-bold peer-checked:after:translate-x-14 peer-checked:after:content-['Premium'] peer-checked:after:border-white">
+                      </div>
+                    </label>
+                  </td>
+                </tr>
+                <tr class="text-gray-300 hover:bg-gray-700">
+                  <td class="border px-4 py-2">Ana López</td>
+                  <td class="border px-4 py-2">ana.com</td>
+                  <td class="border px-4 py-2">Usuario</td>
+                  <td class="border px-4 py-2">
+                    <!-- Botón para cambiar la membresía -->
+                    <label class="relative inline-flex items-center cursor-pointer">
+                      <input class="sr-only peer" type="checkbox">
+                      <div class="peer rounded-full outline-none duration-100 after:duration-500 w-28 h-14 bg-blue-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-500 after:content-['Free'] after:absolute after:outline-none after:rounded-full after:h-12 after:w-12 after:bg-white after:top-1 after:left-1 after:flex after:justify-center after:items-center after:text-sky-800 after:font-bold peer-checked:after:translate-x-14 peer-checked:after:content-['Premium'] peer-checked:after:border-white">
+                      </div>
+                    </label>
+                  </td>
+                </tr>
+                <tr class="text-gray-300 hover:bg-gray-700">
+                    <td class="border px-4 py-2">Romina</td>
+                    <td class="border px-4 py-2">romina.com</td>
+                    <td class="border px-4 py-2">Usuario</td>
+                    <td class="border px-4 py-2">
+                      <!-- Botón para cambiar la membresía -->
+                      <label class="relative inline-flex items-center cursor-pointer">
+                        <input class="sr-only peer" type="checkbox">
+                        <div class="peer rounded-full outline-none duration-100 after:duration-500 w-28 h-14 bg-blue-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-500 after:content-['Free'] after:absolute after:outline-none after:rounded-full after:h-12 after:w-12 after:bg-white after:top-1 after:left-1 after:flex after:justify-center after:items-center after:text-sky-800 after:font-bold peer-checked:after:translate-x-14 peer-checked:after:content-['Premium'] peer-checked:after:border-white">
+                        </div>
+                      </label>
+                    </td>
+                  </tr>
+
+                  <tr class="text-gray-300 hover:bg-gray-700">
+                    <td class="border px-4 py-2">Victor morza</td>
+                    <td class="border px-4 py-2">victor-morza.com</td>
+                    <td class="border px-4 py-2">Usuario</td>
+                    <td class="border px-4 py-2">
+                      <!-- Botón para cambiar la membresía -->
+                      <label class="relative inline-flex items-center cursor-pointer">
+                        <input class="sr-only peer" type="checkbox">
+                        <div class="peer rounded-full outline-none duration-100 after:duration-500 w-28 h-14 bg-blue-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-500 after:content-['Free'] after:absolute after:outline-none after:rounded-full after:h-12 after:w-12 after:bg-white after:top-1 after:left-1 after:flex after:justify-center after:items-center after:text-sky-800 after:font-bold peer-checked:after:translate-x-14 peer-checked:after:content-['Premium'] peer-checked:after:border-white">
+                        </div>
+                      </label>
+                    </td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Navegación inferior para dispositivos móviles -->
+    <app-bottom-nav class="lg:hidden fixed bottom-0 w-full z-10"></app-bottom-nav>
+  </div>
+  
