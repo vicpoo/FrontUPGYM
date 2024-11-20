@@ -18,7 +18,7 @@ export class NoticiasAdminComponent implements OnInit {
   newsList: News[] = [];
   isEditing = false;
   currentNewsId: number | null = null;
-  selectedFile: File | null = null; // Para almacenar el archivo seleccionado
+  selectedFile: File | null = null; // For storing the selected file
 
   constructor(private fb: FormBuilder, private noticiasService: NoticiasService) {}
 
@@ -27,24 +27,24 @@ export class NoticiasAdminComponent implements OnInit {
     this.loadNews();
   }
 
-  // Inicializar el formulario
+  // Initialize the form
   initializeForm(): void {
     this.newsForm = this.fb.group({
       titulo: ['', [Validators.required]],
       resumen: [''],
       contenido_completo: ['', [Validators.required]],
-      imagen: [null], // Campo para la imagen
+      imagen: [null], // Field for the image
     });
   }
 
-  // Manejar el cambio en la selección de archivos
+  // Handle file selection
   onFileChange(event: any): void {
     if (event.target.files && event.target.files.length) {
       this.selectedFile = event.target.files[0];
     }
   }
 
-  // Cargar noticias desde el servicio
+  // Load news from the service
   loadNews(): void {
     this.noticiasService.getNoticias().subscribe({
       next: (news) => (this.newsList = news),
@@ -53,39 +53,42 @@ export class NoticiasAdminComponent implements OnInit {
   }
 
   // Enviar el formulario
-  submitForm(): void {
-    if (this.newsForm.invalid) return;
+submitForm(): void {
+  if (this.newsForm.invalid) return;
 
-    const formData = new FormData();
-    formData.append('titulo', this.newsForm.get('titulo')?.value);
-    formData.append('resumen', this.newsForm.get('resumen')?.value || '');
-    formData.append('contenido_completo', this.newsForm.get('contenido_completo')?.value);
-    if (this.selectedFile) {
-      formData.append('imagen', this.selectedFile); // Adjuntar imagen
-    }
-
-    if (this.isEditing && this.currentNewsId !== null) {
-      // Editar noticia existente
-      this.noticiasService.updateNoticia(this.currentNewsId, formData).subscribe({
-        next: () => {
-          this.loadNews();
-          this.resetForm();
-        },
-        error: (err) => console.error('Error al actualizar la noticia:', err),
-      });
-    } else {
-      // Crear nueva noticia
-      this.noticiasService.createNoticia(formData).subscribe({
-        next: () => {
-          this.loadNews();
-          this.resetForm();
-        },
-        error: (err) => console.error('Error al crear la noticia:', err),
-      });
-    }
+  const formData = new FormData();
+  formData.append('titulo', this.newsForm.get('titulo')?.value);
+  formData.append('resumen', this.newsForm.get('resumen')?.value || '');
+  formData.append('contenido_completo', this.newsForm.get('contenido_completo')?.value);
+  if (this.selectedFile) {
+    formData.append('imagen', this.selectedFile); // Adjuntar la imagen
   }
 
-  // Editar noticia
+  if (this.isEditing && this.currentNewsId !== null) {
+    // Editar noticia existente
+    this.noticiasService.updateNoticia(this.currentNewsId, formData).subscribe({
+      next: () => {
+        this.loadNews();
+        this.resetForm();
+        alert('Noticia actualizada correctamente.');
+      },
+      error: (err) => console.error('Error al actualizar la noticia:', err),
+    });
+  } else {
+    // Crear nueva noticia
+    this.noticiasService.createNoticia(formData).subscribe({
+      next: () => {
+        this.loadNews();
+        this.resetForm();
+        alert('Noticia creada correctamente.');
+      },
+      error: (err) => console.error('Error al crear la noticia:', err),
+    });
+  }
+}
+
+
+  // Edit news
   editNews(news: News): void {
     if (news.id === undefined) {
       console.error('El ID de la noticia es inválido o no está definido.');
@@ -97,7 +100,7 @@ export class NoticiasAdminComponent implements OnInit {
     this.newsForm.patchValue(news);
   }
 
-  // Eliminar noticia
+  // Delete news
   deleteNews(newsId: number | undefined): void {
     if (!newsId) {
       console.error('El ID de la noticia es inválido o no está definido.');
@@ -112,11 +115,19 @@ export class NoticiasAdminComponent implements OnInit {
     }
   }
 
-  // Restablecer el formulario
-  resetForm(): void {
-    this.isEditing = false;
-    this.currentNewsId = null;
-    this.newsForm.reset();
-    this.selectedFile = null;
+  // Reset the form
+ // Restablecer el formulario
+resetForm(): void {
+  this.isEditing = false;
+  this.currentNewsId = null;
+  this.newsForm.reset();
+  this.selectedFile = null;
+
+  // Limpiar el input de archivo manualmente
+  const fileInput = document.getElementById('imagen') as HTMLInputElement;
+  if (fileInput) {
+      fileInput.value = '';
   }
+}
+
 }

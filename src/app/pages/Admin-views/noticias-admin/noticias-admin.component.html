@@ -47,15 +47,14 @@
           ></textarea>
         </div>
 
-        <div>
-          <label for="imagen" class="block text-sm font-medium text-gray-300">Imagen</label>
-          <input
-            id="imagen"
-            type="file"
-            (change)="onFileChange($event)"
-            class="w-full mt-1 p-2 border rounded-md bg-gray-700 text-white focus:ring-blue-500 focus:border-blue-500"
-          />
-        </div>
+        <input
+        id="imagen"
+        type="file"
+        (change)="onFileChange($event)"
+        class="w-full mt-1 p-2 border rounded-md bg-gray-700 text-white focus:ring-blue-500 focus:border-blue-500"
+    />
+    
+        
 
         <div class="flex justify-end space-x-4">
           <button
@@ -83,8 +82,8 @@
             <h3 class="text-lg font-bold">{{ news.titulo }}</h3>
             <p class="text-sm text-gray-400">{{ news.resumen }}</p>
             <img
-              *ngIf="news.imagen_url"
-              [src]="news.imagen_url"
+              *ngIf="news.imagen"
+              [src]="news.imagen"
               alt="{{ news.titulo }}"
               class="w-full h-48 object-cover rounded-md mt-2"
             />
