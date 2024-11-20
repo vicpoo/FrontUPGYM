@@ -1,0 +1,23 @@
+<div *ngIf="noticia" class="flex flex-col bg-black text-white min-h-screen">
+    <!-- Background image with the title -->
+    <div
+      class="relative h-64 sm:h-80 lg:h-96 bg-cover bg-center"
+      [style.backgroundImage]="'url(' + noticia.imagen_url + ')'"
+    >
+      <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-80"></div>
+      <div
+        class="absolute bottom-4 left-4 sm:bottom-8 sm:left-8 p-4 bg-black bg-opacity-70 rounded-lg shadow-lg"
+      >
+        <h1 class="text-xl sm:text-3xl font-bold">{{ noticia.titulo }}</h1>
+      </div>
+    </div>
+  
+    <!-- Main content -->
+    <div class="flex-1 px-4 py-6 sm:px-8 sm:py-10">
+      <p class="text-sm sm:text-base text-gray-400 mb-4">{{ noticia.resumen }}</p>
+      <p class="text-base sm:text-lg leading-relaxed text-gray-300">
+        {{ noticia.contenido_completo }}
+      </p>
+    </div>
+  </div>
+  

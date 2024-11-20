@@ -26,4 +26,9 @@ export class NoticiasService {
   deleteNoticia(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}${id}`);
   }
+
+  getNoticiaById(id: number): Observable<News> {
+    return this.http.get<News>(`${this.apiUrl}${id}`);
+  }
+  
 }
