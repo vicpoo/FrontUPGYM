@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NoticiasService } from '../../services/noticias.service';
 import { News } from '../../interfaces/news';
+import { Router } from '@angular/router'; // Importar Router
 
 @Component({
   selector: 'app-card-stack',
@@ -10,10 +11,10 @@ import { News } from '../../interfaces/news';
   templateUrl: './card-stack.component.html',
 })
 export class CardStackComponent implements OnInit {
-  news: News[] = []; // Trabajamos directamente con la interfaz News
+  news: News[] = []; // Noticias secundarias
   featuredNews: News | null = null; // Noticia destacada
 
-  constructor(private noticiasService: NoticiasService) {}
+  constructor(private noticiasService: NoticiasService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadNews();
@@ -36,5 +37,14 @@ export class CardStackComponent implements OnInit {
         console.error('Error al cargar noticias:', err);
       },
     });
+  }
+
+  // Navegar a la vista de detalle de la noticia
+  navigateToDetail(newsId: number | null | undefined): void {
+    if (newsId) {
+      this.router.navigate(['/noticia-detalle', newsId]);
+    } else {
+      console.error('ID de noticia inválido:', newsId);
+    }
   }
 }

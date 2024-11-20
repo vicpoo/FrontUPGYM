@@ -32,17 +32,18 @@ export class NoticiasComponent implements OnInit {
   loadNews(): void {
     this.noticiasService.getNoticias().subscribe({
       next: (news) => {
-        // Ensure each news item has a valid ID
         this.newsList = news.map((item) => ({
           ...item,
-          id: item.id ?? 0, // Assign a default value if id is undefined
+          id: item.id ?? 0,
         }));
+        console.log(this.newsList); // Inspeccionar los datos cargados
       },
       error: (err) => {
         console.error('Error loading news:', err);
       },
     });
   }
+  
 
   // Navigate to the detail view of a specific news item
   navigateToDetail(newsId: number | null | undefined): void {

@@ -47,22 +47,9 @@
         </div>
       </div>
 
-      <!-- News Cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
-        <ng-container *ngFor="let news of newsList">
-          <div
-            *ngIf="news.id !== 0"
-            class="relative bg-cover bg-center rounded-lg overflow-hidden shadow-md h-48 transition-transform transform hover:scale-105 hover:shadow-[0px_0px_15px_rgba(0,162,255,0.6),0px_0px_25px_rgba(0,162,255,0.4)]"
-            [style.backgroundImage]="'url(' + news.imagen + ')'"
-            (click)="navigateToDetail(news.id)"
-          >
-            <div class="absolute inset-0 bg-black bg-opacity-30 flex items-end p-2">
-              <h3 class="text-lg text-white font-semibold">{{ news.titulo }}</h3>
-            </div>
-          </div>
-        </ng-container>
-      </div>
-    </div>
+   <!-- Scrollable Content -->
+    <!-- News Cards (CardStackComponent) -->
+    <app-card-stack></app-card-stack>
   </div>
 </div>
 
