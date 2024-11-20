@@ -1,47 +1,56 @@
-<div class="flex flex-col items-center bg-black text-white h-screen p-4 space-y-4 hidden lg:flex">
-  <img src="assets/Logo.jpeg" alt="UPG&M Logo" class="w-16 h-16 rounded-full mb-4">
-  
-  <!-- Navigation Items for Desktop -->
-  <nav class="flex flex-col space-y-6 w-full">
-    <button routerLink="/home" routerLinkActive="active" class="flex items-center space-x-4 text-white hover:text-blue-400">
-      <img src="assets/home.png" alt="Home" class="w-8 h-8">
-      <span>Home</span>
-    </button>
-    <button routerLink="/exercise" routerLinkActive="active" class="flex items-center space-x-4 text-white hover:text-blue-400">
-      <img src="assets/gym.png" alt="Rutinas" class="w-8 h-8">
-      <span>Rutinas</span>
-    </button>
-    <button routerLink="/search" routerLinkActive="active" class="flex items-center space-x-4 text-white hover:text-blue-400">
-      <img src="assets/search.png" alt="Busqueda" class="w-8 h-8">
-      <span>Busqueda</span>
-    </button>
-    <button routerLink="/noticias" routerLinkActive="active" class="flex items-center space-x-4 text-white hover:text-blue-400">
-      <img src="assets/newspaper.png" alt="Noticias" class="w-8 h-8">
-      <span>Noticias</span>
-    </button>
-    <button routerLink="/profile" routerLinkActive="active" class="flex items-center space-x-4 text-white hover:text-blue-400">
-      <img src="assets/user.png" alt="Perfil" class="w-8 h-8">
-      <span>Perfil</span>
-    </button>
-  </nav>
+<div class="flex flex-col justify-between bg-black text-white h-screen p-4 hidden lg:flex relative">
+  <!-- Top Section -->
+  <div class="flex flex-col items-center space-y-4">
+    <!-- Logo -->
+    <img src="assets/Logo.jpeg" alt="UPG&M Logo" class="w-16 h-16 rounded-full mb-4">
+
+    <!-- Navigation Items -->
+    <nav class="flex flex-col space-y-6 w-full">
+      <button routerLink="/home" routerLinkActive="active" class="flex items-center space-x-4 text-white hover:text-blue-400">
+        <img src="assets/home.png" alt="Home" class="w-8 h-8">
+        <span>Home</span>
+      </button>
+      <button routerLink="/exercise" routerLinkActive="active" class="flex items-center space-x-4 text-white hover:text-blue-400">
+        <img src="assets/gym.png" alt="Rutinas" class="w-8 h-8">
+        <span>Rutinas</span>
+      </button>
+      <button routerLink="/search" routerLinkActive="active" class="flex items-center space-x-4 text-white hover:text-blue-400">
+        <img src="assets/search.png" alt="Busqueda" class="w-8 h-8">
+        <span>Busqueda</span>
+      </button>
+      <button routerLink="/noticias" routerLinkActive="active" class="flex items-center space-x-4 text-white hover:text-blue-400">
+        <img src="assets/newspaper.png" alt="Noticias" class="w-8 h-8">
+        <span>Noticias</span>
+      </button>
+      <button routerLink="/profile" routerLinkActive="active" class="flex items-center space-x-4 text-white hover:text-blue-400">
+        <img src="assets/user.png" alt="Perfil" class="w-8 h-8">
+        <span>Perfil</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Bottom Section (User Info) -->
+  <div class="w-full relative">
+    <div class="flex items-center justify-center space-x-4 px-4">
+      <button (click)="toggleMenu()" class="flex items-center space-x-2 w-full relative">
+        <img [src]="currentUser?.foto_perfil || 'assets/default-user.png'" alt="User Photo" class="w-10 h-10 rounded-full">
+        <span class="text-white text-sm">{{ currentUser?.name || 'Usuario' }}</span>
+      </button>
+
+      <!-- Dropdown Menu -->
+      <div
+        *ngIf="showMenu"
+        class="absolute bottom-[3rem] bg-black text-white rounded-lg shadow-lg p-2 w-48 z-50"
+      >
+        <button
+          (click)="logout()"
+          class="w-full text-left px-4 py-2 bg-black text-white hover:bg-gray-800 hover:text-gray-300 rounded"
+        >
+          Salir
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- Mobile Bottom Navigation -->
-<div class="fixed bottom-0 w-full bg-black text-white flex justify-around py-2 lg:hidden">
-  <button routerLink="/home" routerLinkActive="text-blue-400" class="flex flex-col items-center">
-    <img routerLink="/home" routerLinkActive="text-blue-400" src="assets/home.png" alt="Home" class="w-6 h-6">
-  </button>
-  <button routerLink="/exercise" routerLinkActive="text-blue-400" class="flex flex-col items-center">
-    <img routerLink="/exercise" routerLinkActive="text-blue-400" src="assets/gym.png" alt="Rutinas" class="w-6 h-6">
-  </button>
-  <button routerLink="/search" routerLinkActive="text-blue-400" class="flex flex-col items-center">
-    <img routerLink="/busqueda" routerLinkActive="text-blue-400" src="assets/search.png" alt="Busqueda" class="w-6 h-6">
-  </button>
-  <button routerLink="/noticias" routerLinkActive="text-blue-400" class="flex flex-col items-center">
-    <img routerLink="/noticias" routerLinkActive="text-blue-400" src="assets/newspaper.png" alt="Noticias" class="w-6 h-6">
-  </button>
-  <button routerLink="/profile" routerLinkActive="text-blue-400" class="flex flex-col items-center">
-    <img routerLink="/profile" routerLinkActive="text-blue-400" src="assets/user.png" alt="Perfil" class="w-6 h-6 rounded-full">
-  </button>
-</div>
 

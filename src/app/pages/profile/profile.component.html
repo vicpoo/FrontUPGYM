@@ -64,20 +64,31 @@
           <p class="text-gray-300 text-sm">{{ post.descripcion }}</p>
         </div>
 
-        <!-- Opciones: Editar y Eliminar -->
-        <div class="flex justify-between px-4 pb-4">
+        <!-- Menú de tres puntos -->
+        <div class="absolute top-2 right-2">
           <button
-            (click)="openEditPostModal(post)"
-            class="bg-blue-600 text-white py-1 px-2 rounded"
+            (click)="togglePostMenu(post.id)"
+            class="p-2 bg-gray-700 rounded-full hover:bg-gray-600 focus:outline-none"
           >
-            Editar
+            ...
           </button>
-          <button
-            (click)="deletePost(post.id)"
-            class="bg-red-600 text-white py-1 px-2 rounded"
+          <div
+            *ngIf="isMenuOpen[post.id]"
+            class="absolute right-0 mt-2 bg-gray-700 rounded-lg shadow-lg z-50 w-40"
           >
-            Eliminar
-          </button>
+            <button
+              (click)="openEditPostModal(post)"
+              class="block w-full text-left px-4 py-2 hover:bg-gray-600 text-white"
+            >
+              Editar
+            </button>
+            <button
+              (click)="deletePost(post.id)"
+              class="block w-full text-left px-4 py-2 hover:bg-red-600 text-white"
+            >
+              Eliminar
+            </button>
+          </div>
         </div>
       </div>
     </div>

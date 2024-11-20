@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SidebarComponent } from '../../component/sidebar/sidebar.component';
-import { BottomNavComponent } from '../../component/bottom-nav/bottom-nav.component';
 import { UserService } from '../../services/user.service';
 import { PostService } from '../../services/post.service';
 import { QuestionService } from '../../services/question.service';
@@ -14,8 +13,7 @@ import { Post } from '../../interfaces/post';
   imports: [
     CommonModule,
     FormsModule,
-    SidebarComponent,
-    BottomNavComponent,
+    SidebarComponent, // Removed BottomNavComponent as it's unused
   ],
   templateUrl: './profile.component.html',
 })
@@ -23,6 +21,8 @@ export class ProfileComponent implements OnInit {
   isEditModalOpen = false;
   isPostModalOpen = false;
   isQuestionModalOpen = false;
+
+  isMenuOpen: { [postId: number]: boolean } = {}; // Dynamic state for menus
 
   user: any = {
     id: null,
@@ -55,7 +55,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadUserProfile();
-    this.loadPosts(); // Cargar publicaciones del usuario actual
+    this.loadPosts(); // Load user posts
   }
 
   loadUserProfile(): void {
@@ -67,7 +67,7 @@ export class ProfileComponent implements OnInit {
           correo: data.correo,
           description: data.descripcion || 'Sin descripción',
           foto_perfil: data.foto_perfil
-            ? `data:image/jpeg;base64,${data.foto_perfil}` // Fixed backticks for template literal
+            ? `data:image/jpeg;base64,${data.foto_perfil}`
             : '/customIDfoto',
         };
       },
@@ -76,16 +76,13 @@ export class ProfileComponent implements OnInit {
       },
     });
   }
+
   loadPosts(): void {
     this.postService.getPosts().subscribe({
       next: (posts) => {
-        this.user.posts = posts
-          .filter((post) => post.usuario_id === this.user.id)
-          .map((post) => ({
-            ...post,
-            imagen: post.imagen,
-            descripcion: post.descripcion,
-          }));
+        this.user.posts = posts.filter(
+          (post) => post.usuario_id === this.user.id
+        );
       },
       error: (err) => {
         console.error('Error al cargar las publicaciones:', err);
@@ -93,7 +90,15 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  // Métodos para editar perfil
+  togglePostMenu(postId: number): void {
+    this.isMenuOpen[postId] = !this.isMenuOpen[postId];
+  }
+
+  closeAllMenus(): void {
+    this.isMenuOpen = {};
+  }
+
+  // Methods for handling modals
   openEditModal(): void {
     this.isEditModalOpen = true;
   }
@@ -135,7 +140,7 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  // Métodos para los posts
+  // Methods for posts
   openPostModal(): void {
     this.isPostModalOpen = true;
   }
@@ -160,14 +165,14 @@ export class ProfileComponent implements OnInit {
   createOrUpdatePost(): void {
     const formData = new FormData();
     formData.append('descripcion', this.newPost.descripcion);
-  
-    // Type guard to check if imagen is a File
+
+    // Check if the image is a File before appending
     if (this.newPost.imagen && typeof this.newPost.imagen !== 'string') {
-      formData.append('imagen', this.newPost.imagen); // It's safe to append the File here
+      formData.append('imagen', this.newPost.imagen);
     }
-    
+
     formData.append('usuario_id', this.user.id.toString());
-  
+
     if (this.newPost.id) {
       // Edit existing post
       this.postService.updatePost(this.newPost.id, formData).subscribe({
@@ -200,14 +205,13 @@ export class ProfileComponent implements OnInit {
       });
     }
   }
-  
 
   deletePost(postId: number): void {
     if (!postId) {
       console.error('El ID de la publicación no es válido.');
       return;
     }
-  
+
     if (confirm('¿Estás seguro de que deseas eliminar esta publicación?')) {
       this.postService.deletePost(postId).subscribe({
         next: () => {
@@ -222,9 +226,8 @@ export class ProfileComponent implements OnInit {
       });
     }
   }
-  
 
-  // Métodos para preguntas
+  // Methods for questions
   openQuestionModal(): void {
     this.isQuestionModalOpen = true;
   }
