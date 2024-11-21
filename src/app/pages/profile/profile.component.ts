@@ -7,6 +7,7 @@ import { UserService } from '../../services/user.service';
 import { PostService } from '../../services/post.service';
 import { QuestionService } from '../../services/question.service';
 import { Post } from '../../interfaces/post';
+import { BottomNavComponent } from '../../component/bottom-nav/bottom-nav.component';
 
 @Component({
   selector: 'app-profile',
@@ -15,6 +16,7 @@ import { Post } from '../../interfaces/post';
     CommonModule,
     FormsModule,
     SidebarComponent,
+    BottomNavComponent,
     PostDetailComponent, // Importa el PostDetailComponent
   ],
   templateUrl: './profile.component.html',
@@ -69,7 +71,7 @@ export class ProfileComponent implements OnInit {
           correo: data.correo,
           description: data.descripcion || 'Sin descripción',
           foto_perfil: data.foto_perfil
-            ? `data:image/jpeg;base64,${data.foto_perfil}`
+            ? 'data:image/jpeg;base64,${data.foto_perfil}'
             : '/customIDfoto',
         };
       },

@@ -1,31 +1,27 @@
 <div class="flex bg-black min-h-screen text-white">
-    <!-- Sidebar for desktop -->
-    <app-sidebar class="hidden lg:block"></app-sidebar>
-  
-    <!-- Main Content -->
-    <div class="flex-1 p-6 space-y-6 overflow-y-auto">  
-      <h1 class="text-3xl font-bold border-b border-blue-500 pb-2">Rutinas</h1>
-  
-      <!-- Subscription Section -->
-      <div class="text-center rounded-lg p-2 max-w-sm mx-auto bg-transparent">
-        <img src="assets/subscribete2.gif" alt="" class="w-3/4 mx-auto">
-    </div>
+  <!-- Sidebar for desktop -->
+  <app-sidebar class="hidden lg:block"></app-sidebar>
 
-  
+  <!-- Main Content -->
+  <div class="flex-1 p-6 space-y-6 overflow-y-auto">
+    <h1 class="text-3xl font-bold border-b border-blue-500 pb-2">Rutinas</h1>
+
+    <!-- Row Container for Subscription and Exercise Level -->
+    <div class="flex items-center justify-between gap-6">
       <!-- Exercise Level Selection -->
-      <div class="text-center mt-8">
+      <div class="text-center flex-1">
         <h2 class="text-lg font-semibold mb-6">Escoge un nivel de Ejercicios</h2>
-  
-        <!-- Exercise Level Buttons with RouterLink -->
+
+        <!-- Exercise Level Buttons -->
         <div class="flex flex-col items-center space-y-6">
           <button routerLink="/exercise-ubication" class="w-full max-w-xs bg-blue-800 text-white font-bold py-4 rounded-full hover:bg-blue-700 text-2xl">
             BASICO
           </button>
-  
+
           <button routerLink="/exercise-interubication" class="w-full max-w-xs bg-blue-800 text-white font-bold py-4 rounded-full hover:bg-blue-700 text-2xl">
             INTERMEDIO
           </button>
-  
+
           <!-- Locked Advanced Button -->
           <button routerLink="" class="w-full max-w-xs bg-blue-800 text-white font-bold py-4 rounded-full opacity-50 cursor-not-allowed relative text-2xl">
             AVANZADO
@@ -35,9 +31,19 @@
           </button>
         </div>
       </div>
+
+      <!-- Subscription Section -->
+      <div class="rounded-lg p-2 max-w-sm bg-transparent" (click)="openPremium()">
+        <img src="assets/subscribete2.gif" alt="" class="w-3/4 mx-auto cursor-pointer">
+      </div>
     </div>
-  
-    <!-- Bottom Navigation for Mobile -->
-    <app-bottom-nav class="lg:hidden fixed bottom-0 w-full"></app-bottom-nav>
+
+    <!-- Premium Modal -->
+    <div *ngIf="showPremium" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <app-premium (closed)="closePremium()"></app-premium>
+    </div>
   </div>
-  
+
+  <!-- Bottom Navigation for Mobile -->
+  <app-bottom-nav class="lg:hidden fixed bottom-0 w-full"></app-bottom-nav>
+</div>
