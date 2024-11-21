@@ -22,6 +22,13 @@ import { NoticiaDetalleComponent } from './component/noticia-detalle/noticia-det
 import { NoticiasAdminComponent } from './pages/Admin-views/noticias-admin/noticias-admin.component';
 import { Profileadmin } from './pages/Admin-views/profiles-admin/profile-admin.component';
 import { premiumAdmin } from './pages/Admin-views/Premium-admin/Premium-admin.component';
+  /*RUTAS DEL Ejercicio ADMIN (no borres) */
+import { ExerciseAdminLevelComponent } from './pages/Admin-views/Exercise-admin/Exercise-admin-level.component';
+import { Exerciseadminavanubicationcomponent } from './pages/Admin-views/Exercise-admin/Exercise-admin-avanzado/Exercise-admin-avan-ubication/Exercise-admin-avan-ubication.component';
+import { Exerciseadmininterubicationcomponent } from './pages/Admin-views/Exercise-admin/Exercise-admin-intermedio/Exercise-admin-intermedio-ubication/Exercise-admin-inter-ubication.component';
+import { Exerciseadminubicationcomponent } from './pages/Admin-views/Exercise-admin/Exercise-admin-basic/Exercise-admin-basic-ubication/Exercise-admin-ubication.component';
+
+
 
 export const routes: Routes = [
   { path: '', component: InicioComponent },
@@ -47,6 +54,14 @@ export const routes: Routes = [
   { path: 'noticias-admin', component: NoticiasAdminComponent, canActivate: [AuthGuard] },
   { path: 'profile-admin', component: Profileadmin, canActivate: [AuthGuard] },
   { path: 'premium-admin', component: premiumAdmin, canActivate: [AuthGuard] },
+  /*RUTAS DEL Ejercicio ADMIN (no borres) */
+  { path: 'Exercise-admin-avan-ubication', component: Exerciseadminavanubicationcomponent, canActivate: [AuthGuard] },
+  { path: 'Exercise-admin-inter-ubication', component: Exerciseadmininterubicationcomponent, canActivate: [AuthGuard] },
+  { path: 'Exercise-admin-ubication', component: Exerciseadminubicationcomponent, canActivate: [AuthGuard] },
+  { path: 'Exercise-admin-level', component: ExerciseAdminLevelComponent, canActivate: [AuthGuard] },
+
+
+
 
 
   { path: '**', redirectTo: '' } 

@@ -1,0 +1,154 @@
+<div class="flex bg-black h-screen text-white">
+    <app-sidebar class="hidden lg:block"></app-sidebar>
+
+    <!-- Main Content -->
+    <div class="flex-1 p-6 space-y-6 overflow-y-auto">
+        <h1 class="text-3xl font-bold border-b border-blue-500 pb-2">Rutinas Admin</h1>
+
+        <!-- Add New Routines Button -->
+        <div class="flex justify-end">
+            <button 
+                class="px-6 py-2.5 text-center text-white bg-green-600 border-2 border-green-600 rounded-full hover:bg-transparent hover:text-green-600 hover:border-green-600 transition-colors duration-200"
+                (click)="openImage('edit')"
+            >
+                Agregar nuevas rutinas
+            </button>
+        </div>
+
+        <!-- Exercise Level Selection -->
+        <h2 class="text-2xl lg:text-3xl text-center font-semibold mt-6">AVANZADO</h2>
+
+        <!-- Carousel Section with New Styled Controls -->
+        <div class="flex items-center justify-center space-x-4 lg:space-x-6">
+            <!-- Previous Button -->
+            <div 
+                (click)="prevExercise()" 
+                class="flex flex-col p-4 cursor-pointer hover:scale-105 transition-transform duration-200 border border-[rgba(0,162,255,0.6)] rounded-3xl hover:shadow-[0px_0px_15px_rgba(0,162,255,0.6),0px_0px_25px_rgba(0,162,255,0.4)]"
+            >
+                <span class="text-white text-2xl">&#10094;</span>
+            </div>
+
+            <!-- Exercise Card with RGB Border -->
+            <div class="flex flex-col rounded-3xl overflow-hidden shadow-md w-64 h-80 lg:w-80 lg:h-96 text-center border border-[rgba(0,162,255,0.6)] hover:shadow-[0px_0px_15px_rgba(0,162,255,0.6),0px_0px_25px_rgba(0,162,255,0.4)] transition-transform transform hover:scale-105">
+                <div class="px-6 py-8 sm:p-10 sm:pb-6 bg-black bg-opacity-50 rounded-3xl">
+                    <img [src]="exercises[currentExercise].image" alt="{{exercises[currentExercise].title}}" class="w-full h-40 lg:h-48 object-cover rounded-md mb-4">
+                    <h3 class="text-lg font-semibold text-white lg:text-2xl">{{exercises[currentExercise].title}}</h3>
+                </div>
+                <div class="flex flex-col px-6 pb-8 space-y-2 sm:px-8">
+                    <!-- Edit Button -->
+                    <button 
+                        class="w-full px-6 py-2.5 text-center text-white bg-yellow-500 border-2 border-yellow-500 rounded-full hover:bg-transparent hover:text-yellow-500 hover:border-yellow-500 transition-colors duration-200"
+                        (click)="openImage('edit')"
+                    >
+                        Editar
+                    </button>
+                    <!-- Delete Button -->
+                    <button 
+                        class="w-full px-6 py-2.5 text-center text-white bg-red-600 border-2 border-red-600 rounded-full hover:bg-transparent hover:text-red-600 hover:border-red-600 transition-colors duration-200"
+                        (click)="openImage('delete')"
+                    >
+                        Eliminar
+                    </button>
+                    <!-- View Button -->
+                    <button 
+                        routerLink="/exercise-rutines"
+                        class="w-full px-6 py-2.5 text-center text-white bg-blue-900 border-2 border-blue-900 rounded-full hover:bg-transparent hover:text-white hover:border-white transition-colors duration-200"
+                    >
+                        Ver
+                    </button>
+                </div>
+            </div>
+
+            <!-- Next Button -->
+            <div 
+                (click)="nextExercise()" 
+                class="flex flex-col p-4 cursor-pointer hover:scale-105 transition-transform duration-200 border border-[rgba(0,162,255,0.6)] rounded-3xl hover:shadow-[0px_0px_15px_rgba(0,162,255,0.6),0px_0px_25px_rgba(0,162,255,0.4)]"
+            >
+                <span class="text-white text-2xl">&#10095;</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div *ngIf="selectedImage" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80">
+        <div class="relative">
+            <img [src]="selectedImage" alt="Modal Image" class="max-w-full max-h-full rounded-md">
+            <button 
+                class="absolute top-2 right-2 bg-red-600 text-white px-3 py-1 rounded-full"
+                (click)="closeModal()"
+            >
+                X
+            </button>
+        </div>
+    </div>
+
+
+
+
+ <!-- Exercise Level Selection GYM -->
+ <h2 class="text-2xl lg:text-3xl text-center font-semibold mt-6">AVANZADO GYM</h2>
+
+ <!-- Carousel Section with New Styled Controls -->
+ <div class="flex items-center justify-center space-x-4 lg:space-x-6">
+     <!-- Previous Button -->
+     <div 
+         (click)="prevExercise()" 
+         class="flex flex-col p-4 cursor-pointer hover:scale-105 transition-transform duration-200 border border-[rgba(0,162,255,0.6)] rounded-3xl hover:shadow-[0px_0px_15px_rgba(0,162,255,0.6),0px_0px_25px_rgba(0,162,255,0.4)]"
+     >
+         <span class="text-white text-2xl">&#10094;</span>
+     </div>
+
+     <!-- Exercise Card with RGB Border -->
+     <div class="flex flex-col rounded-3xl overflow-hidden shadow-md w-64 h-80 lg:w-80 lg:h-96 text-center border border-[rgba(0,162,255,0.6)] hover:shadow-[0px_0px_15px_rgba(0,162,255,0.6),0px_0px_25px_rgba(0,162,255,0.4)] transition-transform transform hover:scale-105">
+         <div class="px-6 py-8 sm:p-10 sm:pb-6 bg-black bg-opacity-50 rounded-3xl">
+             <img [src]="exercises[currentExercise].image" alt="{{exercises[currentExercise].title}}" class="w-full h-40 lg:h-48 object-cover rounded-md mb-4">
+             <h3 class="text-lg font-semibold text-white lg:text-2xl">{{exercises[currentExercise].title}}</h3>
+         </div>
+         <div class="flex flex-col px-6 pb-8 space-y-2 sm:px-8">
+             <!-- Edit Button -->
+             <button 
+                 class="w-full px-6 py-2.5 text-center text-white bg-yellow-500 border-2 border-yellow-500 rounded-full hover:bg-transparent hover:text-yellow-500 hover:border-yellow-500 transition-colors duration-200"
+                 (click)="openImage('edit')"
+             >
+                 Editar
+             </button>
+             <!-- Delete Button -->
+             <button 
+                 class="w-full px-6 py-2.5 text-center text-white bg-red-600 border-2 border-red-600 rounded-full hover:bg-transparent hover:text-red-600 hover:border-red-600 transition-colors duration-200"
+                 (click)="openImage('delete')"
+             >
+                 Eliminar
+             </button>
+             <!-- View Button -->
+             <button 
+                 routerLink="/exercise-rutines"
+                 class="w-full px-6 py-2.5 text-center text-white bg-blue-900 border-2 border-blue-900 rounded-full hover:bg-transparent hover:text-white hover:border-white transition-colors duration-200"
+             >
+                 Ver
+             </button>
+         </div>
+     </div>
+
+     <!-- Next Button -->
+     <div 
+         (click)="nextExercise()" 
+         class="flex flex-col p-4 cursor-pointer hover:scale-105 transition-transform duration-200 border border-[rgba(0,162,255,0.6)] rounded-3xl hover:shadow-[0px_0px_15px_rgba(0,162,255,0.6),0px_0px_25px_rgba(0,162,255,0.4)]"
+     >
+         <span class="text-white text-2xl">&#10095;</span>
+     </div>
+ </div>
+
+
+
+
+
+
+
+
+
+
+    
+
+    <!-- Bottom Navigation for Mobile -->
+    <app-bottom-nav class="lg:hidden"></app-bottom-nav>
+</div>

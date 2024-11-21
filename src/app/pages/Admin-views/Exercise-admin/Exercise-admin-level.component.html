@@ -6,32 +6,24 @@
     <div class="flex-1 p-6 space-y-6 overflow-y-auto">  
       <h1 class="text-3xl font-bold border-b border-blue-500 pb-2">Rutinas</h1>
   
-      <!-- Subscription Section -->
-      <div class="text-center rounded-lg p-2 max-w-sm mx-auto bg-transparent">
-        <img src="assets/subscribete2.gif" alt="" class="w-3/4 mx-auto">
-    </div>
-
-  
-      <!-- Exercise Level Selection -->
+        <!-- Exercise Level Selection -->
       <div class="text-center mt-8">
         <h2 class="text-lg font-semibold mb-6">Escoge un nivel de Ejercicios</h2>
   
         <!-- Exercise Level Buttons with RouterLink -->
         <div class="flex flex-col items-center space-y-6">
-          <button routerLink="/exercise-ubication" class="w-full max-w-xs bg-blue-800 text-white font-bold py-4 rounded-full hover:bg-blue-700 text-2xl">
+          <button routerLink="/Exercise-admin-ubication" class="w-full max-w-xs bg-blue-800 text-white font-bold py-4 rounded-full hover:bg-blue-700 text-2xl">
             BASICO
           </button>
   
-          <button routerLink="/exercise-interubication" class="w-full max-w-xs bg-blue-800 text-white font-bold py-4 rounded-full hover:bg-blue-700 text-2xl">
+          <button routerLink="/Exercise-admin-inter-ubication" class="w-full max-w-xs bg-blue-800 text-white font-bold py-4 rounded-full hover:bg-blue-700 text-2xl">
             INTERMEDIO
           </button>
   
           <!-- Locked Advanced Button -->
-          <button routerLink="" class="w-full max-w-xs bg-blue-800 text-white font-bold py-4 rounded-full opacity-50 cursor-not-allowed relative text-2xl">
+          <button routerLink="/Exercise-admin-avan-ubication" class="w-full max-w-xs bg-blue-800 text-white font-bold py-4 rounded-full opacity-50 cursor-not-allowed relative text-2xl">
             AVANZADO
-            <span class="absolute right-4 top-1/2 transform -translate-y-1/2">
-              <i class="fas fa-lock"></i>
-            </span>
+            
           </button>
         </div>
       </div>
