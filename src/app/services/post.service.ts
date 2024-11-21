@@ -7,7 +7,8 @@ import { Post } from '../interfaces/post';
   providedIn: 'root',
 })
 export class PostService {
-  private baseUrl = 'http://127.0.0.1:8000/posts/'; // URL base para obtener publicaciones
+  private baseUrl = 'http://127.0.0.1:8000/posts/'; // URL base para publicaciones
+  private likeUrl = 'http://127.0.0.1:8000/like/'; // URL base para likes
 
   constructor(private http: HttpClient) {}
 
@@ -23,13 +24,22 @@ export class PostService {
 
   // Actualizar una publicación existente
   updatePost(postId: number, postData: FormData): Observable<Post> {
-    // Usar backticks (`) para interpolar postId en la URL
     return this.http.put<Post>(`http://127.0.0.1:8000/post/${postId}`, postData);
   }
 
   // Eliminar una publicación
   deletePost(postId: number): Observable<void> {
-    // Usar backticks (`) para interpolar postId en la URL
     return this.http.delete<void>(`http://127.0.0.1:8000/post/${postId}`);
+  }
+
+  // Agregar un like
+  addLike(postId: number, userId: number): Observable<any> {
+    const data = { publicacion_id: postId, usuario_id: userId };
+    return this.http.post(this.likeUrl, data);
+  }
+
+  // Eliminar un like
+  removeLike(likeId: number): Observable<any> {
+    return this.http.delete(`${this.likeUrl}${likeId}`);
   }
 }

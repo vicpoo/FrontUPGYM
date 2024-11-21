@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SidebarComponent } from '../../component/sidebar/sidebar.component';
+import { PostDetailComponent } from '../../component/PostDetailComponent/post-detail.component'; // Importa PostDetailComponent
 import { UserService } from '../../services/user.service';
 import { PostService } from '../../services/post.service';
 import { QuestionService } from '../../services/question.service';
@@ -13,7 +14,8 @@ import { Post } from '../../interfaces/post';
   imports: [
     CommonModule,
     FormsModule,
-    SidebarComponent, // Removed BottomNavComponent as it's unused
+    SidebarComponent,
+    PostDetailComponent, // Importa el PostDetailComponent
   ],
   templateUrl: './profile.component.html',
 })
@@ -21,8 +23,7 @@ export class ProfileComponent implements OnInit {
   isEditModalOpen = false;
   isPostModalOpen = false;
   isQuestionModalOpen = false;
-
-  isMenuOpen: { [postId: number]: boolean } = {}; // Dynamic state for menus
+  isMenuOpen: { [postId: number]: boolean } = {}; // Estado dinámico para los menús
 
   user: any = {
     id: null,
@@ -34,6 +35,7 @@ export class ProfileComponent implements OnInit {
     posts: [],
   };
 
+  selectedPost: Post | null = null; // Almacena la publicación seleccionada
   selectedImage: File | null = null;
 
   newPost: Post = {
@@ -55,7 +57,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadUserProfile();
-    this.loadPosts(); // Load user posts
+    this.loadPosts(); // Cargar publicaciones del usuario
   }
 
   loadUserProfile(): void {
@@ -90,15 +92,32 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  togglePostMenu(postId: number): void {
-    this.isMenuOpen[postId] = !this.isMenuOpen[postId];
+  togglePostMenu(postId: number, event: Event): void {
+    event.stopPropagation();
+    this.isMenuOpen = { [postId]: !this.isMenuOpen[postId] };
   }
 
   closeAllMenus(): void {
     this.isMenuOpen = {};
   }
 
-  // Methods for handling modals
+  @HostListener('document:click', ['$event'])
+  handleOutsideClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.relative')) {
+      this.closeAllMenus();
+    }
+  }
+
+  openPostDetail(post: Post): void {
+    this.selectedPost = post; // Almacena el post seleccionado
+  }
+
+  closePostDetail(): void {
+    this.selectedPost = null; // Cierra el modal limpiando el post seleccionado
+  }
+
+  // Métodos para manejar modales existentes
   openEditModal(): void {
     this.isEditModalOpen = true;
   }
@@ -140,7 +159,7 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  // Methods for posts
+  // Métodos para manejar publicaciones
   openPostModal(): void {
     this.isPostModalOpen = true;
   }
@@ -166,7 +185,6 @@ export class ProfileComponent implements OnInit {
     const formData = new FormData();
     formData.append('descripcion', this.newPost.descripcion);
 
-    // Check if the image is a File before appending
     if (this.newPost.imagen && typeof this.newPost.imagen !== 'string') {
       formData.append('imagen', this.newPost.imagen);
     }
@@ -174,7 +192,6 @@ export class ProfileComponent implements OnInit {
     formData.append('usuario_id', this.user.id.toString());
 
     if (this.newPost.id) {
-      // Edit existing post
       this.postService.updatePost(this.newPost.id, formData).subscribe({
         next: (updatedPost) => {
           alert('Publicación actualizada correctamente.');
@@ -189,7 +206,6 @@ export class ProfileComponent implements OnInit {
         },
       });
     } else {
-      // Create a new post
       this.postService.createPost(formData).subscribe({
         next: (createdPost) => {
           alert('Publicación creada correctamente.');
@@ -207,11 +223,6 @@ export class ProfileComponent implements OnInit {
   }
 
   deletePost(postId: number): void {
-    if (!postId) {
-      console.error('El ID de la publicación no es válido.');
-      return;
-    }
-
     if (confirm('¿Estás seguro de que deseas eliminar esta publicación?')) {
       this.postService.deletePost(postId).subscribe({
         next: () => {
@@ -227,7 +238,7 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  // Methods for questions
+  // Métodos para preguntas
   openQuestionModal(): void {
     this.isQuestionModalOpen = true;
   }

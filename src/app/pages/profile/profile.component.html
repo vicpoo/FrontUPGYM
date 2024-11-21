@@ -32,7 +32,7 @@
           (click)="openEditModal()"
           class="bg-blue-600 py-2 px-6 rounded-lg text-white"
         >
-          Editar perfil
+          Editar
         </button>
         <button
           (click)="openPostModal()"
@@ -58,41 +58,54 @@
       >
         <!-- Imagen de la publicación -->
         <img [src]="post.imagen" alt="Post Image" class="w-full h-48 object-cover" />
+<!-- Descripción con menú de tres puntos -->
+<div class="p-4 flex items-center justify-between">
+  <p class="text-gray-300 text-sm">{{ post.descripcion }}</p>
+  <div class="relative">
+    <button
+      (click)="togglePostMenu(post.id, $event)"
+      class="p-2 bg-gray-700 rounded-full hover:bg-gray-600 focus:outline-none"
+    >
+      ...
+    </button>
+    <div
+      *ngIf="isMenuOpen[post.id]"
+      class="absolute right-0 bottom-full mb-2 bg-gray-700 rounded-lg shadow-lg z-50 w-40"
+    >
+      <button
+        (click)="openEditPostModal(post); closeAllMenus()"
+        class="block w-full text-left px-4 py-2 hover:bg-gray-600 text-white"
+      >
+        Editar
+      </button>
+      <button
+        (click)="deletePost(post.id); closeAllMenus()"
+        class="block w-full text-left px-4 py-2 hover:bg-red-600 text-white"
+      >
+        Eliminar
+      </button>
+    </div>
+  </div>
+</div>
 
-        <!-- Descripción -->
-        <div class="p-4">
-          <p class="text-gray-300 text-sm">{{ post.descripcion }}</p>
-        </div>
 
-        <!-- Menú de tres puntos -->
-        <div class="absolute top-2 right-2">
-          <button
-            (click)="togglePostMenu(post.id)"
-            class="p-2 bg-gray-700 rounded-full hover:bg-gray-600 focus:outline-none"
-          >
-            ...
-          </button>
-          <div
-            *ngIf="isMenuOpen[post.id]"
-            class="absolute right-0 mt-2 bg-gray-700 rounded-lg shadow-lg z-50 w-40"
-          >
-            <button
-              (click)="openEditPostModal(post)"
-              class="block w-full text-left px-4 py-2 hover:bg-gray-600 text-white"
-            >
-              Editar
-            </button>
-            <button
-              (click)="deletePost(post.id)"
-              class="block w-full text-left px-4 py-2 hover:bg-red-600 text-white"
-            >
-              Eliminar
-            </button>
-          </div>
-        </div>
+        <!-- Botón para abrir detalles del post -->
+        <button
+          (click)="openPostDetail(post)"
+          class="bg-blue-500 text-white px-4 py-2 rounded mt-2 w-full"
+        >
+          Ver detalles
+        </button>
       </div>
     </div>
   </div>
+
+  <!-- Modal para detalles del post -->
+  <app-post-detail
+    *ngIf="selectedPost"
+    [post]="selectedPost"
+    (close)="closePostDetail()"
+  ></app-post-detail>
 
   <!-- Edit Profile Modal -->
   <div

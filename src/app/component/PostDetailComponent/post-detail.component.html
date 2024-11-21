@@ -1,0 +1,82 @@
+<div class="fixed inset-0 flex bg-black bg-opacity-90 text-white">
+    <!-- Imagen del post -->
+    <div class="flex-1 flex items-center justify-center">
+      <img [src]="post.imagen" alt="Post Image" class="max-h-screen w-auto object-cover" />
+    </div>
+  
+    <!-- Información del post -->
+    <div class="w-96 bg-gray-900 h-full overflow-y-auto flex flex-col">
+      <!-- Header -->
+      <div class="p-4 flex items-center justify-between border-b border-gray-700">
+        <div class="flex items-center space-x-3">
+          <img
+            [src]="post.usuario?.foto_perfil || '/assets/default-profile.png'"
+            alt="User Profile"
+            class="w-10 h-10 rounded-full"
+          />
+          <div>
+            <h3 class="text-sm font-semibold">{{ post.usuario?.nombre_usuario }}</h3>
+            <p class="text-xs text-gray-400">{{ post.fecha_publicacion | date: 'mediumDate' }}</p>
+          </div>
+        </div>
+        <button class="text-gray-400 hover:text-white" (click)="closeModal()">
+          ✕
+        </button>
+      </div>
+  
+      <!-- Descripción del post -->
+      <div class="p-4">
+        <p class="text-sm">{{ post.descripcion }}</p>
+      </div>
+  
+      <!-- Likes -->
+      <div class="p-4 flex items-center border-t border-gray-700">
+        <button
+          (click)="toggleLike()"
+          class="text-2xl mr-3"
+          [ngClass]="{ 'text-red-500': liked, 'text-gray-400': !liked }"
+        >
+          <i [ngClass]="{ 'fas fa-heart': liked, 'far fa-heart': !liked }"></i>
+        </button>
+        <span class="text-sm">{{ likesCount }} Me gusta</span>
+      </div>
+  
+      <!-- Comentarios -->
+      <div class="flex-1 p-4 overflow-y-auto">
+        <h3 class="text-sm font-semibold mb-3">Comentarios</h3>
+        <div *ngFor="let comment of comments" class="mb-3 flex items-start">
+          <img
+            [src]="comment.usuario?.foto_perfil || '/assets/default-profile.png'"
+            alt="Comment User"
+            class="w-8 h-8 rounded-full mr-3"
+          />
+          <div>
+            <p class="text-sm">
+              <span class="font-semibold">{{ comment.usuario?.nombre_usuario }}</span>
+              {{ comment.contenido }}
+            </p>
+            <p class="text-xs text-gray-400">{{ comment.fecha_comentario | date: 'short' }}</p>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Agregar un comentario -->
+      <div class="p-4 border-t border-gray-700">
+        <form (ngSubmit)="addComment()" class="flex items-center space-x-3">
+          <textarea
+            [(ngModel)]="newComment"
+            [ngModelOptions]="{ standalone: true }"
+            placeholder="Añade un comentario..."
+            class="flex-1 px-4 py-2 rounded bg-gray-800 border border-gray-600 text-white"
+          ></textarea>
+          <button
+            type="submit"
+            class="bg-blue-600 px-4 py-2 rounded text-sm font-semibold hover:bg-blue-500"
+          >
+            Publicar
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  

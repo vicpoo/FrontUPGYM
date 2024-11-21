@@ -26,31 +26,12 @@
         <img src="assets/user.png" alt="Perfil" class="w-8 h-8">
         <span>Perfil</span>
       </button>
-    </nav>
-  </div>
-
-  <!-- Bottom Section (User Info) -->
-  <div class="w-full relative">
-    <div class="flex items-center justify-center space-x-4 px-4">
-      <button (click)="toggleMenu()" class="flex items-center space-x-2 w-full relative">
-        <img [src]="currentUser?.foto_perfil || 'assets/default-user.png'" alt="User Photo" class="w-10 h-10 rounded-full">
-        <span class="text-white text-sm">{{ currentUser?.name || 'Usuario' }}</span>
+      <button routerLink="/" routerLinkActive="active" class="flex items-center space-x-4 text-white hover:text-blue-400">
+        <img src="assets/exit.png" alt="salida" class="w-8 h-8">
+        <span>Cerrar sesión</span>
       </button>
-
-      <!-- Dropdown Menu -->
-      <div
-        *ngIf="showMenu"
-        class="absolute bottom-[3rem] bg-black text-white rounded-lg shadow-lg p-2 w-48 z-50"
-      >
-        <button
-          (click)="logout()"
-          class="w-full text-left px-4 py-2 bg-black text-white hover:bg-gray-800 hover:text-gray-300 rounded"
-        >
-          Salir
-        </button>
-      </div>
-    </div>
-  </div>
+    </nav>
+  </div>  
 </div>
 
 
