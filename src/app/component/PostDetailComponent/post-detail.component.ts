@@ -52,7 +52,15 @@ export class PostDetailComponent implements OnInit {
   loadComments(): void {
     this.commentService.getComments(this.post.id).subscribe({
       next: (comments) => {
-        this.comments = comments;
+        // Aquí se asegura que cada comentario tenga los datos del usuario
+        this.comments = comments.map(comment => {
+          return {
+            ...comment,
+            usuario_nombre: comment.usuario_nombre, // Verifica que el backend esté enviando esto
+            usuario_foto: comment.usuario_foto      // Verifica que el backend esté enviando esto
+          };
+        });
+        
       },
       error: (err) => {
         console.error('Error al cargar comentarios:', err);

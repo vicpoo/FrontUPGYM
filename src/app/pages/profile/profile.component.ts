@@ -70,9 +70,10 @@ export class ProfileComponent implements OnInit {
           name: data.nombre_usuario,
           correo: data.correo,
           description: data.descripcion || 'Sin descripción',
+          // Asegúrate de que la foto_perfil esté formateada correctamente
           foto_perfil: data.foto_perfil
-            ? 'data:image/jpeg;base64,${data.foto_perfil}'
-            : '/customIDfoto',
+            ? `data:image/jpeg;base64,${data.foto_perfil}`  // Convertir a URL Base64
+            : '/customIDfoto',  // Imagen predeterminada
         };
       },
       error: (err) => {
@@ -80,6 +81,9 @@ export class ProfileComponent implements OnInit {
       },
     });
   }
+  
+  
+  
 
   loadPosts(): void {
     this.postService.getPosts().subscribe({
