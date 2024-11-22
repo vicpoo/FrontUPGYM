@@ -52,20 +52,27 @@ export class PostDetailComponent implements OnInit {
   loadComments(): void {
     this.commentService.getComments(this.post.id).subscribe({
       next: (comments) => {
-        // Aquí se asegura que cada comentario tenga los datos del usuario
-        this.comments = comments.map(comment => {
-          return {
-            ...comment,
-            usuario_nombre: comment.usuario_nombre, // Verifica que el backend esté enviando esto
-            usuario_foto: comment.usuario_foto      // Verifica que el backend esté enviando esto
-          };
-        });
-        
+        console.log('Comentarios recibidos:', comments);
+        this.comments = comments.map((comment) => ({
+          ...comment,
+          usuario_nombre: comment.usuario_nombre,
+          usuario_foto: `data:image/jpeg;base64,${comment.usuario_foto}`, // Prefijo para imágenes en base64
+        }));
       },
       error: (err) => {
         console.error('Error al cargar comentarios:', err);
       },
     });
+  }
+
+  transformToBase64(binaryData: any): string {
+    if (!binaryData) {
+      return 'assets/default-avatar.jpg'; // Imagen predeterminada
+    }
+    const base64String = btoa(
+      new Uint8Array(binaryData).reduce((data, byte) => data + String.fromCharCode(byte), '')
+    );
+    return `data:image/jpeg;base64,${base64String}`;
   }
 
   toggleLike(): void {

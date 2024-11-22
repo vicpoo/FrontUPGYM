@@ -10,7 +10,7 @@
       <div class="p-4 flex items-center justify-between border-b border-gray-700">
         <div class="flex items-center space-x-3">
           <img
-          [src]="post.usuario?.foto_perfil || '/public/default-profile.png'"
+          [src]="post.usuario?.foto_perfil"
           alt="User Profile"
           class="w-10 h-10 rounded-full"
         />
@@ -48,10 +48,12 @@
   <h3 class="text-sm font-semibold mb-3">Comentarios</h3>
   <div *ngFor="let comment of comments" class="mb-3 flex items-start">
     <img
-    [src]="comment.usuario_foto"
-    alt="Comment User"
-    class="w-8 h-8 rounded-full mr-3"
-  />
+  [src]="comment.usuario_foto"
+  alt="Comment User"
+  class="w-8 h-8 rounded-full mr-3"
+/>
+
+  
   
     <div>
       <p class="text-sm">
