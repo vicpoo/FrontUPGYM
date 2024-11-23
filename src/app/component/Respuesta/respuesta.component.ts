@@ -39,7 +39,7 @@ export class RespuestaComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['preguntaId'] && changes['preguntaId'].currentValue) {
-      this.limite = 5; // Reinicia el límite de respuestas
+      this.limite = 3; // Reinicia el límite de respuestas
       this.respuestas = []; // Limpia las respuestas previas
       this.question = null; // Limpia la pregunta previa
       this.obtenerQuestion(); // Carga la nueva pregunta
