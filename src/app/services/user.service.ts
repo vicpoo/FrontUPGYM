@@ -50,4 +50,12 @@ export class UserService {
     return this.http.get<any>(`/api/users/${userId}`);
   }
   
+  searchUsers(query: string, limit: number = 5): Observable<any[]> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+    });
+    return this.http.get<any[]>(`${this.apiUrl}search?query=${query}&limit=${limit}`, { headers });
+  }
+  
+
 }
