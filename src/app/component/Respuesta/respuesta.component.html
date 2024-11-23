@@ -1,0 +1,69 @@
+<div class="max-w-4xl mx-auto p-4 bg-black text-white">
+    <!-- Pregunta -->
+    <div class="bg-blue-800 text-white p-4 rounded-lg shadow-md mb-6">
+      <h2 class="text-2xl font-bold">{{ question?.titulo || 'Cargando pregunta...' }}</h2>
+      <p class="text-gray-200 mt-2">{{ question?.descripcion }}</p>
+    </div>
+  
+    <!-- Respuestas -->
+    <h2 class="text-xl font-semibold mb-4 text-blue-400">Respuestas</h2>
+  
+    <!-- Mostrar mensaje si no hay respuestas -->
+    <div *ngIf="respuestas.length === 0 && !cargando" class="text-gray-400 text-center">
+      No hay respuestas disponibles para esta pregunta.
+    </div>
+  
+    <!-- Lista de respuestas -->
+    <div
+      *ngFor="let respuesta of respuestas.slice(0, limite)"
+      class="border border-blue-400 rounded-lg p-4 mb-4 shadow-md"
+    >
+      <p class="text-white">{{ respuesta.contenido }}</p>
+      <div class="flex items-center mt-4 text-sm text-gray-400">
+        <img
+          *ngIf="respuesta.usuario_foto"
+          [src]="respuesta.usuario_foto"
+          alt="Foto de perfil"
+          class="w-10 h-10 rounded-full mr-2"
+        />
+        <div>
+          <p><strong>Por:</strong> {{ respuesta.usuario_nombre || 'Usuario desconocido' }}</p>
+          <p><strong>Fecha:</strong> {{ respuesta.fecha_creacion | date: 'short' }}</p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Botón "Ver más" -->
+    <div class="text-center mt-4" *ngIf="limite < respuestas.length">
+      <button
+        (click)="verMasRespuestas()"
+        class="px-6 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-900"
+      >
+        Ver más
+      </button>
+    </div>
+  
+    <!-- Indicador de carga -->
+    <div *ngIf="cargando" class="text-center mt-4">
+      <p class="text-gray-400">Cargando más respuestas...</p>
+    </div>
+  
+    <!-- Formulario para agregar una nueva respuesta -->
+    <div class="mt-8 bg-gray-800 p-6 rounded-lg shadow-lg">
+      <h3 class="text-lg font-semibold mb-4 text-blue-400">Agregar una respuesta</h3>
+      <textarea
+        [(ngModel)]="nuevaRespuesta.contenido"
+        rows="3"
+        class="w-full p-2 border border-gray-600 rounded-lg focus:ring focus:ring-blue-400"
+        placeholder="Escribe tu respuesta aquí..."
+      ></textarea>
+      <button
+        (click)="crearRespuesta()"
+        [disabled]="!nuevaRespuesta.contenido.trim()"
+        class="mt-4 px-6 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-900 disabled:opacity-50"
+      >
+        Enviar
+      </button>
+    </div>
+  </div>
+  

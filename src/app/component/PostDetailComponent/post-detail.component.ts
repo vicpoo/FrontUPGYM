@@ -52,11 +52,11 @@ export class PostDetailComponent implements OnInit {
   loadComments(): void {
     this.commentService.getComments(this.post.id).subscribe({
       next: (comments) => {
-        console.log('Comentarios recibidos:', comments);
         this.comments = comments.map((comment) => ({
           ...comment,
-          usuario_nombre: comment.usuario_nombre,
-          usuario_foto: `data:image/jpeg;base64,${comment.usuario_foto}`, // Prefijo para imágenes en base64
+          usuario_foto: comment.usuario_foto
+            ? `data:image/jpeg;base64,${comment.usuario_foto}`
+            : 'assets/default-avatar.jpg',
         }));
       },
       error: (err) => {

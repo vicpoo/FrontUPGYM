@@ -45,4 +45,9 @@ export class UserService {
   logout(): void {
     sessionStorage.removeItem('token');
   }
+
+  getUserById(userId: number): Observable<any> {
+    return this.http.get<any>(`/api/users/${userId}`);
+  }
+  
 }

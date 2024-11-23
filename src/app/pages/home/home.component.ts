@@ -1,44 +1,106 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { SidebarComponent } from '../../component/sidebar/sidebar.component';
-import { BottomNavComponent } from '../../component/bottom-nav/bottom-nav.component';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common'; // Necesario para directivas como *ngIf y *ngFor
+import { SidebarComponent } from '../../component/sidebar/sidebar.component'; // Sidebar
+import { BottomNavComponent } from '../../component/bottom-nav/bottom-nav.component'; // Navegación inferior
+import { PostDetailComponent } from '../../component/PostDetailComponent/post-detail.component'; // Modal de detalles de publicaciones
+import { RespuestaComponent } from '../../component/Respuesta/respuesta.component'; // Modal de preguntas/respuestas
+import { PostService } from '../../services/post.service'; // Servicio para publicaciones
+import { QuestionService } from '../../services/question.service'; // Servicio para preguntas
 
 @Component({
-    selector: 'app-home',
+  selector: 'app-home',
   standalone: true,
-  imports: [RouterModule, SidebarComponent, BottomNavComponent],
+  imports: [
+    CommonModule,
+    SidebarComponent,
+    BottomNavComponent,
+    PostDetailComponent,
+    RespuestaComponent,
+  ],
   templateUrl: './home.component.html',
 })
-export class HomeComponent {
-  isForYouActive = true;
-  isFollowingActive = false;
+export class HomeComponent implements OnInit {
+  posts: any[] = []; // Lista de publicaciones y preguntas combinadas
+  isLoading = true; // Controla el estado de carga
+  selectedTab: string = 'paraTi'; // Pestaña activa
+  selectedPost: any = null; // Publicación seleccionada
+  selectedQuestion: any = null; // Pregunta seleccionada
 
-  // Sample posts data
-  posts = [
-    {
-      userImage: 'assets/user1.jpg',
-      userName: 'Victor Alejandro',
-      image: 'assets/post1.jpg',
-      caption: 'Mi cambio físico 2024 / soy esem'
-    },
-    {
-      userImage: 'assets/user2.jpg',
-      userName: 'Denzel Enrique',
-      image: 'assets/post2.jpg',
-      caption: '¿Cómo tener abdominales en 3 días?, pasen tips'
-    }
-  ];
+  constructor(
+    private postService: PostService, // Servicio para publicaciones
+    private questionService: QuestionService // Servicio para preguntas
+  ) {}
 
-  // Toggle display for "PARA TI" and "SEGUIDOS"
-  showForYou() {
-    this.isForYouActive = true;
-    this.isFollowingActive = false;
-    // Lógica para mostrar publicaciones "Para Ti"
+  ngOnInit(): void {
+    this.loadContent(); // Carga inicial
   }
 
-  showFollowing() {
-    this.isForYouActive = false;
-    this.isFollowingActive = true;
-    // Lógica para mostrar publicaciones de "Seguidos"
+  // Cambiar pestaña
+  selectTab(tab: string): void {
+    this.selectedTab = tab;
+    this.loadContent();
   }
+
+  // Cargar contenido de publicaciones y preguntas
+  loadContent(): void {
+    this.isLoading = true;
+    const combinedContent: any[] = [];
+
+    // Obtener publicaciones
+    this.postService.getPosts().subscribe({
+      next: (posts) => {
+        const formattedPosts = posts.map((post) => ({
+          ...post,
+          type: 'post',
+          fechaCreacion: new Date(post.fechaCreacion || new Date()),
+        }));
+        combinedContent.push(...formattedPosts);
+      },
+      error: (err) => console.error('Error al cargar publicaciones:', err),
+      complete: () => {
+        // Obtener preguntas
+        this.questionService.getQuestions().subscribe({
+          next: (questions) => {
+            const formattedQuestions = questions.map((question) => ({
+              ...question,
+              type: 'question',
+              fechaCreacion: new Date(question.fechaCreacion || new Date()),
+            }));
+            combinedContent.push(...formattedQuestions);
+          },
+          error: (err) => console.error('Error al cargar preguntas:', err),
+          complete: () => {
+            // Ordenar contenido
+            this.posts = combinedContent.sort((a, b) => {
+              const dateDiff =
+                b.fechaCreacion.getTime() - a.fechaCreacion.getTime();
+              return dateDiff || (a.type === 'post' ? -1 : 1);
+            });
+            this.isLoading = false;
+          },
+        });
+      },
+    });
+  }
+
+  // Mostrar detalles de una publicación
+  openPostDetail(post: any): void {
+    this.selectedPost = post;
+  }
+
+  closePostDetail(): void {
+    this.selectedPost = null;
+  }
+
+ // Mostrar detalles de una pregunta
+ openQuestionDetail(question: any): void {
+  this.selectedQuestion = question; // Aquí pasamos la pregunta seleccionada
+}
+
+
+// Cerrar modal de respuesta
+closeQuestionDetail(): void {
+  this.selectedQuestion = null;
+}
+
 }
