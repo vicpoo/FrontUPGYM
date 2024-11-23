@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core'; // Agregamos Output y EventEmitter
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RespuestaService, Respuesta } from '../../services/respuesta.service';
@@ -8,10 +8,12 @@ import { QuestionService } from '../../services/question.service';
   standalone: true,
   selector: 'app-respuesta',
   templateUrl: './respuesta.component.html',
-  imports: [CommonModule, FormsModule], // Importar los módulos necesarios
+  imports: [CommonModule, FormsModule],
 })
-export class RespuestaComponent implements OnInit {
+export class RespuestaComponent implements OnInit, OnChanges {
   @Input() preguntaId!: number; // Recibir el ID de la pregunta desde el padre
+  @Output() close = new EventEmitter<void>(); // Agregamos el EventEmitter para el cierre
+
   question: any = null; // Datos de la pregunta
   respuestas: Respuesta[] = []; // Lista de respuestas asociadas
   nuevaRespuesta: Respuesta = {
@@ -35,10 +37,20 @@ export class RespuestaComponent implements OnInit {
     }
   }
 
-  // Obtener información de la pregunta actual
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['preguntaId'] && changes['preguntaId'].currentValue) {
+      this.limite = 5; // Reinicia el límite de respuestas
+      this.respuestas = []; // Limpia las respuestas previas
+      this.question = null; // Limpia la pregunta previa
+      this.obtenerQuestion(); // Carga la nueva pregunta
+      this.obtenerRespuestas(); // Carga las respuestas de la nueva pregunta
+    }
+  }
+
   obtenerQuestion(): void {
     this.questionService.getQuestionById(this.preguntaId).subscribe(
       (data) => {
+        console.log('Pregunta recibida:', data); // Depuración
         this.question = data;
       },
       (error) => {
@@ -47,31 +59,25 @@ export class RespuestaComponent implements OnInit {
     );
   }
 
-  // Obtener respuestas asociadas a la pregunta
   obtenerRespuestas(): void {
-    this.cargando = true;
     this.respuestaService.getRespuestasByQuestion(this.preguntaId).subscribe(
       (data) => {
-        console.log('Respuestas recibidas:', data); // Agrega logs para depuración
+        console.log('Respuestas recibidas:', data); // Depuración
         this.respuestas = data;
-        this.cargando = false;
       },
       (error) => {
         console.error('Error al obtener las respuestas:', error);
-        this.cargando = false;
       }
     );
   }
-  
 
-  // Crear una nueva respuesta
   crearRespuesta(): void {
     this.nuevaRespuesta.pregunta_id = this.preguntaId;
 
     this.respuestaService.createRespuesta(this.nuevaRespuesta).subscribe(
       (data) => {
-        this.respuestas.unshift(data); // Agregar la nueva respuesta al inicio
-        this.nuevaRespuesta.contenido = ''; // Limpiar el formulario
+        this.respuestas.unshift(data);
+        this.nuevaRespuesta.contenido = '';
       },
       (error) => {
         console.error('Error al crear la respuesta:', error);
@@ -79,7 +85,6 @@ export class RespuestaComponent implements OnInit {
     );
   }
 
-  // Mostrar más respuestas
   verMasRespuestas(): void {
     this.limite += 5;
   }

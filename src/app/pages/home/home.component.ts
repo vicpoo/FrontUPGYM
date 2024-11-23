@@ -92,15 +92,20 @@ export class HomeComponent implements OnInit {
     this.selectedPost = null;
   }
 
- // Mostrar detalles de una pregunta
- openQuestionDetail(question: any): void {
-  this.selectedQuestion = question; // Aquí pasamos la pregunta seleccionada
-}
+  // Mostrar detalles de una pregunta
+  openQuestionDetail(question: any): void {
+    console.log('Pregunta seleccionada:', question); // Log para depuración
 
+    // Reiniciar datos del modal antes de asignar la nueva pregunta
+    this.selectedQuestion = null; // Reinicia para forzar la actualización del modal
+    setTimeout(() => {
+      this.selectedQuestion = question; // Asigna la nueva pregunta después de reiniciar
+    });
+  }
 
-// Cerrar modal de respuesta
-closeQuestionDetail(): void {
-  this.selectedQuestion = null;
-}
-
+  // Cerrar modal de respuesta
+  closeQuestionDetail(): void {
+    console.log('Cerrando modal'); // Depuración
+    this.selectedQuestion = null; // Limpia la pregunta seleccionada
+  }
 }

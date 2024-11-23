@@ -1,87 +1,83 @@
 <div class="flex bg-black h-screen text-white">
-    <!-- Sidebar -->
-    <app-sidebar class="hidden lg:block"></app-sidebar>
-  
-    <!-- Main Content -->
-    <div class="flex-1 p-6 space-y-6 overflow-y-auto">
-      <!-- Selector de pestañas -->
-      <div class="flex justify-center space-x-4 mb-4">
-        <button
-          class="px-4 py-2 rounded-lg"
-          [ngClass]="{
-            'bg-gray-800 text-white': selectedTab === 'paraTi',
-            'bg-gray-700 text-gray-400': selectedTab !== 'paraTi'
-          }"
-          (click)="selectTab('paraTi')"
+  <!-- Sidebar -->
+  <app-sidebar class="hidden lg:block"></app-sidebar>
+
+  <!-- Main Content -->
+  <div class="flex-1 p-6 space-y-6 overflow-y-auto">
+    <!-- Selector de pestañas -->
+    <div class="flex justify-center space-x-4 mb-4">
+      <button
+        class="px-4 py-2 rounded-lg"
+        [ngClass]="{
+          'bg-gray-800 text-white': selectedTab === 'paraTi',
+          'bg-gray-700 text-gray-400': selectedTab !== 'paraTi'
+        }"
+        (click)="selectTab('paraTi')"
+      >
+        Para ti
+      </button>
+    </div>
+
+    <!-- Loader mientras se cargan los datos -->
+    <div *ngIf="isLoading" class="text-center">
+      <p class="text-gray-300">Cargando contenido...</p>
+    </div>
+
+    <!-- Contenido -->
+    <div *ngIf="!isLoading" class="space-y-6 max-w-lg mx-auto">
+      <div *ngFor="let item of posts">
+        <!-- Mostrar publicaciones -->
+        <div
+          *ngIf="item.type === 'post'"
+          class="bg-gray-800 rounded-lg shadow-lg cursor-pointer overflow-hidden"
+          (click)="openPostDetail(item)"
         >
-          Para ti
-        </button>
-      </div>
-  
-      <!-- Loader mientras se cargan los datos -->
-      <div *ngIf="isLoading" class="text-center">
-        <p class="text-gray-300">Cargando contenido...</p>
-      </div>
-  
-      <!-- Contenido -->
-      <div *ngIf="!isLoading" class="space-y-6 max-w-lg mx-auto">
-        <div *ngFor="let item of posts">
-          <!-- Mostrar publicaciones -->
-          <div
-            *ngIf="item.type === 'post'"
-            class="bg-gray-800 rounded-lg shadow-lg cursor-pointer overflow-hidden"
-            (click)="openPostDetail(item)"
-          >
-            <div *ngIf="item.imagen">
-              <img
-                [src]="item.imagen"
-                alt="Post Image"
-                class="w-full h-72 object-cover"
-              />
-            </div>
-            <div class="p-4">
-              <p *ngIf="item.descripcion" class="text-sm text-gray-300">
-                {{ item.descripcion }}
-              </p>
-            </div>
+          <div *ngIf="item.imagen">
+            <img
+              [src]="item.imagen"
+              alt="Post Image"
+              class="w-full h-72 object-cover"
+            />
           </div>
-  
-          <!-- Mostrar preguntas -->
-          <div
-            *ngIf="item.type === 'question'"
-            class="bg-gray-800 rounded-lg shadow-lg cursor-pointer overflow-hidden"
-            (click)="openQuestionDetail(item)"
-          >
-            <div class="p-4">
-              <p *ngIf="item.contenido" class="text-gray-300">
-                {{ item.contenido }}
-              </p>
-            </div>
+          <div class="p-4">
+            <p *ngIf="item.descripcion" class="text-sm text-gray-300">
+              {{ item.descripcion }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Mostrar preguntas -->
+        <div
+          *ngIf="item.type === 'question'"
+          class="bg-gray-800 rounded-lg shadow-lg cursor-pointer overflow-hidden"
+          (click)="openQuestionDetail(item)"
+        >
+          <div class="p-4">
+            <p *ngIf="item.contenido" class="text-gray-300">
+              {{ item.contenido }}
+            </p>
           </div>
         </div>
       </div>
     </div>
-  
-    <!-- Modal para publicaciones -->
-    <app-post-detail
-      *ngIf="selectedPost"
-      [post]="selectedPost"
-      (close)="closePostDetail()"
-      class="z-50"
-    ></app-post-detail>
-  
-    <!-- Modal para preguntas -->
-    <app-respuesta
+  </div>
+
+  <!-- Modal para publicaciones -->
+  <app-post-detail
+    *ngIf="selectedPost"
+    [post]="selectedPost"
+    (close)="closePostDetail()"
+    class="z-50"
+  ></app-post-detail>
+
+  <!-- Modal para preguntas -->
+  <app-respuesta
     *ngIf="selectedQuestion"
     [preguntaId]="selectedQuestion.id"
     (close)="closeQuestionDetail()"
     class="z-50"
   ></app-respuesta>
-  
-  
-  
-  
-    <!-- Bottom Navigation -->
-    <app-bottom-nav class="lg:hidden fixed bottom-0 w-full"></app-bottom-nav>
-  </div>
-  
+
+  <!-- Bottom Navigation -->
+  <app-bottom-nav class="lg:hidden fixed bottom-0 w-full"></app-bottom-nav>
+</div>
