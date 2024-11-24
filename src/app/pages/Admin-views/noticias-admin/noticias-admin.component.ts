@@ -4,13 +4,12 @@ import { CommonModule } from '@angular/common';
 import { NoticiasService } from '../../../services/noticias.service';
 import { News } from '../../../interfaces/news';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BottomNavComponent } from '../../../component/bottom-nav/bottom-nav.component';
-import { SidebarComponent } from '../../../component/sidebar/sidebar.component';
-
+import { SidebarAdminComponent } from '../../../component/sidebar-Admin/sidebar-admin.component';
+import { BottomNavAdminComponent } from '../../../component/bottom-nav-admin/bottom-nav.component';
 @Component({
   selector: 'app-noticias-admin',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, BottomNavComponent, SidebarComponent],
+  imports: [CommonModule, ReactiveFormsModule, BottomNavAdminComponent, SidebarAdminComponent],
   templateUrl: './noticias-admin.component.html',
 })
 export class NoticiasAdminComponent implements OnInit {
