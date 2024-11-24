@@ -20,7 +20,7 @@ import { NoticiaDetalleComponent } from './component/noticia-detalle/noticia-det
 
 /*RUTAS DEL ADMIN (NO BORRAR Y SI ES PARA TI VICTOR) */
 import { NoticiasAdminComponent } from './pages/Admin-views/noticias-admin/noticias-admin.component';
-import { Profileadmin } from './pages/Admin-views/profiles-admin/profile-admin.component';
+import { ProfileadminComponent } from './pages/Admin-views/profiles-admin/profile-admin.component';
 import { premiumAdmin } from './pages/Admin-views/Premium-admin/Premium-admin.component';
   /*RUTAS DEL Ejercicio ADMIN (no borres) */
 import { ExerciseAdminLevelComponent } from './pages/Admin-views/Exercise-admin/Exercise-admin-level.component';
@@ -52,7 +52,7 @@ export const routes: Routes = [
 
   /*RUTAS DEL ADMIN (NO BORRAR Y SI ES PARA TI VICTOR) */
   { path: 'noticias-admin', component: NoticiasAdminComponent, canActivate: [AuthGuard] },
-  { path: 'profile-admin', component: Profileadmin, canActivate: [AuthGuard] },
+  { path: 'profile-admin', component: ProfileadminComponent, canActivate: [AuthGuard] },
   { path: 'premium-admin', component: premiumAdmin, canActivate: [AuthGuard] },
   /*RUTAS DEL Ejercicio ADMIN (no borres) */
   { path: 'Exercise-admin-avan-ubication', component: Exerciseadminavanubicationcomponent, canActivate: [AuthGuard] },

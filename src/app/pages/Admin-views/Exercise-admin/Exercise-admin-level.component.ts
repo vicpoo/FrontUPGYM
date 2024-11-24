@@ -7,7 +7,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 @Component({
   selector: 'app-exercise-admin-level',
   standalone: true,
-  imports: [CommonModule, SidebarAdminComponent, BottomNavAdminComponent,RouterLink, RouterLinkActive],
+  imports: [CommonModule, SidebarAdminComponent, BottomNavAdminComponent,RouterLink],
   templateUrl: './exercise-admin-level.component.html',
 })
 export class ExerciseAdminLevelComponent {}
