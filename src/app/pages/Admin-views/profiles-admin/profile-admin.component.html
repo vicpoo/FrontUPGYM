@@ -14,7 +14,8 @@
         class="mb-6 bg-gray-800 p-6 rounded-lg shadow-lg"
       >
         <h2 class="text-xl font-semibold text-blue-500 mb-4">Agregar Administrador</h2>
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-2 gap-6">
+          <!-- Campo Nombre -->
           <div>
             <label for="nombre" class="block text-sm font-medium text-white">Nombre</label>
             <input
@@ -22,12 +23,14 @@
               type="text"
               formControlName="nombre"
               [class.border-red-500]="adminForm.get('nombre')?.invalid && adminForm.get('nombre')?.touched"
-              class="mt-1 block w-full rounded-md border-gray-600 bg-gray-900 text-white shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              class="mt-1 block w-full rounded-md border-gray-600 bg-gray-900 text-white shadow-sm focus:ring-blue-500 focus:border-blue-500 p-4"
             />
             <div *ngIf="adminForm.get('nombre')?.invalid && adminForm.get('nombre')?.touched" class="text-red-500 text-sm mt-1">
               Nombre es requerido y debe tener al menos 3 caracteres.
             </div>
           </div>
+
+          <!-- Campo Apellido -->
           <div>
             <label for="apellido" class="block text-sm font-medium text-white">Apellido</label>
             <input
@@ -35,12 +38,14 @@
               type="text"
               formControlName="apellido"
               [class.border-red-500]="adminForm.get('apellido')?.invalid && adminForm.get('apellido')?.touched"
-              class="mt-1 block w-full rounded-md border-gray-600 bg-gray-900 text-white shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              class="mt-1 block w-full rounded-md border-gray-600 bg-gray-900 text-white shadow-sm focus:ring-blue-500 focus:border-blue-500 p-4"
             />
             <div *ngIf="adminForm.get('apellido')?.invalid && adminForm.get('apellido')?.touched" class="text-red-500 text-sm mt-1">
               Apellido es requerido y debe tener al menos 3 caracteres.
             </div>
           </div>
+
+          <!-- Campo Correo -->
           <div>
             <label for="correo" class="block text-sm font-medium text-white">Correo</label>
             <input
@@ -48,12 +53,14 @@
               type="email"
               formControlName="correo"
               [class.border-red-500]="adminForm.get('correo')?.invalid && adminForm.get('correo')?.touched"
-              class="mt-1 block w-full rounded-md border-gray-600 bg-gray-900 text-white shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              class="mt-1 block w-full rounded-md border-gray-600 bg-gray-900 text-white shadow-sm focus:ring-blue-500 focus:border-blue-500 p-4"
             />
             <div *ngIf="adminForm.get('correo')?.invalid && adminForm.get('correo')?.touched" class="text-red-500 text-sm mt-1">
               Proporcione un correo válido.
             </div>
           </div>
+
+          <!-- Campo Contraseña -->
           <div>
             <label for="contraseña" class="block text-sm font-medium text-white">Contraseña</label>
             <input
@@ -61,18 +68,35 @@
               type="password"
               formControlName="contraseña"
               [class.border-red-500]="adminForm.get('contraseña')?.invalid && adminForm.get('contraseña')?.touched"
-              class="mt-1 block w-full rounded-md border-gray-600 bg-gray-900 text-white shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              class="mt-1 block w-full rounded-md border-gray-600 bg-gray-900 text-white shadow-sm focus:ring-blue-500 focus:border-blue-500 p-4"
             />
             <div *ngIf="adminForm.get('contraseña')?.invalid && adminForm.get('contraseña')?.touched" class="text-red-500 text-sm mt-1">
               Contraseña debe tener al menos 6 caracteres.
             </div>
           </div>
+
+          <!-- Nuevo Campo Nombre Administrador -->
+          <div>
+            <label for="nombreAdministrador" class="block text-sm font-medium text-white">Nombre del Administrador</label>
+            <input
+              id="nombreAdministrador"
+              type="text"
+              formControlName="nombreAdministrador"
+              [class.border-red-500]="adminForm.get('nombreAdministrador')?.invalid && adminForm.get('nombreAdministrador')?.touched"
+              class="mt-1 block w-full rounded-md border-gray-600 bg-gray-900 text-white shadow-sm focus:ring-blue-500 focus:border-blue-500 p-4"
+            />
+            <div *ngIf="adminForm.get('nombreAdministrador')?.invalid && adminForm.get('nombreAdministrador')?.touched" class="text-red-500 text-sm mt-1">
+              El nombre del administrador es requerido y debe tener al menos 3 caracteres.
+            </div>
+          </div>
         </div>
+
+        <!-- Botón de Enviar -->
         <div class="text-center mt-4">
           <button
             type="submit"
             [disabled]="adminForm.invalid"
-            class="px-4 py-2 bg-blue-600 text-white font-medium rounded-lg shadow hover:bg-blue-700 disabled:bg-gray-600"
+            class="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg shadow hover:bg-blue-700 disabled:bg-gray-600"
           >
             Agregar Administrador
           </button>

@@ -6,11 +6,10 @@ import { AdminService } from '../../../services/Perfiles-Admin.service'; // Impo
 import { HttpErrorResponse } from '@angular/common/http';
 import { SidebarAdminComponent } from '../../../component/sidebar-Admin/sidebar-admin.component';
 
-
 @Component({
   selector: 'app-profileadmin',
   standalone: true,
-  imports: [SidebarAdminComponent,CommonModule,ReactiveFormsModule],
+  imports: [SidebarAdminComponent, CommonModule, ReactiveFormsModule],
   templateUrl: './profile-admin.component.html',
 })
 export class ProfileadminComponent implements OnInit {
@@ -26,6 +25,7 @@ export class ProfileadminComponent implements OnInit {
       apellido: ['', [Validators.required, Validators.minLength(3)]],
       correo: ['', [Validators.required, Validators.email]],
       contraseña: ['', [Validators.required, Validators.minLength(6)]],
+      nombreAdministrador: ['', [Validators.required, Validators.minLength(3)]], // Nueva validación
     });
   }
 
@@ -56,9 +56,9 @@ export class ProfileadminComponent implements OnInit {
       this.errorMessage = 'Por favor, completa todos los campos obligatorios.';
       return;
     }
-  
+
     this.isLoading = true;
-  
+
     this.adminService.createAdmin(this.adminForm.value).subscribe({
       next: (newAdmin) => {
         this.admins.push(newAdmin);
@@ -67,8 +67,7 @@ export class ProfileadminComponent implements OnInit {
         this.errorMessage = '';
       },
       error: (err: HttpErrorResponse) => {
-        this.errorMessage =
-          err.error?.detail || 'Error al agregar el administrador.';
+        this.errorMessage = err.error?.detail || 'Error al agregar el administrador.';
         this.isLoading = false;
         console.error(err);
       },
@@ -82,8 +81,9 @@ export class ProfileadminComponent implements OnInit {
       nombre: prompt('Nuevo nombre:', admin.nombre) || admin.nombre,
       apellido: prompt('Nuevo apellido:', admin.apellido) || admin.apellido,
       correo: prompt('Nuevo correo:', admin.correo) || admin.correo,
+      nombreAdministrador: prompt('Nuevo nombre del administrador:', admin.nombre_administrador) || admin.nombre_administrador,
     };
-  
+
     this.adminService.updateAdmin(admin.id, updatedData).subscribe({
       next: () => {
         const index = this.admins.findIndex((a) => a.id === admin.id);
@@ -92,19 +92,15 @@ export class ProfileadminComponent implements OnInit {
         }
       },
       error: (err: HttpErrorResponse) => {
-        this.errorMessage =
-          err.error?.detail || 'Error al editar el administrador.';
+        this.errorMessage = err.error?.detail || 'Error al editar el administrador.';
         console.error(err);
       },
     });
   }
-  
 
   // Eliminar un administrador
   deleteAdmin(adminId: number): void {
-    const confirmDelete = confirm(
-      '¿Estás seguro de que deseas eliminar este administrador?'
-    );
+    const confirmDelete = confirm('¿Estás seguro de que deseas eliminar este administrador?');
     if (!confirmDelete) return;
 
     this.isLoading = true;
@@ -115,8 +111,7 @@ export class ProfileadminComponent implements OnInit {
         this.isLoading = false;
       },
       error: (err: HttpErrorResponse) => {
-        this.errorMessage =
-          err.error?.detail || 'Error al eliminar el administrador.';
+        this.errorMessage = err.error?.detail || 'Error al eliminar el administrador.';
         this.isLoading = false;
         console.error(err);
       },
