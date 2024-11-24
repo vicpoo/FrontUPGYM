@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Admin, AdminService } from '../../../services/Perfiles-Admin.service'; // Asegúrate de que esta ruta sea correcta
+import { Admin } from '../../../interfaces/Admin'; // Importa la interfaz desde el lugar correcto
+import { AdminService } from '../../../services/Perfiles-Admin.service'; // Importa el servicio desde la ruta correcta
 import { HttpErrorResponse } from '@angular/common/http';
 import { SidebarAdminComponent } from '../../../component/sidebar-Admin/sidebar-admin.component';
+
 
 @Component({
   selector: 'app-profileadmin',
@@ -50,12 +52,13 @@ export class ProfileadminComponent implements OnInit {
   // Crear un nuevo administrador
   addAdmin(): void {
     if (this.adminForm.invalid) {
+      this.adminForm.markAllAsTouched(); // Marca todos los controles como tocados
       this.errorMessage = 'Por favor, completa todos los campos obligatorios.';
       return;
     }
-
+  
     this.isLoading = true;
-
+  
     this.adminService.createAdmin(this.adminForm.value).subscribe({
       next: (newAdmin) => {
         this.admins.push(newAdmin);
@@ -80,7 +83,7 @@ export class ProfileadminComponent implements OnInit {
       apellido: prompt('Nuevo apellido:', admin.apellido) || admin.apellido,
       correo: prompt('Nuevo correo:', admin.correo) || admin.correo,
     };
-
+  
     this.adminService.updateAdmin(admin.id, updatedData).subscribe({
       next: () => {
         const index = this.admins.findIndex((a) => a.id === admin.id);
@@ -95,6 +98,7 @@ export class ProfileadminComponent implements OnInit {
       },
     });
   }
+  
 
   // Eliminar un administrador
   deleteAdmin(adminId: number): void {
