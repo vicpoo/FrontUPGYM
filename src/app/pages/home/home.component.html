@@ -25,39 +25,52 @@
 
     <!-- Contenido -->
     <div *ngIf="!isLoading" class="space-y-6 max-w-lg mx-auto">
-      <div *ngFor="let item of posts">
-        <!-- Mostrar publicaciones -->
-        <div
-          *ngIf="item.type === 'post'"
-          class="bg-gray-800 rounded-lg shadow-lg cursor-pointer overflow-hidden"
-          (click)="openPostDetail(item)"
-        >
-          <div *ngIf="item.imagen">
+      <div
+        *ngFor="let item of posts"
+        class="bg-black border-2 border-blue-900 rounded-lg shadow-lg p-4 cursor-pointer"
+      >
+        <!-- Información del usuario -->
+        <div class="flex items-center mb-4">
+          <img
+            *ngIf="item.usuario?.foto_perfil; else defaultProfile"
+            [src]="item.usuario?.foto_perfil"
+            alt="Foto de perfil"
+            class="w-10 h-10 rounded-full mr-3"
+          />
+          <ng-template #defaultProfile>
             <img
-              [src]="item.imagen"
-              alt="Post Image"
-              class="w-full h-72 object-cover"
+              src="assets/default-profile.jpg"
+              alt="Foto predeterminada"
+              class="w-10 h-10 rounded-full mr-3"
             />
-          </div>
-          <div class="p-4">
-            <p *ngIf="item.descripcion" class="text-sm text-gray-300">
-              {{ item.descripcion }}
-            </p>
-          </div>
+          </ng-template>
+          <p class="text-gray-400 text-sm font-medium">
+            {{ item.usuario?.nombre_usuario }}
+          </p>
         </div>
 
-        <!-- Mostrar preguntas -->
-        <div
-          *ngIf="item.type === 'question'"
-          class="bg-gray-800 rounded-lg shadow-lg cursor-pointer overflow-hidden"
-          (click)="openQuestionDetail(item)"
-        >
-          <div class="p-4">
-            <p *ngIf="item.contenido" class="text-gray-300">
-              {{ item.contenido }}
-            </p>
-          </div>
+        <!-- Descripción -->
+        <p *ngIf="item.descripcion || item.contenido" class="text-gray-300 text-sm mb-4">
+          {{ item.descripcion || item.contenido }}
+        </p>
+
+        <!-- Imagen -->
+        <div *ngIf="item.imagen" class="overflow-hidden rounded-lg">
+          <img
+            [src]="item.imagen"
+            alt="Imagen del contenido"
+            class="w-full object-cover"
+            style="max-height: 300px;"
+          />
         </div>
+
+        <!-- Botón -->
+        <button
+          class="text-blue-400 text-sm underline mt-4"
+          (click)="item.type === 'post' ? openPostDetail(item) : openQuestionDetail(item)"
+        >
+          Ver más
+        </button>
       </div>
     </div>
   </div>

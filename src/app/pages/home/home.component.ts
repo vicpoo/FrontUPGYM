@@ -6,6 +6,7 @@ import { PostDetailComponent } from '../../component/PostDetailComponent/post-de
 import { RespuestaComponent } from '../../component/Respuesta/respuesta.component'; // Modal de preguntas/respuestas
 import { PostService } from '../../services/post.service'; // Servicio para publicaciones
 import { QuestionService } from '../../services/question.service'; // Servicio para preguntas
+import { forkJoin } from 'rxjs'; // Importamos forkJoin para combinar los flujos
 
 @Component({
   selector: 'app-home',
@@ -21,7 +22,7 @@ import { QuestionService } from '../../services/question.service'; // Servicio p
 })
 export class HomeComponent implements OnInit {
   posts: any[] = []; // Lista de publicaciones y preguntas combinadas
-  isLoading = true; // Controla el estado de carga
+  isLoading = false; // Controla el estado de carga
   selectedTab: string = 'paraTi'; // Pestaña activa
   selectedPost: any = null; // Publicación seleccionada
   selectedQuestion: any = null; // Pregunta seleccionada
@@ -41,46 +42,72 @@ export class HomeComponent implements OnInit {
     this.loadContent();
   }
 
-  // Cargar contenido de publicaciones y preguntas
+  // Método principal para cargar y mezclar contenido
   loadContent(): void {
     this.isLoading = true;
-    const combinedContent: any[] = [];
 
-    // Obtener publicaciones
-    this.postService.getPosts().subscribe({
-      next: (posts) => {
+    // Combinar las solicitudes de publicaciones y preguntas
+    forkJoin({
+      posts: this.postService.getPosts(),
+      questions: this.questionService.getQuestions(),
+    }).subscribe({
+      next: ({ posts, questions }) => {
+        // Procesar publicaciones
         const formattedPosts = posts.map((post) => ({
           ...post,
           type: 'post',
-          fechaCreacion: new Date(post.fechaCreacion || new Date()),
+          usuario: {
+            nombre_usuario: post.usuario?.nombre_usuario || 'Usuario desconocido',
+            foto_perfil: post.usuario?.foto_perfil || null, // Foto en Base64 o null
+          },
+          fechaCreacion: new Date(post.fechaCreacion || Date.now()),
         }));
-        combinedContent.push(...formattedPosts);
+
+        // Procesar preguntas
+        const formattedQuestions = questions.map((question) => ({
+          ...question,
+          type: 'question',
+          fechaCreacion: new Date(question.fecha_creacion || Date.now()),
+        }));
+
+        // Mezclar y alternar el contenido
+        this.posts = this.mergeContent(formattedPosts, formattedQuestions);
       },
-      error: (err) => console.error('Error al cargar publicaciones:', err),
+      error: (err) => {
+        console.error('Error al cargar contenido:', err);
+      },
       complete: () => {
-        // Obtener preguntas
-        this.questionService.getQuestions().subscribe({
-          next: (questions) => {
-            const formattedQuestions = questions.map((question) => ({
-              ...question,
-              type: 'question',
-              fechaCreacion: new Date(question.fechaCreacion || new Date()),
-            }));
-            combinedContent.push(...formattedQuestions);
-          },
-          error: (err) => console.error('Error al cargar preguntas:', err),
-          complete: () => {
-            // Ordenar contenido
-            this.posts = combinedContent.sort((a, b) => {
-              const dateDiff =
-                b.fechaCreacion.getTime() - a.fechaCreacion.getTime();
-              return dateDiff || (a.type === 'post' ? -1 : 1);
-            });
-            this.isLoading = false;
-          },
-        });
+        this.isLoading = false; // Finaliza la carga
       },
     });
+  }
+
+  // Método para mezclar publicaciones y preguntas en orden alternado (uno a uno)
+  mergeContent(posts: any[], questions: any[]): any[] {
+    // Ordenar ambas listas por fecha de creación en orden descendente (nueva a antigua)
+    posts.sort((a, b) => b.fechaCreacion.getTime() - a.fechaCreacion.getTime());
+    questions.sort((a, b) => b.fechaCreacion.getTime() - a.fechaCreacion.getTime());
+
+    const result: any[] = [];
+    let postIndex = 0;
+    let questionIndex = 0;
+
+    // Alternar entre publicaciones y preguntas
+    while (postIndex < posts.length || questionIndex < questions.length) {
+      // Agregar la siguiente publicación si está disponible
+      if (postIndex < posts.length) {
+        result.push(posts[postIndex]);
+        postIndex++;
+      }
+
+      // Agregar la siguiente pregunta si está disponible
+      if (questionIndex < questions.length) {
+        result.push(questions[questionIndex]);
+        questionIndex++;
+      }
+    }
+
+    return result;
   }
 
   // Mostrar detalles de una publicación
