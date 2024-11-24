@@ -8,7 +8,7 @@ import { BottomNavAdminComponent } from '../../../component/bottom-nav-admin/bot
 @Component({
   selector: 'app-premiumAdmin',
   standalone: true,
-  imports: [SidebarComponent, BottomNavAdminComponent,CardStackComponent,SidebarAdminComponent],
+  imports: [SidebarComponent, BottomNavAdminComponent, CardStackComponent, SidebarAdminComponent],
   templateUrl: './Premium-admin.component.html',
 })
 export class premiumAdmin {}
