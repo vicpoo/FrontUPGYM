@@ -17,6 +17,9 @@ export class ProfileadminComponent implements OnInit {
   admins: Admin[] = []; // Corregido: Usa la interfaz Admin importada
   isLoading: boolean = false;
   errorMessage: string = '';
+  isEditModalOpen: boolean = false; // Variable para controlar el modal
+  editAdminForm: FormGroup; // Formulario para editar administrador
+  adminToEdit: Admin | null = null; // Administrador a editar
 
   constructor(private fb: FormBuilder, private adminService: AdminService) {
     // Inicializamos el formulario con validaciones
@@ -26,6 +29,14 @@ export class ProfileadminComponent implements OnInit {
       correo: ['', [Validators.required, Validators.email]],
       contraseña: ['', [Validators.required, Validators.minLength(6)]],
       nombreAdministrador: ['', [Validators.required, Validators.minLength(3)]], // Nueva validación
+    });
+
+    // Inicializamos el formulario de edición
+    this.editAdminForm = this.fb.group({
+      nombre: ['', [Validators.required, Validators.minLength(3)]],
+      apellido: ['', [Validators.required, Validators.minLength(3)]],
+      correo: ['', [Validators.required, Validators.email]],
+      nombreAdministrador: ['', [Validators.required, Validators.minLength(3)]],
     });
   }
 
@@ -76,26 +87,50 @@ export class ProfileadminComponent implements OnInit {
 
   // Editar un administrador
   editAdmin(admin: Admin): void {
-    const updatedData = {
-      ...admin,
-      nombre: prompt('Nuevo nombre:', admin.nombre) || admin.nombre,
-      apellido: prompt('Nuevo apellido:', admin.apellido) || admin.apellido,
-      correo: prompt('Nuevo correo:', admin.correo) || admin.correo,
-      nombreAdministrador: prompt('Nuevo nombre del administrador:', admin.nombre_administrador) || admin.nombre_administrador,
-    };
-
-    this.adminService.updateAdmin(admin.id, updatedData).subscribe({
-      next: () => {
-        const index = this.admins.findIndex((a) => a.id === admin.id);
-        if (index > -1) {
-          this.admins[index] = { ...admin, ...updatedData };
-        }
-      },
-      error: (err: HttpErrorResponse) => {
-        this.errorMessage = err.error?.detail || 'Error al editar el administrador.';
-        console.error(err);
-      },
+    this.adminToEdit = admin; // Guardar el administrador a editar
+    this.editAdminForm.patchValue({
+      nombre: admin.nombre,
+      apellido: admin.apellido,
+      correo: admin.correo,
+      nombreAdministrador: admin.nombre_administrador,
     });
+    this.isEditModalOpen = true; // Abrir el modal de edición
+  }
+
+  // Actualizar administrador
+  updateAdmin(): void {
+    if (this.editAdminForm.invalid) {
+      this.errorMessage = 'Por favor, complete todos los campos requeridos.';
+      return;
+    }
+
+    if (this.adminToEdit && this.adminToEdit.id !== undefined) {
+      const updatedAdmin = { ...this.adminToEdit, ...this.editAdminForm.value };
+
+      this.adminService.updateAdmin(this.adminToEdit.id, updatedAdmin).subscribe({
+        next: () => {
+          const index = this.admins.findIndex((a) => a.id === this.adminToEdit?.id);
+          if (index > -1) {
+            this.admins[index] = updatedAdmin; // Actualizar la lista local
+          }
+          this.isEditModalOpen = false; // Cerrar el modal
+          this.editAdminForm.reset(); // Resetear formulario
+          this.errorMessage = '';
+        },
+        error: (err: HttpErrorResponse) => {
+          this.errorMessage = err.error?.detail || 'Error al actualizar el administrador.';
+          console.error(err);
+        },
+      });
+    } else {
+      this.errorMessage = 'Error: El administrador no tiene un ID válido.';
+    }
+  }
+
+  // Cerrar el modal de edición
+  closeEditModal(): void {
+    this.isEditModalOpen = false;
+    this.editAdminForm.reset();
   }
 
   // Eliminar un administrador

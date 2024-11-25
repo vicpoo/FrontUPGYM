@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Admin } from '../interfaces/Admin';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -28,7 +27,19 @@ export class AdminService {
   }
 
   updateAdmin(adminId: number, adminData: Partial<Admin>): Observable<any> {
-    return this.http.put(`${this.apiUrl}${adminId}`, adminData);
+    // Crear un objeto FormData para enviar los datos del administrador
+    const formData = new FormData();
+    formData.append('nombre', adminData.nombre || '');
+    formData.append('apellido', adminData.apellido || '');
+    formData.append('correo', adminData.correo || '');
+    if (adminData.contraseña) {
+      formData.append('contraseña', adminData.contraseña);
+    }
+    if (adminData.nombre_administrador) {
+      formData.append('nombre_administrador', adminData.nombre_administrador);
+    }
+
+    return this.http.put(`${this.apiUrl}${adminId}`, formData);
   }
 
   deleteAdmin(adminId: number): Observable<void> {
