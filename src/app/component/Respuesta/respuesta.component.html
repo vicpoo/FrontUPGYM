@@ -12,21 +12,26 @@
     </button>
 
     <!-- Información de la pregunta -->
-    <div class="flex items-start mb-6">
-      <img
-        *ngIf="question?.usuario_foto"
-        [src]="question.usuario_foto"
-        alt="Foto de perfil del autor"
-        class="w-12 h-12 rounded-full mr-4"
-      />
-      <div>
-        <p class="font-bold text-lg">{{ question?.usuario_nombre || 'Usuario desconocido' }}</p>
-        <p class="text-gray-400 text-sm">{{ question?.fecha_creacion | date: 'short' }}</p>
-      </div>
-    </div>
-    <p class="text-xl mb-6 border-b border-gray-700 pb-2">
-      {{ question?.contenido || 'Cargando pregunta...' }}
+ <div class="flex items-start mb-6">
+  <img
+    *ngIf="question?.usuario?.foto_perfil"
+    [src]="question.usuario.foto_perfil"
+    alt="Foto de perfil del autor"
+    class="w-12 h-12 rounded-full mr-4"
+  />
+  <div>
+    <p class="font-bold text-lg">
+      {{ question?.usuario?.nombre_usuario || 'Usuario desconocido' }}
     </p>
+    <p class="text-gray-400 text-sm">
+      {{ question?.fecha_creacion | date: 'short' }}
+    </p>
+  </div>
+</div>
+<p class="text-xl mb-6 border-b border-gray-700 pb-2">
+  {{ question?.contenido || 'Cargando pregunta...' }}
+</p>
+
 
     <!-- Respuestas -->
     <div *ngFor="let respuesta of respuestas.slice(0, limite)" class="py-4 border-t border-gray-700">

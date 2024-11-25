@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core'; // Agregamos Output y EventEmitter
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RespuestaService, Respuesta } from '../../services/respuesta.service';
@@ -19,11 +19,10 @@ export class RespuestaComponent implements OnInit, OnChanges {
   nuevaRespuesta: Respuesta = {
     contenido: '',
     pregunta_id: 0,
-    usuario_id: 1,
+    usuario_id: 1, // Asignar ID del usuario actual
   };
 
   limite = 5; // Cantidad inicial de respuestas mostradas
-  cargando = false;
 
   constructor(
     private respuestaService: RespuestaService,
@@ -38,20 +37,19 @@ export class RespuestaComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['preguntaId'] && changes['preguntaId'].currentValue) {
-      this.limite = 3; // Reinicia el límite de respuestas
-      this.respuestas = []; // Limpia las respuestas previas
-      this.question = null; // Limpia la pregunta previa
-      this.obtenerQuestion(); // Carga la nueva pregunta
-      this.obtenerRespuestas(); // Carga las respuestas de la nueva pregunta
+    if (changes['preguntaId']?.currentValue) {
+      this.limite = 5; // Reinicia el límite de respuestas
+      this.respuestas = [];
+      this.question = null;
+      this.obtenerQuestion();
+      this.obtenerRespuestas();
     }
   }
 
   obtenerQuestion(): void {
     this.questionService.getQuestionById(this.preguntaId).subscribe(
       (data) => {
-        console.log('Pregunta recibida:', data); // Depuración
-        this.question = data;
+        this.question = data; // Asignar los datos de la pregunta
       },
       (error) => {
         console.error('Error al obtener la pregunta:', error);
@@ -62,8 +60,7 @@ export class RespuestaComponent implements OnInit, OnChanges {
   obtenerRespuestas(): void {
     this.respuestaService.getRespuestasByQuestion(this.preguntaId).subscribe(
       (data) => {
-        console.log('Respuestas recibidas:', data); // Depuración
-        this.respuestas = data;
+        this.respuestas = data; // Asignar las respuestas recibidas
       },
       (error) => {
         console.error('Error al obtener las respuestas:', error);
@@ -76,8 +73,8 @@ export class RespuestaComponent implements OnInit, OnChanges {
 
     this.respuestaService.createRespuesta(this.nuevaRespuesta).subscribe(
       (data) => {
-        this.respuestas.unshift(data);
-        this.nuevaRespuesta.contenido = '';
+        this.respuestas.unshift(data); // Añadir la respuesta al inicio de la lista
+        this.nuevaRespuesta.contenido = ''; // Limpiar el formulario
       },
       (error) => {
         console.error('Error al crear la respuesta:', error);
@@ -86,6 +83,6 @@ export class RespuestaComponent implements OnInit, OnChanges {
   }
 
   verMasRespuestas(): void {
-    this.limite += 5;
+    this.limite += 5; // Incrementar el límite para mostrar más respuestas
   }
 }

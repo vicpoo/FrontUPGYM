@@ -26,12 +26,17 @@
         <img src="assets/user.png" alt="Perfil" class="w-8 h-8">
         <span>Perfil</span>
       </button>
-      <button routerLink="/" routerLinkActive="active" class="flex items-center space-x-4 text-white hover:text-blue-400">
+      
+      <!-- Mostrar este botón solo si es_premium es true -->
+      <button *ngIf="currentUser?.es_premium" routerLink="/grasa" routerLinkActive="active" class="flex items-center space-x-4 text-white hover:text-blue-400">
+        <img src="assets/Grasa.png" alt="Porcentaje Grasa" class="w-8 h-8">
+        <span>Porcentaje de Grasa</span>
+      </button>
+      
+      <button (click)="logout()" class="flex items-center space-x-4 text-white hover:text-blue-400">
         <img src="assets/exit.png" alt="salida" class="w-8 h-8">
         <span>Cerrar sesión</span>
       </button>
     </nav>
   </div>  
 </div>
-
-

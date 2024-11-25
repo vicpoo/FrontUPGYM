@@ -67,6 +67,10 @@ export class HomeComponent implements OnInit {
         const formattedQuestions = questions.map((question) => ({
           ...question,
           type: 'question',
+          usuario: {
+            nombre_usuario: question.usuario?.nombre_usuario || 'Usuario desconocido',
+            foto_perfil: question.usuario?.foto_perfil || null, // Foto en Base64 o null
+          },
           fechaCreacion: new Date(question.fecha_creacion || Date.now()),
         }));
 
