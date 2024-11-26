@@ -19,21 +19,7 @@ export class AdminQuestionService {
    */
   getAllQuestions(): Observable<Respuesta[]> {
     const url = `${this.baseUrl}/questions/`;
-    return this.http.get<any[]>(url).pipe(
-      map((data) =>
-        data.map((question) => ({
-          id: question.id,
-          contenido: question.contenido || 'Contenido no disponible',
-          question_id: question.question_id,
-          usuario_id: question.usuario_id,
-          usuario_nombre: question.usuario?.nombre_usuario || 'Usuario desconocido',
-          usuario_foto: question.usuario?.foto_perfil || null,
-          fecha_creacion: question.fecha_creacion
-            ? new Date(question.fecha_creacion)
-            : undefined, // Cambiado de null a undefined
-        }))
-      )
-    );
+    return this.http.get<Respuesta[]>(url);
   }
 
   /**

@@ -43,6 +43,7 @@ export class HomeAdminComponent implements OnInit {
       questions: this.questionService.getAllQuestions(),
     }).subscribe({
       next: ({ posts, questions }) => {
+        // Procesar publicaciones
         const formattedPosts = posts.map((post: Post) => ({
           ...post,
           type: 'post',
@@ -55,6 +56,7 @@ export class HomeAdminComponent implements OnInit {
             : null,
         }));
 
+        // Procesar preguntas
         const formattedQuestions = questions.map((question: Respuesta) => ({
           ...question,
           type: 'question',
@@ -65,11 +67,8 @@ export class HomeAdminComponent implements OnInit {
           fecha_creacion: question.fecha_creacion || null,
         }));
 
-        this.posts = [...formattedPosts, ...formattedQuestions].sort((a, b) => {
-          const dateA = a.fecha_creacion ? new Date(a.fecha_creacion).getTime() : 0;
-          const dateB = b.fecha_creacion ? new Date(b.fecha_creacion).getTime() : 0;
-          return dateB - dateA;
-        });
+        // Mezclar y alternar publicaciones y preguntas
+        this.posts = this.mergeContent(formattedPosts, formattedQuestions);
       },
       error: (err) => {
         console.error('Error al cargar contenido:', err);
@@ -78,6 +77,43 @@ export class HomeAdminComponent implements OnInit {
         this.isLoading = false; // Desactivar loader
       },
     });
+  }
+
+  // Método para mezclar publicaciones y preguntas en orden alternado (uno a uno)
+  mergeContent(posts: any[], questions: any[]): any[] {
+    // Ordenar ambas listas por fecha de creación en orden descendente (nueva a antigua)
+    posts.sort((a, b) => {
+      const dateA = a.fecha_creacion ? new Date(a.fecha_creacion).getTime() : 0;
+      const dateB = b.fecha_creacion ? new Date(b.fecha_creacion).getTime() : 0;
+      return dateB - dateA;
+    });
+
+    questions.sort((a, b) => {
+      const dateA = a.fecha_creacion ? new Date(a.fecha_creacion).getTime() : 0;
+      const dateB = b.fecha_creacion ? new Date(b.fecha_creacion).getTime() : 0;
+      return dateB - dateA;
+    });
+
+    const result: any[] = [];
+    let postIndex = 0;
+    let questionIndex = 0;
+
+    // Alternar entre publicaciones y preguntas
+    while (postIndex < posts.length || questionIndex < questions.length) {
+      // Agregar la siguiente publicación si está disponible
+      if (postIndex < posts.length) {
+        result.push(posts[postIndex]);
+        postIndex++;
+      }
+
+      // Agregar la siguiente pregunta si está disponible
+      if (questionIndex < questions.length) {
+        result.push(questions[questionIndex]);
+        questionIndex++;
+      }
+    }
+
+    return result;
   }
 
   // Alternar el menú desplegable de una publicación/pregunta
