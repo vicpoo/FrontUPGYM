@@ -2,29 +2,43 @@
     <app-sidebar class="hidden lg:block"></app-sidebar>
 
     <!-- Main Content -->
-    <div class="flex-1 p-6 space-y-6">
+    <div class="flex-1 p-6 flex flex-col">
         <!-- Header -->
-        <h1 class="text-3xl font-bold border-b border-blue-500 pb-2">Rutinas</h1>   
-        
-        <!-- Subscription Section -->
-        <div class="text-center rounded-lg p-2 max-w-sm mx-auto bg-transparent">
-            <img src="assets/subscribete2.gif" alt="" class="w-3/4 mx-auto">
-        </div>
+        <h1 class="text-3xl font-bold border-b border-blue-500 pb-2">Rutinas</h1>
 
-        <!-- Exercise Location Selection -->
-        <div class="text-center mt-8">
-            <h2 class="text-lg font-semibold mb-6">¿Dónde realizarás tus ejercicios?</h2>
+        <!-- Main Section: Left (Buttons) and Right (GIF) -->
+        <div class="flex flex-1 items-center justify-between">
+            <!-- Left Section: Buttons and Title -->
+            <div class="w-1/2 space-y-8">
+                <h2 class="text-lg font-semibold text-center">¿Dónde realizarás tus ejercicios?</h2>
 
-            <!-- Exercise Location Buttons with RouterLink -->
-            <div class="flex flex-col items-center space-y-6">
-                <button routerLink="/exercise-level-basic" class="w-full max-w-xs bg-blue-800 text-white font-bold py-4 rounded-full hover:bg-blue-700 text-2xl">
-                    CASA
-                </button>
+                <div class="space-y-6">
+                    <!-- Button with Image and Text -->
+                    <button
+                        routerLink="/exercise-level-basic"
+                        class="flex items-center justify-center w-full max-w-md bg-blue-800 text-white font-bold py-4 px-6 rounded-full hover:bg-blue-700 text-2xl"
+                    >
+                        <img src="assets/casa_exercise.png" alt="Casa Icon" class="w-8 h-8 mr-4" />
+                        CASA
+                    </button>
 
-                <button routerLink="" class="w-full max-w-xs bg-blue-800 text-white font-bold py-4 rounded-full hover:bg-blue-700 text-2xl">
-                    GYM
-                </button>
+                    <button
+                        routerLink=""
+                        class="flex items-center justify-center w-full max-w-md bg-blue-800 text-white font-bold py-4 px-6 rounded-full hover:bg-blue-700 text-2xl"
+                    >
+                        <img src="assets/gym_exercise.png" alt="Gym Icon" class="w-8 h-8 mr-4" />
+                        GYM
+                    </button>
+                </div>
             </div>
-        </div> 
+
+            <!-- Right Section: GIF -->
+            <div class="w-1/2 flex justify-end">
+                <img src="assets/subscribete2.gif" alt="Subscríbete" class="w-3/4">
+            </div>
+        </div>
     </div>
+
+    <!-- Bottom Navigation for Mobile -->
+    <app-bottom-nav class="lg:hidden fixed bottom-0 w-full"></app-bottom-nav>
 </div>
