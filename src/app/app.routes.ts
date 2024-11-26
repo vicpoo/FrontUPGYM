@@ -22,6 +22,7 @@ import { NoticiaDetalleComponent } from './component/noticia-detalle/noticia-det
 import { NoticiasAdminComponent } from './pages/Admin-views/noticias-admin/noticias-admin.component';
 import { ProfileadminComponent } from './pages/Admin-views/profiles-admin/profile-admin.component';
 import { PremiumAdminComponent } from './pages/Admin-views/Premium-admin/Premium-admin.component';
+import { HomeAdminComponent } from './pages/Admin-views/Home-admin/home-admin.component';
   /*RUTAS DEL Ejercicio ADMIN (no borres) */
 import { ExerciseAdminLevelComponent } from './pages/Admin-views/Exercise-admin/Exercise-admin-level.component';
 import { Exerciseadminavanubicationcomponent } from './pages/Admin-views/Exercise-admin/Exercise-admin-avanzado/Exercise-admin-avan-ubication/Exercise-admin-avan-ubication.component';
@@ -58,6 +59,8 @@ export const routes: Routes = [
   { path: 'noticias-admin', component: NoticiasAdminComponent, canActivate: [AuthGuard] },
   { path: 'profile-admin', component: ProfileadminComponent, canActivate: [AuthGuard] },
   { path: 'premium-admin', component: PremiumAdminComponent, canActivate: [AuthGuard] },
+  { path: 'home-admin', component: HomeAdminComponent, canActivate: [AuthGuard] },
+
   /*RUTAS DEL Ejercicio ADMIN (no borres) */
   { path: 'Exercise-admin-avan-ubication', component: Exerciseadminavanubicationcomponent, canActivate: [AuthGuard] },
   { path: 'Exercise-admin-inter-ubication', component: Exerciseadmininterubicationcomponent, canActivate: [AuthGuard] },
@@ -68,6 +71,8 @@ export const routes: Routes = [
 
 
   /*RUTAS DEL USUARIO PREMIUM NO BORRES DENZEL*/
+    /*JAJAJAJAJJAA QUE LO BORRE Y LO PEGUE CON LO DEMAS DICE JAJAJAJAJJAJAJAJAJJAJAJJAJAJAJAAJAJJAJAJAJAJJAJAJJAJAJAJAJAAAJJJJAJ*/
+
   { path: 'grasa', component: PorcentajeGrasaComponent, canActivate:[AuthGuard]},
 
 

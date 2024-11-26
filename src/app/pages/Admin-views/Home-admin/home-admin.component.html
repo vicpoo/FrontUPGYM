@@ -1,0 +1,81 @@
+<div class="flex bg-black h-screen text-white">
+    <!-- Sidebar -->
+    <app-sidebar-Admin class="hidden lg:block"></app-sidebar-Admin>
+  
+    <!-- Main Content -->
+    <div class="flex-1 p-6 space-y-6 overflow-y-auto">
+      <!-- Selector de pestañas -->
+      <div class="flex justify-center space-x-4 mb-4">
+        <button
+          class="px-4 py-2 rounded-lg"
+          [ngClass]="{
+            'bg-gray-800 text-white': selectedTab === 'paraTi',
+            'bg-gray-700 text-gray-400': selectedTab !== 'paraTi'
+          }"
+          (click)="selectTab('paraTi')"
+        >
+          Para ti
+        </button>
+      </div>
+  
+      <!-- Loader mientras se cargan los datos -->
+      <div *ngIf="isLoading" class="text-center">
+        <p class="text-gray-300">Cargando contenido...</p>
+      </div>
+  
+      <!-- Contenido -->
+      <div *ngIf="!isLoading" class="space-y-6 max-w-lg mx-auto">
+        <div
+          *ngFor="let item of posts"
+          class="bg-black border-2 border-blue-900 rounded-lg shadow-lg p-4"
+        >
+         
+  
+          <!-- Descripción -->
+          <p
+            *ngIf="item.descripcion || item.contenido"
+            class="text-gray-300 text-sm mb-4"
+          >
+            {{ item.descripcion || item.contenido }}
+          </p>
+  
+          <!-- Imagen (Si existe) -->
+          <div *ngIf="item.imagen" class="overflow-hidden rounded-lg">
+            <img
+              [src]="item.imagen"
+              alt="Imagen del contenido"
+              class="w-full object-cover"
+              style="max-height: 300px;"
+            />
+          </div>
+  
+          <div class="relative mt-2">
+            <button
+              (click)="togglePostMenu(item.id, $event)"
+              class="px-2 py-1 bg-blue-700 rounded hover:bg-gray-600 focus:outline-none text-white flex items-center justify-center"
+              style="width: 30px; height: 30px; line-height: 1;"
+            >
+              ...
+            </button>
+            <div
+              *ngIf="isMenuOpen[item.id]"
+              class="absolute right-0 bottom-full mb-2 bg-blue-600 rounded-lg shadow-lg z-50 w-40"
+            >
+              <button
+                (click)="deleteItem(item)"
+                class="block w-full text-left px-4 py-2 hover:bg-red-600 text-white"
+              >
+                Eliminar
+              </button>
+            </div>
+          </div>
+          
+          <!-- Tipo de Contenido -->
+          <div class="text-right text-xs text-gray-500 mt-2">
+            {{ item.type === 'post' ? 'Publicación' : 'Pregunta' }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
