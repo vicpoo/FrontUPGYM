@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Necesario para directivas como *ngIf y *ngFor
-import { SidebarComponent } from '../../component/sidebar/sidebar.component'; // Sidebar
-import { BottomNavComponent } from '../../component/bottom-nav/bottom-nav.component'; // Navegación inferior
-import { PostDetailComponent } from '../../component/PostDetailComponent/post-detail.component'; // Modal de detalles de publicaciones
-import { RespuestaComponent } from '../../component/Respuesta/respuesta.component'; // Modal de preguntas/respuestas
-import { PostService } from '../../services/post.service'; // Servicio para publicaciones
-import { QuestionService } from '../../services/question.service'; // Servicio para preguntas
-import { forkJoin } from 'rxjs'; // Importamos forkJoin para combinar los flujos
+import { CommonModule } from '@angular/common';
+import { SidebarComponent } from '../../component/sidebar/sidebar.component';
+import { BottomNavComponent } from '../../component/bottom-nav/bottom-nav.component';
+import { PostDetailComponent } from '../../component/PostDetailComponent/post-detail.component';
+import { RespuestaComponent } from '../../component/Respuesta/respuesta.component';
+import { PostService } from '../../services/post.service';
+import { QuestionService } from '../../services/question.service';
+import { AnuncioService } from '../../services/anuncio.service';
+import { UserService } from '../../services/user.service';
+import { forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -21,19 +24,22 @@ import { forkJoin } from 'rxjs'; // Importamos forkJoin para combinar los flujos
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
-  posts: any[] = []; // Lista de publicaciones y preguntas combinadas
-  isLoading = false; // Controla el estado de carga
-  selectedTab: string = 'paraTi'; // Pestaña activa
-  selectedPost: any = null; // Publicación seleccionada
-  selectedQuestion: any = null; // Pregunta seleccionada
+  posts: any[] = [];
+  isLoading = false;
+  selectedTab: string = 'paraTi';
+  selectedPost: any = null;
+  selectedQuestion: any = null;
+  isPremium: boolean = false;
 
   constructor(
-    private postService: PostService, // Servicio para publicaciones
-    private questionService: QuestionService // Servicio para preguntas
+    private postService: PostService,
+    private questionService: QuestionService,
+    private anuncioService: AnuncioService,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
-    this.loadContent(); // Carga inicial
+    this.loadContent(); // Carga el contenido sin esperar la verificación de usuario
   }
 
   // Cambiar pestaña
@@ -46,19 +52,24 @@ export class HomeComponent implements OnInit {
   loadContent(): void {
     this.isLoading = true;
 
-    // Combinar las solicitudes de publicaciones y preguntas
+    // Realizar ambas solicitudes en paralelo: carga de contenido y verificación de premium
     forkJoin({
+      user: this.userService.getCurrentUser().pipe(catchError(() => of(null))), // Verifica si es premium, maneja el error si no se puede obtener el usuario
       posts: this.postService.getPosts(),
       questions: this.questionService.getQuestions(),
+      ads: this.anuncioService.getAnuncios(),
     }).subscribe({
-      next: ({ posts, questions }) => {
+      next: ({ user, posts, questions, ads }) => {
+        // Si la respuesta del usuario es válida, asignamos el estado de premium
+        this.isPremium = user?.es_premium || false;
+
         // Procesar publicaciones
         const formattedPosts = posts.map((post) => ({
           ...post,
           type: 'post',
           usuario: {
             nombre_usuario: post.usuario?.nombre_usuario || 'Usuario desconocido',
-            foto_perfil: post.usuario?.foto_perfil || null, // Foto en Base64 o null
+            foto_perfil: post.usuario?.foto_perfil || null,
           },
           fechaCreacion: new Date(post.fechaCreacion || Date.now()),
         }));
@@ -69,48 +80,54 @@ export class HomeComponent implements OnInit {
           type: 'question',
           usuario: {
             nombre_usuario: question.usuario?.nombre_usuario || 'Usuario desconocido',
-            foto_perfil: question.usuario?.foto_perfil || null, // Foto en Base64 o null
+            foto_perfil: question.usuario?.foto_perfil || null,
           },
           fechaCreacion: new Date(question.fecha_creacion || Date.now()),
         }));
 
-        // Mezclar y alternar el contenido
-        this.posts = this.mergeContent(formattedPosts, formattedQuestions);
+        // Procesar anuncios solo si no es premium
+        const formattedAds = this.isPremium
+          ? []
+          : ads.map((ad) => ({
+              ...ad,
+              type: 'ad',
+              fechaCreacion: new Date(ad.fechaCreacion || Date.now()),
+            }));
+
+        // Mezclar contenido y actualizar el estado
+        this.posts = this.mergeContent(formattedPosts, formattedQuestions, formattedAds);
       },
       error: (err) => {
         console.error('Error al cargar contenido:', err);
       },
       complete: () => {
-        this.isLoading = false; // Finaliza la carga
+        this.isLoading = false;
       },
     });
   }
 
-  // Método para mezclar publicaciones y preguntas en orden alternado (uno a uno)
-  mergeContent(posts: any[], questions: any[]): any[] {
-    // Ordenar ambas listas por fecha de creación en orden descendente (nueva a antigua)
-    posts.sort((a, b) => b.fechaCreacion.getTime() - a.fechaCreacion.getTime());
-    questions.sort((a, b) => b.fechaCreacion.getTime() - a.fechaCreacion.getTime());
-
+  // Método para mezclar publicaciones, preguntas y anuncios en orden alternado
+  mergeContent(posts: any[], questions: any[], ads: any[]): any[] {
     const result: any[] = [];
     let postIndex = 0;
     let questionIndex = 0;
+    let adIndex = 0;
 
-    // Alternar entre publicaciones y preguntas
-    while (postIndex < posts.length || questionIndex < questions.length) {
-      // Agregar la siguiente publicación si está disponible
+    // Alternar entre publicaciones, preguntas y anuncios
+    while (postIndex < posts.length || questionIndex < questions.length || adIndex < ads.length) {
       if (postIndex < posts.length) {
         result.push(posts[postIndex]);
         postIndex++;
       }
-
-      // Agregar la siguiente pregunta si está disponible
       if (questionIndex < questions.length) {
         result.push(questions[questionIndex]);
         questionIndex++;
       }
+      if (adIndex < ads.length) {
+        result.push(ads[adIndex]);
+        adIndex++;
+      }
     }
-
     return result;
   }
 
@@ -125,18 +142,10 @@ export class HomeComponent implements OnInit {
 
   // Mostrar detalles de una pregunta
   openQuestionDetail(question: any): void {
-    console.log('Pregunta seleccionada:', question); // Log para depuración
-
-    // Reiniciar datos del modal antes de asignar la nueva pregunta
-    this.selectedQuestion = null; // Reinicia para forzar la actualización del modal
-    setTimeout(() => {
-      this.selectedQuestion = question; // Asigna la nueva pregunta después de reiniciar
-    });
+    this.selectedQuestion = question;
   }
 
-  // Cerrar modal de respuesta
   closeQuestionDetail(): void {
-    console.log('Cerrando modal'); // Depuración
-    this.selectedQuestion = null; // Limpia la pregunta seleccionada
+    this.selectedQuestion = null;
   }
 }
