@@ -1,0 +1,53 @@
+<div class="flex bg-black min-h-screen">
+    <!-- Sidebar for desktop (fixed) -->
+    <app-sidebar-Admin class="hidden lg:flex fixed top-0 left-0 h-screen z-10"></app-sidebar-Admin>
+
+    <div class="max-w-4xl mx-auto p-6 bg-black text-white rounded-lg shadow-lg mt-10">
+        <h2 class="text-3xl font-semibold mb-6 text-center">
+            {{ isUpdate ? 'Actualizar' : 'Crear' }} Anuncio
+        </h2>
+
+        <!-- Formulario para crear o actualizar anuncios -->
+        <form [formGroup]="anuncioForm" (ngSubmit)="onSubmit()">
+            <div class="mb-6">
+                <label for="imagen" class="block text-lg font-medium text-gray-300">Imagen:</label>
+                <input
+                    type="file"
+                    id="imagen"
+                    (change)="onFileChange($event)"
+                    class="mt-2 block w-full py-2 px-3 bg-gray-800 border border-gray-600 text-white rounded-md shadow-sm focus:outline-none"
+                />
+                <div *ngIf="anuncioForm.controls['imagen'].invalid && anuncioForm.controls['imagen'].touched" class="text-red-500 mt-2">
+                    <span>Por favor seleccione una imagen.</span>
+                </div>
+            </div>
+
+            <div class="flex justify-center gap-4">
+                <button type="submit" [disabled]="anuncioForm.invalid" class="px-6 py-3 bg-blue-800 text-white rounded-md">
+                    {{ isUpdate ? 'Actualizar' : 'Crear' }}
+                </button>
+            </div>
+        </form>
+
+        <!-- Lista de anuncios -->
+        <h3 class="text-2xl font-semibold mt-8">Anuncios existentes:</h3>
+        <div *ngIf="anuncios.length > 0; else noAnuncios" class="mt-4 grid grid-cols-2 gap-4">
+            <div *ngFor="let anuncio of anuncios" class="bg-gray-800 p-3 rounded-md flex flex-col items-center">
+                <img
+                    [src]="anuncio.imagen"
+                    alt="Anuncio"
+                    class="w-full h-32 object-cover rounded-md mb-2"
+                />
+                <button (click)="deleteAnuncio(anuncio.id)" class="bg-red-600 px-3 py-1 text-white rounded-md">
+                    Eliminar
+                </button>
+            </div>
+        </div>
+        <ng-template #noAnuncios>
+            <p class="text-gray-400">No hay anuncios disponibles.</p>
+        </ng-template>
+    </div>
+
+    <!-- Bottom Navigation for Mobile -->
+    <app-bottom-nav-admin class="lg:hidden fixed bottom-0 w-full z-10"></app-bottom-nav-admin>
+</div>

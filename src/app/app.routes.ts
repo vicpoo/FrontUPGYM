@@ -29,6 +29,7 @@ import { ExerciseAdminLevelComponent } from './pages/Admin-views/Exercise-admin/
 
 /*RUTAS DEL USUARIO PREMIUM NO BORRES DENZEL*/
 import { PorcentajeGrasaComponent } from './pages/Premium-views/PorcentajeGrasa/porcentaje-grasa.component';
+import { AnuncioFormComponent } from './pages/Admin-views/Anuncio-admin/anuncio-form.component';
 
 
 export const routes: Routes = [
@@ -56,6 +57,7 @@ export const routes: Routes = [
   { path: 'profile-admin', component: ProfileadminComponent, canActivate: [AuthGuard] },
   { path: 'premium-admin', component: PremiumAdminComponent, canActivate: [AuthGuard] },
   { path: 'home-admin', component: HomeAdminComponent, canActivate: [AuthGuard] },
+  { path: 'anuncios', component: AnuncioFormComponent, canActivate: [AuthGuard]},
 
   /*RUTAS DEL Ejercicio ADMIN (no borres) */
   { path: 'Exercise-admin-level', component: ExerciseAdminLevelComponent, canActivate: [AuthGuard] },
