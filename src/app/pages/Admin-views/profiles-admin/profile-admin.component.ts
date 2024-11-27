@@ -5,11 +5,12 @@ import { Admin } from '../../../interfaces/Admin'; // Importa la interfaz desde 
 import { AdminService } from '../../../services/Perfiles-Admin.service'; // Importa el servicio desde la ruta correcta
 import { HttpErrorResponse } from '@angular/common/http';
 import { SidebarAdminComponent } from '../../../component/sidebar-Admin/sidebar-admin.component';
+import { BottomNavAdminComponent } from '../../../component/bottom-nav-admin/bottom-nav.component';
 
 @Component({
   selector: 'app-profileadmin',
   standalone: true,
-  imports: [SidebarAdminComponent, CommonModule, ReactiveFormsModule],
+  imports: [SidebarAdminComponent, CommonModule, ReactiveFormsModule,BottomNavAdminComponent],
   templateUrl: './profile-admin.component.html',
 })
 export class ProfileadminComponent implements OnInit {

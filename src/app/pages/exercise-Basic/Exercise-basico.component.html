@@ -1,0 +1,45 @@
+<div class="flex bg-black min-h-screen">
+    <!-- Sidebar -->
+    <app-sidebar class="hidden lg:flex fixed top-0 left-0 h-screen z-10"></app-sidebar>
+
+    <!-- Main content -->
+    <div class="flex-1 lg:ml-64 p-4 text-white overflow-hidden pb-16">
+        <!-- Back button -->
+        <div class="flex justify-start mb-6">
+            <button
+                class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded flex items-center"
+                routerLink="/exercise">
+                Regresar
+            </button>
+        </div>
+
+        <!-- Exercise list -->
+        <div class="space-y-6 mt-4">
+            <div
+                *ngFor="let exercise of exercises"
+                class="bg-black bg-opacity-20 rounded-lg p-6 border border-blue-500 shadow-md flex items-center space-x-6"
+            >
+                <!-- Imagen del ejercicio -->
+                <div class="flex-shrink-0">
+                    <img
+                        *ngIf="exercise.imagen"
+                        [src]="exercise.imagen"
+                        alt="Imagen del ejercicio"
+                        class="w-40 h-40 object-cover rounded-lg border border-gray-700"
+                    />
+                    <p *ngIf="!exercise.imagen" class="text-gray-500">Imagen no disponible</p>
+                </div>
+
+                <!-- Descripción del ejercicio -->
+                <div class="flex-1">
+                    <h3 class="text-xl font-semibold text-white">{{ exercise.titulo }}</h3>
+                    <p class="mt-2 text-gray-300">{{ exercise.resumen }}</p>
+                    <p class="text-sm text-gray-400 mt-1">Tiempo de descanso: {{ exercise.tiempo_descanso }} min</p>
+                    <p class="text-sm text-gray-400">Repeticiones: {{ exercise.repeticiones }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-bottom-nav class="lg:hidden fixed bottom-0 w-full z-10"></app-bottom-nav>
+</div>

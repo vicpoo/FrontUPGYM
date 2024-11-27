@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidebarAdminComponent } from '../../../component/sidebar-Admin/sidebar-admin.component';
+import { BottomNavAdminComponent } from '../../../component/bottom-nav-admin/bottom-nav.component';
 import { AdminPostService } from '../../../services/AdminPost.service';
 import { AdminQuestionService } from '../../../services/AdminQuestion.service';
 import { forkJoin } from 'rxjs';
@@ -10,7 +11,7 @@ import { Respuesta } from '../../../interfaces/respuesta';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, SidebarAdminComponent],
+  imports: [CommonModule, SidebarAdminComponent,BottomNavAdminComponent],
   templateUrl: './home-admin.component.html',
 })
 export class HomeAdminComponent implements OnInit {

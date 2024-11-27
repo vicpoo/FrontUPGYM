@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
-import { AdminInterService } from '../../../../../services/AdminInter.service';
+import { AdminAvanzadoGymService } from '../../../../../services/AdminAvanzadoGym.service';
 import { SidebarAdminComponent } from '../../../../../component/sidebar-Admin/sidebar-admin.component';
 import { BottomNavAdminComponent } from '../../../../../component/bottom-nav-admin/bottom-nav.component';
 import { RouterLink } from '@angular/router';
@@ -10,9 +10,9 @@ import { RouterLink } from '@angular/router';
   selector: 'app-exercise-routines',
   standalone: true,
   imports: [CommonModule, FormsModule, NgFor, SidebarAdminComponent, BottomNavAdminComponent, RouterLink],
-  templateUrl: './Exercise-admin-inter-rutines.component.html',
+  templateUrl: './Exercise-admin-avanzado-gym.component.html',
 })
-export class ExerciseAdminInterComponent implements OnInit {
+export class ExerciseAdminAvanzadoGymComponent implements OnInit {
   exercises: any[] = [];
   showModal: boolean = false;
   isEditing: boolean = false;
@@ -25,7 +25,7 @@ export class ExerciseAdminInterComponent implements OnInit {
   };
   selectedImage: File | undefined = undefined;
 
-  constructor(private adminInterService: AdminInterService) {}
+  constructor(private adminAvanzadoGymService: AdminAvanzadoGymService) {}
 
   ngOnInit(): void {
     this.loadExercises();
@@ -33,7 +33,7 @@ export class ExerciseAdminInterComponent implements OnInit {
 
   // Cargar todos los ejercicios
   loadExercises(): void {
-    this.adminInterService.getAllExercises().subscribe({
+    this.adminAvanzadoGymService.getAllExercises().subscribe({
       next: (data: any[]) => {
         this.exercises = data;
       },
@@ -79,7 +79,7 @@ export class ExerciseAdminInterComponent implements OnInit {
 
   // Guardar ejercicio
   saveExercise(): void {
-    const formData = this.adminInterService.createExerciseFormData(
+    const formData = this.adminAvanzadoGymService.createExerciseFormData(
       {
         titulo: this.currentExercise.titulo,
         resumen: this.currentExercise.resumen,
@@ -91,7 +91,7 @@ export class ExerciseAdminInterComponent implements OnInit {
 
     if (this.isEditing) {
       // Actualizar ejercicio existente
-      this.adminInterService.updateExercise(this.currentExercise.id, formData).subscribe({
+      this.adminAvanzadoGymService.updateExercise(this.currentExercise.id, formData).subscribe({
         next: (updatedExercise) => {
           this.exercises = this.exercises.map((exercise) =>
             exercise.id === updatedExercise.id ? updatedExercise : exercise
@@ -104,7 +104,7 @@ export class ExerciseAdminInterComponent implements OnInit {
       });
     } else {
       // Crear nuevo ejercicio
-      this.adminInterService.createExercise(formData).subscribe({
+      this.adminAvanzadoGymService.createExercise(formData).subscribe({
         next: (newExercise) => {
           this.exercises.push(newExercise);
           this.closeModal();
@@ -119,7 +119,7 @@ export class ExerciseAdminInterComponent implements OnInit {
  // Eliminar ejercicio
 deleteExercise(exerciseId: number): void {
     if (confirm('¿Estás seguro de que deseas eliminar este ejercicio?')) {
-      this.adminInterService.deleteExercise(exerciseId).subscribe({
+      this.adminAvanzadoGymService.deleteExercise(exerciseId).subscribe({
         next: () => {
           this.exercises = this.exercises.filter((exercise) => exercise.id !== exerciseId);
         },
