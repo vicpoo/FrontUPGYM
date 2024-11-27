@@ -35,6 +35,7 @@ import { AnuncioFormComponent } from './pages/Admin-views/Anuncio-admin/anuncio-
 import { ExerciseAvanzadoComponent } from './pages/exercise-avanzado/exercise-avanzado.component';
 import { importProvidersFrom } from '@angular/core';
 import { ExerciseavanGYMComponent } from './pages/exercise-avan-gym/exercise-avan-gym';
+import { ImcComponent } from './pages/Premium-views/IMC/imc.component';
 
 
 
@@ -78,7 +79,7 @@ export const routes: Routes = [
     /*JAJAJAJAJJAA QUE LO BORRE Y LO PEGUE CON LO DEMAS DICE JAJAJAJAJJAJAJAJAJJAJAJJAJAJAJAAJAJJAJAJAJAJJAJAJJAJAJAJAJAAAJJJJAJ*/
 
   { path: 'grasa', component: PorcentajeGrasaComponent, canActivate:[AuthGuard]},
-
+  { path: 'IMC', component: ImcComponent, canActivate:[AuthGuard]},
 
 
   { path: '**', redirectTo: '' } 

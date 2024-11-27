@@ -1,0 +1,79 @@
+<div class="flex bg-black h-screen text-white">
+    <!-- Sidebar -->
+    <app-sidebar class="hidden lg:block"></app-sidebar>
+  
+    <div class="flex-1 lg:ml-64 p-4 space-y-4 text-white overflow-hidden pb-16">
+      <div class="flex-1 p-6 space-y-6 overflow-y-auto">  
+        <h1 class="text-3xl font-bold border-b border-blue-500 pb-2">Calculadora de IMC</h1>
+        <!-- Main Content -->
+        <div class="flex-grow p-6 flex flex-col items-center">
+          <form
+            [formGroup]="form"
+            (ngSubmit)="calcularIMC()"
+            class="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md"
+          >
+            <h1 class="text-2xl font-semibold mb-4 text-center text-blue-500">Calcular tu IMC</h1>
+  
+            <div class="mb-4">
+              <label for="altura" class="block mb-2 text-sm font-medium">Altura (cm):</label>
+              <input
+                id="altura"
+                formControlName="altura"
+                type="number"
+                class="w-full px-4 py-2 bg-gray-700 text-white rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+  
+            <div class="mb-4">
+              <label for="peso" class="block mb-2 text-sm font-medium">Peso (kg):</label>
+              <input
+                id="peso"
+                formControlName="peso"
+                type="number"
+                class="w-full px-4 py-2 bg-gray-700 text-white rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+  
+            <div class="mb-4">
+              <label for="genero" class="block mb-2 text-sm font-medium">Género:</label>
+              <select
+                id="genero"
+                formControlName="genero"
+                class="w-full px-4 py-2 bg-gray-700 text-white rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="HOMBRE">Hombre</option>
+                <option value="MUJER">Mujer</option>
+              </select>
+            </div>
+  
+            <button
+              type="submit"
+              class="w-full py-2 mt-4 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium transition"
+            >
+              Calcular y Guardar
+            </button>
+          </form>
+  
+          <!-- Lista de Registros -->
+          <div *ngIf="registros.length > 0" class="mt-8 w-full max-w-2xl">
+            <h2 class="text-xl font-semibold mb-4 text-center text-blue-500">Historial de Registros</h2>
+            <ul class="space-y-4">
+              <li
+                *ngFor="let registro of registros"
+                class="bg-gray-800 p-4 rounded-lg shadow-lg"
+              >
+                <p><span class="font-semibold text-blue-400">Altura:</span> {{ registro.altura }} cm</p>
+                <p><span class="font-semibold text-blue-400">Peso:</span> {{ registro.peso }} kg</p>
+                <p><span class="font-semibold text-blue-400">IMC:</span> {{ registro.imc }}</p>
+                <p><span class="font-semibold text-blue-400">Género:</span> {{ registro.genero }}</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+  
+        <!-- Bottom Navigation -->
+        <app-bottom-nav class="lg:hidden fixed bottom-0 w-full"></app-bottom-nav>
+      </div>
+    </div>
+  </div>
+  

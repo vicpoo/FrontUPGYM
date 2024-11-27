@@ -32,6 +32,10 @@
         <img src="assets/Grasa.png" alt="Porcentaje Grasa" class="w-8 h-8">
         <span>Porcentaje de Grasa</span>
       </button>
+      <button *ngIf="currentUser?.es_premium" routerLink="/IMC" routerLinkActive="active" class="flex items-center space-x-4 text-white hover:text-blue-400">
+        <img src="assets/IMC.png" alt="Porcentaje Grasa" class="w-8 h-8">
+        <span>Calculadora IMC</span>
+      </button>
       
       <button (click)="logout()" class="flex items-center space-x-4 text-white hover:text-blue-400">
         <img src="assets/exit.png" alt="salida" class="w-8 h-8">
