@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class PremiumService {
-  private apiUrl = 'http://127.0.0.1:8000'; // Endpoint base de la API
+  private apiUrl = 'http://3.215.146.244:8000'; // Endpoint base de la API
 
   constructor(private http: HttpClient) {}
 

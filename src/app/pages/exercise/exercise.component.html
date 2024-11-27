@@ -22,15 +22,17 @@
             INTERMEDIO-GYM
           </button>
 
-          <!-- Locked Advanced Button -->
-          <button routerLink="" class="w-full max-w-xs bg-blue-800 text-white font-bold py-4 rounded-full opacity-50 cursor-not-allowed relative text-2xl">
-            AVANZADO
-            <span class="absolute right-4 top-1/2 transform -translate-y-1/2">
-              <i class="fas fa-lock"></i>
-            </span>
-          </button>
-        </div>
-      </div>
+       <!-- Locked Advanced Button -->
+<button 
+class="w-full max-w-xs bg-blue-800 text-white font-bold py-4 rounded-full relative text-2xl hover:bg-blue-700" 
+[class.opacity-50]="!isPremium"
+(click)="handleAdvancedClick()">
+AVANZADO
+<span *ngIf="!isPremium" class="absolute right-4 top-1/2 transform -translate-y-1/2">
+  <i class="fas fa-lock"></i>
+</span>
+</button>
+
 
       <!-- Subscription Section -->
       <div class="rounded-lg p-2 max-w-sm bg-transparent" (click)="openPremium()">

@@ -7,7 +7,7 @@ import { Ejercicio } from '../interfaces/Ejercicio';
   providedIn: 'root',
 })
 export class AdminInterService {
-  private readonly BASE_URL = 'http://127.0.0.1:8000';
+  private readonly BASE_URL = 'http://3.215.146.244:8000';
   private readonly EXERCISE_ENDPOINT = `${this.BASE_URL}/ejercicios-level2/`;
 
   constructor(private http: HttpClient) {}

@@ -1,0 +1,35 @@
+<div class="flex bg-black min-h-screen text-white">
+    <!-- Sidebar for desktop -->
+    <app-sidebar class="hidden lg:block"></app-sidebar>
+  
+    <!-- Main Content -->
+    <div class="flex-1 p-6 space-y-6 overflow-y-auto">  
+      <h1 class="text-3xl font-bold border-b border-blue-500 pb-2">Rutinas Avanzadas</h1>
+  
+      <button
+          class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded flex items-center"
+          routerLink="/exercise">
+          Regresar
+        </button>
+        <!-- Exercise Level Selection -->
+      <div class="text-center mt-8">
+        <h2 class="text-lg font-semibold mb-6">Escoge en donde realizaras tus ejercicios</h2>
+  
+        <!-- Exercise Level Buttons with RouterLink -->
+        <div class="flex flex-col items-center space-y-6">
+          <button routerLink="/exercise-avan-casa" class="w-full max-w-xs bg-blue-800 text-white font-bold py-4 rounded-full hover:bg-blue-700 text-2xl">
+            CASA
+          </button>
+  
+          <button routerLink="/exercise-avan-gym" class="w-full max-w-xs bg-blue-800 text-white font-bold py-4 rounded-full hover:bg-blue-700 text-2xl">
+            GYM
+          </button>
+  
+        </div>
+      </div>
+    </div>
+  
+    <!-- Bottom Navigation for Mobile -->
+    <app-bottom-nav class="lg:hidden fixed bottom-0 w-full"></app-bottom-nav>
+  </div>
+  

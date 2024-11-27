@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class CommentService {
-  private apiUrl = 'http://127.0.0.1:8000/comments';
+  private apiUrl = 'http://3.215.146.244:8000/comments';
 
   constructor(private http: HttpClient) {}
 
@@ -16,6 +16,6 @@ export class CommentService {
 
   // Agregar un comentario
   addComment(commentData: any) {
-    return this.http.post<any>('http://127.0.0.1:8000/comment/', commentData);
+    return this.http.post<any>('http://3.215.146.244:8000/comment/', commentData);
   }
 }

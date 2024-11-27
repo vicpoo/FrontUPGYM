@@ -27,10 +27,14 @@ import { ExerciseAdminInterComponent } from './pages/Admin-views/Exercise-admin/
 import { ExerciseAdminUbicasionComponent } from './pages/Admin-views/Exercise-admin/Exercise-admin-avanzado/Exercise-admin-avanzado.component';
 import { ExerciseAdminAvanzadoCasaComponent } from './pages/Admin-views/Exercise-admin/Exercise-admin-avanzado/Exercise-admin-casa/Exercise-admin-avanzado-casa.component';
 import { ExerciseAdminAvanzadoGymComponent } from './pages/Admin-views/Exercise-admin/Exercise-admin-avanzado/Exercise-admin-gym/Exercise-admin-avanzado-gym.component';
+import { ExerciseavancasaComponent } from './pages/exercise-avan-casa/exercise-avan-casa';
 
 /*RUTAS DEL USUARIO PREMIUM NO BORRES DENZEL*/
 import { PorcentajeGrasaComponent } from './pages/Premium-views/PorcentajeGrasa/porcentaje-grasa.component';
 import { AnuncioFormComponent } from './pages/Admin-views/Anuncio-admin/anuncio-form.component';
+import { ExerciseAvanzadoComponent } from './pages/exercise-avanzado/exercise-avanzado.component';
+import { importProvidersFrom } from '@angular/core';
+import { ExerciseavanGYMComponent } from './pages/exercise-avan-gym/exercise-avan-gym';
 
 
 
@@ -49,8 +53,9 @@ export const routes: Routes = [
 
   { path: 'ExerciseBasico', component: ExercisebasicoComponent, canActivate: [AuthGuard] },
   { path: 'ExerciseIntermedio', component: ExerciseIntermedioComponent, canActivate: [AuthGuard] },
-
-
+  { path: 'exercise-avanzado', component: ExerciseAvanzadoComponent, canActivate:[AuthGuard]},
+  { path: 'exercise-avan-casa', component: ExerciseavancasaComponent, canActivate:[AuthGuard]},
+  { path: 'exercise-avan-gym', component: ExerciseavanGYMComponent, canActivate:[AuthGuard]},
 
   /*RUTAS DEL ADMIN (NO BORRAR Y SI ES PARA TI VICTOR) */
   { path: 'noticias-admin', component: NoticiasAdminComponent, canActivate: [AuthGuard] },

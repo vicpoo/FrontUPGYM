@@ -8,7 +8,7 @@ import { Respuesta } from '../interfaces/respuesta';
   providedIn: 'root',
 })
 export class AdminQuestionService {
-  private baseUrl = 'http://127.0.0.1:8000/admin';
+  private baseUrl = 'http://3.215.146.244:8000/admin';
 
   constructor(private http: HttpClient) {}
 

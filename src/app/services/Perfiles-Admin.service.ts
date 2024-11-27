@@ -7,9 +7,9 @@ import { Admin } from '../interfaces/Admin';
   providedIn: 'root',
 })
 export class AdminService {
-  private apiUrl = 'http://127.0.0.1:8000/admin/';
-  private apiUrlAdmins = 'http://127.0.0.1:8000/admins';
-  private apiUrlLogin = 'http://127.0.0.1:8000/admin/login';
+  private apiUrl = 'http://3.215.146.244:8000/admin/';
+  private apiUrlAdmins = 'http://3.215.146.244:8000/admins';
+  private apiUrlLogin = 'http://3.215.146.244:8000/admin/login';
 
   constructor(private http: HttpClient) {}
 

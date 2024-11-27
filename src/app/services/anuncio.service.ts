@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AnuncioService {
-  private apiUrl = 'http://127.0.0.1:8000'; // URL de tu API FastAPI
+  private apiUrl = 'http://3.215.146.244:8000'; // URL de tu API FastAPI
 
   constructor(private http: HttpClient) {}
 

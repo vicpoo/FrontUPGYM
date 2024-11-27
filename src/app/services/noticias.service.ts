@@ -7,7 +7,7 @@ import { News } from '../../app/interfaces/news';
   providedIn: 'root',
 })
 export class NoticiasService {
-  private apiUrl = 'http://127.0.0.1:8000/news/';
+  private apiUrl = 'http://3.215.146.244:8000/news/';
 
   constructor(private http: HttpClient) {}
 
